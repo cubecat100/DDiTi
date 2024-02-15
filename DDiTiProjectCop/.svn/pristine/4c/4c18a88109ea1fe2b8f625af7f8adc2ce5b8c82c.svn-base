@@ -1,0 +1,15 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+// 장학금 내역
+@Data
+public class ScholarshipHistoryVO {
+
+	private int sclNo;
+	private int memNo;
+	private int schNo;
+	private int schType;
+	private String sclDate;
+	
+}

@@ -1,0 +1,138 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.service.ILoginService;
+import kr.or.ddit.vo.MemberVO;
+
+
+@RequestMapping("/")
+@Controller
+public class TestContoller {
+	
+	/*
+	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String home()
+	 * { return "home"; }
+	 */
+	
+	/*
+	 * @RequestMapping(value="/nav", method=RequestMethod.GET) public String test()
+	 * { return "/common/tiles/nav"; }
+	 */
+	
+	@RequestMapping(value="/tilesTest", method=RequestMethod.GET)
+	public String tiles() {
+		return "test/test001";
+	}
+	
+	@RequestMapping(value="/lecture", method=RequestMethod.GET)
+	public String lec() {
+		return "test/lectureList";
+	}
+	
+	// 교수 side
+	@GetMapping("/professor")
+	public String proaside(Model model) {
+		return "professor/sideTest";
+	}
+	// 교직원 side
+	@GetMapping("")
+	public String empaside(Model model) {
+		return "employer/sideTest";
+	}
+	// 학생 side
+	@GetMapping("/student")
+	public String stdaside(Model model) {
+		return "student/sideTest";
+	}
+	
+	
+	//
+	@RequestMapping(value="/professor/uiSliders.do", method=RequestMethod.GET)
+	public String test001() {
+		return "professor/uiSliders";
+	}
+	//
+	@RequestMapping(value="/professor/attend.do", method=RequestMethod.GET)
+	public String test002() {
+		return "professor/attend2";
+	}
+	//
+	@RequestMapping(value="/professor/testclass.do", method=RequestMethod.GET)
+	public String test003() {
+		return "professor/test_classRoom";
+	}
+
+	
+	@RequestMapping(value="/test1", method=RequestMethod.GET)
+	public String test1() {
+		return "student/counselList";
+	}
+	@RequestMapping(value="/test2", method=RequestMethod.GET)
+	public String test2() {
+		return "student/classRoom";
+	}
+	@RequestMapping(value="/test3", method=RequestMethod.GET)
+	public String test3() {
+		return "student/classScore";
+	}
+	@RequestMapping(value="/test4", method=RequestMethod.GET)
+	public String test4() {
+		return "student/clubList";
+	}
+	@RequestMapping(value="/test5", method=RequestMethod.GET)
+	public String test5() {
+		return "student/counselList";
+	}
+	@RequestMapping(value="/test6", method=RequestMethod.GET)
+	public String test6() {
+		return "student/counselReservForm";
+	}
+	@RequestMapping(value="/test7", method=RequestMethod.GET)
+	public String test7() {
+		return "student/FacilityRentForm";
+	}
+	@RequestMapping(value="/test8", method=RequestMethod.GET)
+	public String test8() {
+		return "student/facilityRentList";
+	}
+	
+	@RequestMapping(value="/test11", method=RequestMethod.GET)
+	public String test11() {
+		return "student/lectureList";
+	}
+	@RequestMapping(value="/test12", method=RequestMethod.GET)
+	public String test12() {
+		return "student/profile";
+	}
+	@RequestMapping(value="/test13", method=RequestMethod.GET)
+	public String test13() {
+		return "student/scholarship";
+	}
+	@RequestMapping(value="/test14", method=RequestMethod.GET)
+	public String test14() {
+		return "student/clubList";
+	}
+	@RequestMapping(value="/test15", method=RequestMethod.GET)
+	public String test15() {
+		return "student/ViewClubDetail";
+	}
+	@RequestMapping(value="/test16", method=RequestMethod.GET)
+	public String test16() {
+		return "employer/newStudent";
+	}
+	@RequestMapping(value="/test17", method=RequestMethod.GET)
+	public String test17() {
+		return "student/facilityRentForm";
+	}
+	@RequestMapping(value="/test18", method=RequestMethod.GET)
+	public String test18() {
+		return "student/enrollClass";
+	}
+	
+	
+}

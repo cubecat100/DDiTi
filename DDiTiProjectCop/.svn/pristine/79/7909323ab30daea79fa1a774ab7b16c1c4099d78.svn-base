@@ -1,0 +1,42 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.service.IExampleService;
+import kr.or.ddit.vo.ExampleQuestionVO;
+import kr.or.ddit.vo.ExampleVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/DYUniv")
+public class examController {
+	
+	@Inject
+	private IExampleService exampleService;
+	
+	@GetMapping("/example")
+	public String example(Model model) {
+		int examNo = 19;
+		ExampleVO exampleVO = exampleService.getExam(examNo);
+		model.addAttribute("exampleVO", exampleVO);
+		
+		int maxQstChLen = 2;
+		for(ExampleQuestionVO examQst : exampleVO.getExamQstList()) {
+			if(maxQstChLen < examQst.getQstChList().size()) {
+				maxQstChLen = examQst.getQstChList().size();
+			}
+		}
+		model.addAttribute("maxQstChLen", maxQstChLen);
+		
+		return "example/example";
+	}
+}

@@ -1,0 +1,32 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MemberController {
+	//회원 정보 관련
+	// 휴복학, 알림, 일정, 위젯 등
+
+	
+	// 학생 목록
+	// 학생 정보 상세
+	// 교수 목록
+	// 교수 정보 상세
+	
+	// 신입생 아이디 생성
+	
+	// 등록금 내역
+	// 장학금 내역
+	
+	// 학적 변경 신청
+	// 전과 신청
+	
+	//마이페이지 + 위젯
+	// 위젯 정보 저장
+	
+	// 일정 목록
+	// 일정 등록
+	// 일정 삭제
+	
+	// 이 밑으로 구현 ============================================
+}

@@ -1,0 +1,27 @@
+package kr.or.ddit.service;
+
+import java.io.File;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.WidgetVO;
+
+public interface IMemberService {
+
+	public List<MemberVO> newStuList();		// 신입생 리스트
+	public List<MemberVO> proList();		// 교수 리스트
+	public ServiceResult excelUpload(File destFile);
+	public ServiceResult createProID(MemberVO memberVO);
+	public List<MemberVO> departmentList();
+	//public DepartmentVO selectDprt(String dprtCategory);// 단과대학 선택
+
+	public MemberStdVO gradCrtDetail(int memNo); // 졸업 증명서 
+	public MemberStdVO schCrtDetail(int memNo);		//재학 증명서
+	public MemberStdVO scoreCrtDetail(int memNo);	//성적 증명서 
+	
+
+}

@@ -1,0 +1,188 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+  
+  <aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar position-relative">	
+	  	<div class="multinav">
+		  <div class="multinav-scroll" style="height: 100%;">	
+			  <!-- sidebar menu-->
+			  <ul class="sidebar-menu" data-widget="tree">	
+				<li class="header">Dashboard & Apps</li>
+				
+				
+				<!-- 마이페이지 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
+					<span>마이페이지</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/member/restApply.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>학적 변동 신청</a></li>
+					<li><a href="/student/member/changeDepartment.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>전과 신청</a></li>
+					<li><a href="/student/member/tuition.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>등록금 및 장학금</a></li>
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>증명서 </a></li>
+				  </ul>
+				</li>		
+				
+				
+				<!-- 수강 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-File"><span class="path1"></span><span class="path2"></span></i>
+					<span>수강 신청</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/lecture/lectureList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>강의 목록</a></li>
+					<li><a href="/student/lecture/lectureListen.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>수강 신청</a></li>
+				  </ul>
+				</li>
+				
+				
+				<!-- 출석, 성적 조회 -->
+				<li class="treeview">
+				  <a href="">
+					<i class="icon-Write"><span class="path1"></span><span class="path2"></span></i>
+					<span>내 강의</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/lecture/myLectureList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>내 강의 목록</a></li>
+					<li><a href="/student/class/classSchedule.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>수강 시간표 조회</a></li>
+					<li><a href="/student/class/myClassScore.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>성적 조회</a></li>
+				  </ul>
+				</li>
+				
+				
+				<!-- 게시판 사용 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Library"><span class="path1"></span><span class="path2"></span></i>
+					<span>게시판</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/board/anonymous.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>대나무숲</a></li>
+					<li><a href="/student/board/lostItem.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>분실물</a></li>
+				  </ul>
+				</li>
+				
+				
+				<!-- 학교 시설 이용 신청 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+					<span>학교 시설 이용</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/facility/rent.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>시설 예약 하기</a></li>
+					<li><a href="/student/facility/rentList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>예약 내역</a></li>					
+				  </ul>
+				</li>
+				
+				
+				<!-- 동아리-->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Cart"><span class="path1"></span><span class="path2"></span></i>
+					<span>동아리</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/univActivity/clubList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>동아리 목록</a></li>
+					<li><a href="/student/univActivity/myClub.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>내 동아리</a></li>									
+				  </ul>
+				</li>
+				
+				
+				<!-- 모임 그룹 관리 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Layout-grid"><span class="path1"></span><span class="path2"></span></i>
+					<span>모임</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/univActivity/community.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>모임 홈</a></li>
+					<li><a href="/student/univActivity/myCommunity.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>내 모임</a></li>					
+				  </ul>
+				</li>
+				
+				
+				<!-- 봉사활동 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Chat-check"><span class="path1"></span><span class="path2"></span></i>
+					<span>봉사활동</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>교내 봉사활동 목록</a></li>
+					<li><a href="/student/volunteer/volunteerApply.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>봉사활동 시간 인증 신청</a></li>					
+					<li><a href="/student/volunteer/volunteerList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>봉사활동 내역조회</a></li>					
+				  </ul>
+				</li>
+			
+				
+				<!-- 설문조사-->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Chart-pie"><span class="path1"></span><span class="path2"></span></i>
+					<span>설문조사</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/survey/surveyList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>설문조사 목록</a></li>
+					<li><a href="/student/survey/mySurveyList"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>참여한 설문 확인</a></li>					
+				  </ul>
+				</li>
+				
+				
+				<!-- 기타 -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Chat-locked"><span class="path1"></span><span class="path2"></span></i>
+					<span>기타</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="/student/counsel/cㅐunselList"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>상담</a></li>
+					<li><a href="/student/univInfo/professorList.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>교수 정보 검색</a></li>					
+					<li><a href="/student/univInfo/campusMap.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>대학교 맵</a></li>					
+					<li><a href="/student/univInfo/shuttleBus.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>셔틀버스 배차 확인</a></li>					
+					<li><a href="/student/univInfo/report.do"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>온라인 신고</a></li>					
+				  </ul>
+				</li>	     
+			  </ul>
+		  </div>
+		</div>
+    </section>
+	<div class="sidebar-footer">
+		<a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Settings"><span class="icon-Settings-2"></span></a>
+		<a href="mailbox.html" class="link" data-bs-toggle="tooltip" title="Email"><span class="icon-Mail"></span></a>
+		<a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Logout"><span class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+	</div>
+  </aside>

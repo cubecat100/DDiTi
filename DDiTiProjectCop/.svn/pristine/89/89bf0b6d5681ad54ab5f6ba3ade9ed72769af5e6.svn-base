@@ -1,0 +1,30 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.vo.DepartmentVO;
+import kr.or.ddit.vo.MemberProVO;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.ProfessorInfoVO;
+
+public interface IMemberMapper {
+	
+	public List<MemberVO> newStuList();
+	public List<MemberVO> proList();
+	public int excelUpload(Map<String, String> article);
+	public int createMember(MemberProVO memberVO);
+	public int createProID(ProfessorInfoVO professorInfo);
+	public List<MemberVO> departmentList();
+	public List<DepartmentVO> selectDprt(DepartmentVO departmentVO);	// 단과대학 선택
+	
+	
+	public MemberStdVO gradCrtDetail(int memNo);// 졸업증명서 
+	public MemberStdVO schCrtDetail(int memNo);// 재학증명서
+	public MemberStdVO scoreCrtDetail(int memNo);	// 성적 증명서 
+	public void setProInfo(ProfessorInfoVO infoVO);
+
+	
+	
+}

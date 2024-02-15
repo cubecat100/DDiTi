@@ -1,0 +1,48 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IUnivManagementMapper;
+import kr.or.ddit.service.IUnivManagementService;
+import kr.or.ddit.vo.UnivScheduleVO;
+
+@Service
+public class UnivManagementServiceImpl implements IUnivManagementService {
+	
+	@Inject
+	private IUnivManagementMapper mapper;
+
+	@Override
+	public List<UnivScheduleVO> univSchedule() {		
+		return mapper.univSchedule();
+	}
+
+	@Override
+	public ServiceResult addSchedule(HttpServletRequest req, UnivScheduleVO scheduleVO) {
+		ServiceResult result = null;
+		
+		int status = mapper.addSchedule(scheduleVO);
+		if(status > 0)
+		{
+			result = ServiceResult.OK;
+		}else
+		{
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+	@Override
+	public List<UnivScheduleVO> univScheduleWidget() {
+		return mapper.univScheduleWidget();
+	}
+
+
+
+}

@@ -1,0 +1,84 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.service.ICommunityService;
+import kr.or.ddit.vo.CommunityVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+public class CommunityController {
+	//커뮤니티 관련
+	
+	
+	// 커뮤니티 그룹 목록
+	// 커뮤니티 그룹 개설
+	// 커뮤니티 그룹 상세
+	// 커뮤니티 그룹 시간표
+	// 커뮤니티 일정 추가
+	
+	// 커뮤니티 채팅
+	
+	// 커뮤니티 게시판?
+	
+	// 이 밑으로 구현 ============================================
+	
+	
+	@Inject
+	private ICommunityService communityService;
+	
+	
+	// 생성된 그룹 목록 
+	@RequestMapping(value="/communityHome", method=RequestMethod.GET)
+	public String communityList(Model model) {
+		
+		int memNo = 1;
+		
+		List<CommunityVO> communityList = communityService.list();
+		model.addAttribute("communityList",communityList);
+		
+		List<CommunityVO> myCommunityList = communityService.myCommunityList(memNo);
+		model.addAttribute("myCommunityList",myCommunityList);
+		
+		return "student/communityHome"; // JSP
+	}
+//	//commuStateList
+//	
+//	// 승인 대기 중인 목록
+//	@RequestMapping(value="/commuStateList", method=RequestMethod.GET)
+//	public String commuStateList(Model model) {
+//		
+//		List<CommunityVO> communityList = service.list();
+//		model.addAttribute("communityList",communityList);
+//		
+//		
+//		return "student/communityHome";
+//	}
+	
+	// 모임 생성
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.GET )
+	public String insertForm(Model model) {
+		
+		
+		return "student/communityHome";
+	}
+	
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.POST )
+	public String insert(Model model, CommunityVO communityVO) {
+		log.info("insert () ^오^" );
+		
+		communityService.insert(communityVO);
+		model.addAttribute("communityVO",communityVO);
+		
+		return "student/communityHome";
+	}
+}

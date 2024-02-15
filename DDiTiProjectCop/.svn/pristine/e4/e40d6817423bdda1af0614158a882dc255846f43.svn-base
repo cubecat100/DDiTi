@@ -1,0 +1,30 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ChatRecordVO;
+import kr.or.ddit.vo.CounselVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.ScheduleDataVO;
+
+public interface ICounselMapper {
+
+	List<CounselVO> getCounselList(int studentMemNo);
+
+	int addRecord(ChatRecordVO chatRecordVO);
+
+	List<ChatRecordVO> getRecordList(int chatRoomNo);
+
+	List<MemberVO> getCounselor();
+
+	List<ScheduleDataVO> counselSchDataList(int memNo);
+
+	int addReserveCousel(CounselVO counselVO);
+
+	int updateSchedule(ScheduleDataVO dataVO);
+
+	List<CounselVO> getProCounselList(int proMemNo);
+
+	CounselVO getCounselInfo(int cnslNo);
+
+}

@@ -1,0 +1,20 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+
+// 게시판
+@Data
+public class BoardVO {
+
+	private int brdNo;
+	private int memNo;
+	private String brdTitle;
+	private String brdCont;
+	private String brdWriter;
+	private String writeDate;
+	private int brdHitCount;
+	private String brdType;
+	private int fileNo;
+	
+}

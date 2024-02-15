@@ -1,0 +1,647 @@
+/**
+ * 
+ */
+ 
+ 
+const gridBtn = document.querySelector("#gridBtn");
+const gridBtnSpan = document.querySelector("#gridBtnSpan");
+const gridMenu = document.querySelector("#gridMenu");
+
+let clickFlag = true;
+
+function f_gridMenu() {
+	console.log(clickFlag)
+	
+	if (clickFlag) {
+		console.log("화면 구성 설정 화면")
+		gridBtnSpan.innerHTML = "화면 구성 완료";
+		gridMenu.style.display = "block";
+		
+		//grid.noMove = false;
+		//grid.noResize = false;
+		//grid.locked = false;
+		
+		//gridOption.disableDrag = false;
+		//grid = GridStack.init(gridOption);
+		
+		grid.disableResize = false;
+		
+		loadGrid(items);
+	} else {
+		console.log("화면 구성 완료 화면")
+		gridBtnSpan.innerHTML = "화면 구성 설정";
+		gridMenu.style.display = "none";
+		
+		//grid.noMove = true;
+		//grid.noResize = true;
+		//grid.locked = true;
+		
+		//gridOption.disableDrag = true;
+		//grid = GridStack.init(gridOption);
+		
+		loadGrid(items);
+	}
+	clickFlag = !clickFlag;
+	console.log(gridOption)
+};
+
+function f_memoMenu() {
+	const memoBtn = document.querySelector("#memoBtn");
+	const inputText = document.querySelector("#inputText");
+	const inputTA = document.querySelector("#inputTA");
+	
+	if (clickFlag) {
+		memoBtn.innerHTML = "수정";
+		inputText.readOnly = true;
+		inputTA.readOnly = true; 
+	} else {
+		memoBtn.innerHTML = "완료";
+		inputText.readOnly = false;
+		inputTA.readOnly = false; 
+	}
+	clickFlag = !clickFlag;
+};
+
+function f_todoModify() {
+	const todoModify = document.querySelector("#todoModify");
+	const todoText = document.querySelector("#todoText");
+	
+	if (clickFlag) {
+		todoModify.innerHTML = "수정";
+		todoText.readOnly = true;
+	} else {
+		todoModify.innerHTML = "완료";
+		todoText.readOnly = false;
+	}
+	clickFlag = !clickFlag;
+}
+
+/* 위젯 시작 */
+
+// 학사일정
+academicCal = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">학사일정</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<a href="">더보기</a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive">
+				<table class="table mb-0 b-1 border-primary"
+					style="text-align: center">
+					<thead class="bg-primary">
+						<tr>
+							<th scope="col">순번</th>
+							<th scope="col">제목</th>
+							<th scope="col">학기</th>
+							<th scope="col">기간</th>
+							<th scope="col">내용</th>
+						</tr>
+					</thead>
+					<tbody id='uniScheduleBox'></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+`;
+
+// TODO
+todo = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">Todo</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<button class="btn btn-primary px-10" href="#"
+					style="font-size: 11px" data-bs-toggle="modal"
+						data-bs-target="#createTodo">추가하기</button>
+			</div>
+		</div>
+		<div class="box-body slimScrollDiv"
+			style="max-height: 210px; overflow: auto">
+			/* todo 하나 시작 */
+			/*
+			<div class="d-flex align-items-center mb-25 todoBox">
+				<span class="bullet bullet-bar bg-success align-self-stretch"></span>
+				<div class="h-20 mx-20 flex-shrink-0">
+					<input type="checkbox" id="md_checkbox_" class="filled-in chk-col-success" /> 
+					<label for="md_checkbox_" class="h-20 p-10 mb-0"></label>
+					/* 
+					input checkbox가 checked이면 checked됨 
+					input의 id와 label의 for이 같고, todo가 늘면 1씩 늘어야함
+					*/
+				</div>
+
+				<div class="d-flex flex-column flex-grow-1">
+					<a class="text-dark hover-success fw-500 fs-16" data-bs-toggle="modal"
+						data-bs-target="#detailTodo"></a> 
+					<span class="text-fade fw-500" id="todoDate"></span>
+				</div>
+			</div>
+			*/
+			/* todo 하나 끝  */
+		</div>
+	</div>
+`;
+
+// 공지사항
+noticeBoard = `
+		<div class="box">
+			<div class="box-header with-border">
+				<h4 class="box-title">공지사항</h4>
+				<div class="box-controls pull-right d-md-flex d-none">
+					<a href="">더보기</a>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="table-responsive">
+					<table class="table mb-0 b-1 border-primary"
+						style="text-align: center">
+						<thead class="bg-primary">
+							<tr>
+								<th scope="col">순번</th>
+								<th scope="col">제목</th>
+								<th scope="col">내용</th>
+								<th scope="col">게시일</th>
+							</tr>
+						</thead>
+						<tbody id="noticeWidgetBox">
+							<!-- 공지사항 게시물 아작스 -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+`;
+
+// 시간표
+classBoard = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">강의 시간표</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<a href="">더보기</a>
+			</div>
+		</div>
+
+		<div class="box-body">
+			<p class="mb-5">
+				<span id="td_year">2023</span>년 <span id="td_month">01</span>월 <span
+					id="td_date">05</span>일
+			</p>
+			<!-- 수업 박스 1개 시작 -->
+			<div class="box mb-15 pull-up boar bg-primary-light">
+				<div>
+					<div class="table-responsive">
+						<table class="table no-border mb-0">
+							<tbody>
+								<tr>
+									<td class="fw-600 min-w-130">
+										<div class="d-flex flex-column fw-600">
+											<a href="#" class="text-dark hover-primary mb-1 fs-16">1교시
+												- 3교시</a> <span class="text-fade">IT대학 A동 102호</span>
+										</div>
+									</td>
+									<td class="fw-600 fs-16 min-w-200 text-center">
+										<i class="fa fa-fw fa-circle text-primary fs-12" style="display:inline-block;"></i>
+										<span>알고리즘의 이해</span>
+									</td>
+									<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+									<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+										<a href="#"> <span>Class room > </span> </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 수업 박스 1개 끝 -->
+			<div class="box mb-15 pull-up bg-primary-light">
+				<div>
+					<div class="table-responsive">
+						<table class="table no-border mb-0">
+							<tbody>
+								<tr>
+									<td class="fw-600 min-w-130">
+										<div class="d-flex flex-column fw-600">
+											<a href="#" class="text-dark hover-primary mb-1 fs-16">1교시
+												- 3교시</a> <span class="text-fade">IT대학 A동 102호</span>
+										</div>
+									</td>
+									<td class="fw-600 fs-16 min-w-200 text-center">
+										<i class="fa fa-fw fa-circle text-primary fs-12" style="display:inline-block;"></i>
+										<span>알고리즘의 이해</span>
+									</td>
+									<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+									<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+										<a href="#"> <span>Class room > </span> </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+`;
+
+// 메모
+memo = `
+	<div class="box box-outline-warning" style="width:100%; height:100%">
+	  <div class="box-header">
+		<h4 class="box-title" style="width:100%"><strong><input type="text" class="no-border row" style="width:80%" id="inputText"></strong></h4>
+		<div class="box-tools flex-end">					
+			<div class="box-controls">
+			  <button class="btn btn-rounded btn-secondary btn-sm btn-outline btn-primary" id="memoBtn" onclick="f_memoMenu()">수정</button>
+			</div>
+		</div>
+	  </div>
+
+	  <div class="box-body">
+		<div class="form-group">
+			<textarea class="form-control no-border" id="inputTA"></textarea>
+		</div>
+	  </div>
+	</div>
+`;
+
+/* 위젯 끝 */
+	
+	
+	
+/* 포틀릿 시작 */
+
+let gridOption = {
+    column: 12,                   // default 12 -> 6
+    oneColumnSize: 100,          // default 768 -> 100
+    minRow: 1,
+    // disableOneColumnMode: true,
+    margin: 10,
+    disableResize: true,
+    disableDrag: false,
+    removable: 'body',
+    removable: true,
+    resizable: { handles: 'e,se,s,sw,w' },
+}
+
+function loadGrid(widget){
+	
+	grid.load(widget);
+	let gridList = document.querySelectorAll('.grid-stack-item');
+    
+    for(let i=0; i<gridList.length; i++){
+	    let menu = gridList[i].getAttribute('gs-id');
+	    let menuName;
+	    switch (menu) {
+	        case 'academicCal': menuName = '학사일정'; break;
+	        case 'todo': menuName = '할일목록'; break;
+	        case 'noticeBoard': menuName = '공지사항'; break;
+	        case 'classBoard': menuName = '수강시간표'; break;
+	        case 'memo': menuName = '메모'; break;
+    	}
+	}
+	
+	grid.on('added removed change', function(e, items) {
+		let str = '';
+		items.forEach(function(item) {
+			 str += ' (x,y)=' + item.x + ',' + item.y;
+		});
+		
+		console.log(e.type + ' ' + items.length + ' items:' + str );
+    });
+    
+	univScheduleWidget();
+	noticeWidget();
+}
+
+// 알아서 정리 메뉴
+function fcompact() {
+    grid.compact();
+}
+// 요소 더하기 메뉴 (메모 위젯만 추가)
+function f_addObj(){
+    var grid_x = document.querySelector("#grid_x").value;
+    var grid_y = document.querySelector("#grid_y").value;
+
+    grid.addWidget({ w: grid_x*2, h: grid_y*2, id:'memo', content: memo });
+}
+// 포지션 저장 메뉴
+function f_postionSave(){
+    console.log("position save...");
+    var items = [];
+
+    var itemList = grid.engine.nodes;
+    
+    console.log("포지션 저장메뉴 itemList", itemList);
+
+    for(var i=0; i<itemList.length; i++){
+        var item = {};
+        
+        item.memNo = memNo;
+        item.x = itemList[i].x;
+        item.y = itemList[i].y;
+        item.w = itemList[i].w;
+        item.h = itemList[i].h;
+        
+        if(itemList[i].content === "memo"){
+        	// item.content = itemList[i].content;
+			
+        } else if (itemList[i].content === "todo") {
+
+		} else {
+        	item.content = null;
+        }
+        
+        if(itemList[i].id === 'classBoard'){
+	    	item.widType = 'WID001';
+	    } else if(itemList[i].id === 'todo'){
+	    	item.widType = 'WID002' ;
+	    } else if(itemList[i].id === 'academicCal'){
+	    	item.widType = 'WID003';
+	    } else if(itemList[i].id === 'noticeBoard'){
+	    	item.widType = 'WID004';
+	    } else if(itemList[i].id === 'memo'){
+	    	item.widType = 'WID005';
+	    } 
+
+        items.push(item);
+    }
+    console.log("저장할 데이터", items);
+
+	$.ajax({
+		type: "post",
+		url: "/mainpage.do/updateWidget",
+		contentType: "application/json",
+	    data: JSON.stringify(items),
+	    dataType: 'json',
+		success: function (result) {
+		  console.log("update position check : ", result);
+		  if (result == 1) {
+			alert("포지션 수정 완료 !");
+		  }
+		},
+	  });
+
+    //스트링 형태로 저장
+    // localStorage.setItem("items", JSON.stringify(items));
+}
+// 모든 요소 삭제 메뉴
+function f_removeAll(){
+    grid.removeAll();
+}
+// 포지션 불러오기 메뉴
+function f_postionLoad(){
+	var items = [];
+
+	$.ajax({
+		type : "get",
+		url : "/mainpage.do/widgetList",
+		data : {memNo:memNo},       // get 방식인 경우 jQuery가 알아서 "/mainpage.do/widgetList?memNo=4" 맹글어 줌
+		dataType : "json",
+		success : function(result){
+			console.log("result", result);
+		
+			for (var i = 0; i < result.length; i++) {
+
+			    var item = {
+			        x: result[i].x,
+			        y: result[i].y,
+			        w: result[i].w,
+			        h: result[i].h,
+			        id: '',
+			        content: null
+			    };
+		
+			    if (result[i].widType === 'WID001') {
+			        item.id = 'classBoard';
+			        item.content = classBoard;
+			    } else if (result[i].widType === 'WID002') {
+			        item.id = 'todo';
+			        item.content = todo;
+			    } else if (result[i].widType === 'WID003') {
+			        item.id = 'academicCal';
+			        item.content = academicCal;
+			    } else if (result[i].widType === 'WID004') {
+			        item.id = 'noticeBoard';
+			        item.content = noticeBoard;
+			    } else if (result[i].widType === 'WID005') {
+			        item.id = 'memo';
+			        item.content = memo;
+			    }
+			
+			    items.push(item);
+			}
+		    //스트링 변환
+		    // var items = JSON.parse(localStorage.getItem("items"));
+		    
+		    console.log("items", items);
+		
+		    if(items == null || items == ""){
+		        console.log("position empty...")
+		        return;
+		    }
+			
+		    f_removeAll();
+		    console.log("reloadItems : ", items);
+		    grid.load(items);
+		    loadGrid(items);
+		}	// success end
+	});
+}
+// 선택 메뉴 생성
+function f_selectwidget(){
+	var selectMenu = $("#selectMenu").val();
+	var selectData = {
+		memNo : memNo,
+		widType : selectMenu
+	};
+
+    $.ajax({
+    	type: "post",
+		url: "/mainpage.do/selectWidget",
+		contentType: "application/json",
+	    data: JSON.stringify(selectData),
+	    dataType: 'json',
+		success: function (result) {
+		  
+		if(result.widType === 'WID001'){
+	    	result.id = 'classBoard';
+	    	result.content = classBoard;
+	    } else if(result.widType === 'WID002'){
+	    	result.id = 'todo';
+	    	result.content = todo;
+	    } else if(result.widType === 'WID003'){
+	    	result.id = 'academicCal';
+	    	result.content = academicCal;
+	    } else if(result.widType === 'WID004'){
+	    	result.id = 'noticeBoard';
+	    	result.content = noticeBoard;
+	    } else if(result.widType === 'WID005'){
+	    	result.id = 'memo';
+	    	result.content = memo;
+	    } 
+		  
+		  grid.addWidget(result);
+		  univScheduleWidget();
+		  noticeWidget();
+		}
+    	
+    });
+
+    
+}
+
+/* 포틀릿 끝 */
+
+
+/* 학사일정 아작스 시작 */
+
+function univScheduleWidget(){
+	$.ajax({
+		type : "get",
+		url : "/mainpage.do/univSchedule",
+		dataType : "json",
+		success : function(result){
+			let html = "";
+			let index = 0;
+			
+			console.log("success check : ", result);
+			
+	        for (let i = 0; i < result.length; i++) {
+	          	let rs = result[i];
+	          	index = index + 1;
+	          	
+	          	html += '<tr><td>'+ index +'</td>';
+	          	html += '<td>' + rs.univSchName +'</td>';
+	          	html += '<td>' + rs.univSchSem  +'</td>';
+	          	html += '<td><span>' + rs.univSchStartDate + '</span> ~ <span>' + rs.univSchEndDate + '</span></td>';
+	          	html += '<td>' + rs.univSchCont + '</td></tr>';
+	        }
+	        
+	       $("#uniScheduleBox").html(html);
+		},
+		error: function (request, status, error) {
+	       console.log("code: " + request.status)
+	       console.log("message: " + request.responseText)
+	       console.log("error: " + error);
+		}
+	});
+}
+
+
+/* 학사일정 아작스 끝 */
+	
+	
+/* 공지사항 아작스 시작 */
+
+function noticeWidget(){
+	$.ajax({
+		type : "get",
+		url : "/mainpage.do/notice",
+		dataType : "json",
+		success : function(result){
+			let html = "";
+			let index = 0;
+			
+			console.log("success check : ", result);
+			
+	        for (let i = 0; i < result.length; i++) {
+	          	let rs = result[i];
+	          	index = index + 1;
+	          	
+	          	html += '<tr><td>'+ index +'</td><td><a href="/academicPlan/detail?brdNo='+ rs.brdNo +'">' + rs.brdTitle +'</a></td>'
+	          	html += '<td>' + rs.brdCont + '</td>'
+	          	html += '<td>' + rs.writeDate + '</td></tr>';
+	        } 
+	        
+	       $("#noticeWidgetBox").html(html);
+		},
+		error: function (request, status, error) {
+		       console.log("code: " + request.status)
+		       console.log("message: " + request.responseText)
+		       console.log("error: " + error);
+		}
+	});
+}
+
+/* 공지사항 아작스 끝 */
+
+
+
+
+/* todo 아작스 시작 */
+/* list */
+function f_listTodo(){
+	var todoData = {
+		memNo : memNo,
+		widType : 'WID005'
+	}
+
+	$.ajax({
+		type : "post",
+		url : "/mainpage.do/todoList",
+	    data: JSON.stringify(todoData),
+		dataType : "json",
+		contentType: "application/json",
+		success : function(result){
+			let html = "";
+			let index = 0;
+			
+			console.log("success check : ", result);
+			
+	        for (let i = 0; i < result.length; i++) {
+	          	let rs = result[i];
+	          	index = index + 20;
+	          	
+	          	html += '<div class="d-flex align-items-center mb-25 todoBox">';
+				html += '<span class="bullet bullet-bar bg-success align-self-stretch"></span>';
+				html += '<div class="h-20 mx-20 flex-shrink-0">';
+				html += '<input type="checkbox" id="md_checkbox_'+index+'" class="filled-in chk-col-success" /> ';
+				html += '<label for="md_checkbox_'+index+'" class="h-20 p-10 mb-0"></label></div>';
+				/* 
+				input checkbox가 checked이면 checked됨 
+				input의 id와 label의 for이 같고, todo가 늘면 1씩 늘어야함
+				*/
+				html += '<div class="d-flex flex-column flex-grow-1">';
+				html += '<a class="text-dark hover-success fw-500 fs-16" data-bs-toggle="modal" data-bs-target="#detailTodo">'+rs.content.text+'</a>';
+				html += '<span class="text-fade fw-500" id="todoDate">'+rs.content.date+'</span></div></div>';
+	        } 
+	        
+	       $("#noticeWidgetBox").html(html);
+		}
+	});
+}
+/* insert */
+/*
+function f_createTodo(){
+	var checkStatus;
+	if($("#md_checkbox_21").checked){
+		checkStatus = true;
+	} else {
+		checkStatus = false;
+	}
+
+	var todoData = {
+		memNo : memNo,
+		content : [{text : },
+				   {status : checkStatus}]
+		widType : 'WID005'
+	}
+
+	$.ajax({
+		type : "post",
+		url : "/mainpage.do/todo",
+	    data: JSON.stringify(todoData),
+		dataType : "json",
+		contentType: "application/json",
+		success : function(result){
+
+		}
+	});
+}
+*/
+
+/* todo 아작스 끝 */

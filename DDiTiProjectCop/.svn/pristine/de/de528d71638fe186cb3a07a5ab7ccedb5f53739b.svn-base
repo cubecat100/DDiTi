@@ -1,0 +1,17 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+// 학사 일정
+@Data
+public class UnivScheduleVO {
+
+	private int univSchNo;
+	private String univSchName;
+	private String univSchStartDate;
+	private String univSchEndDate;
+	private String univSchCont;
+	private String univSchSem;
+	private String univSchReg;
+	
+}

@@ -1,0 +1,68 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.ILectureMapper;
+import kr.or.ddit.service.ILectureService;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ReserveClassVO;
+
+@Service
+public class LectureServiceImpl implements ILectureService {
+
+	@Inject
+	private ILectureMapper lectureMapper;
+
+	@Override
+	public List<ClassVO> getLectureList() {
+		return lectureMapper.getLectureList();
+	}
+
+	@Override
+	public ServiceResult addReservClass(ReserveClassVO reserveClassVO) {
+		ServiceResult res = null;
+		int cnt = lectureMapper.addReservClass(reserveClassVO);
+		if(cnt == 1) {
+			res = ServiceResult.OK;
+		} else {
+			res = ServiceResult.FAILED;
+		}
+		return res;
+	}
+
+	@Override
+	public ServiceResult ReservClassDuplicateCheck(ReserveClassVO reserveClassVO) {
+		ServiceResult res = null;
+		int cnt = lectureMapper.ReservClassDuplicateCheck(reserveClassVO);
+		if(cnt > 0) {
+			res = ServiceResult.FAILED;
+		} else {
+			res = ServiceResult.OK;
+		}
+		return res;
+	}
+
+	@Override
+	public List<ReserveClassVO> reserveClassList(int memNo) {
+		return lectureMapper.reserveClassList(memNo);
+	}
+
+	@Override
+	public ServiceResult removeReservClass(ReserveClassVO reserveClassVO) {
+		ServiceResult res = null;
+		int cnt = lectureMapper.removeReservClass(reserveClassVO);
+		
+		if(cnt == 1) {
+			res = ServiceResult.OK;
+		} else {
+			res = ServiceResult.FAILED;
+		}
+		return res;
+	}
+
+}

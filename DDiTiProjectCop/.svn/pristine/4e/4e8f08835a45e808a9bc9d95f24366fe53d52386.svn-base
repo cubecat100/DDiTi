@@ -1,0 +1,303 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="d-flex align-items-center">
+		<div class="me-auto">
+			<h3 class="page-title">(강의 명)</h3>
+			<div class="d-inline-block align-items-center">
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#"><i
+								class="mdi mdi-home-outline"></i></a></li>
+						<li class="breadcrumb-item" aria-current="page">강의</li>
+						<li class="breadcrumb-item active" aria-current="page">수강</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="row m-10 bg-white">
+
+	<div class="row col-md-3">
+		<div class="form-group">
+			<strong>대학</strong><div class="b-1 border-dark rounded p-1 ps-2">실용음악과</div>
+		</div>
+	</div>
+	<div class="row col-md-3">
+		<div class="form-group">
+			<strong>학과</strong><div class="b-1 border-dark rounded p-1 ps-2">방송연애</div>
+		</div>
+	</div>
+	<div class="row col-md-4">
+		<div class="form-group">
+			<strong>강의명</strong><div class="b-1 border-dark rounded p-1 ps-2">000</div>
+		</div>
+	</div>
+	<div class="row col-md-2">
+		<div class="form-group">
+			<strong>수강인원</strong><div class="b-1 border-dark rounded p-1 ps-2">18/25</div>
+		</div>
+	</div>
+</div>
+<ul class="nav nav-tabs" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" data-bs-toggle="tab" href="#debit-card" role="tab" aria-selected="true">
+			<span class="hidden-sm-up"><i class="fa fa-cc"></i></span> 
+			<span class="hidden-xs-down">강의 자료실</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal1" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">강의 과제</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal2" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">온라인 시험</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal3" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">현장실습</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal4" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">강의 평가</span>
+		</a>
+	</li>
+</ul>
+
+<div class="tab-content tabcontent-border m-15 bg-white">
+	<div class="tab-pane active" id="debit-card" role="tabpanel">
+		<h4>1</h4>
+		
+		<!-- 검색 시작 -->
+		<div class="row" style="justify-content: flex-end;">
+			<div class="col-md-5"> <!-- col-md-5: 부모 너비 값의 절반 사용 -->
+				<div class="form-group">
+					<select class="form-control" style="width: 30%; display: inline-block;">
+						<option selected="selected" disabled="disabled">과목명</option> <!-- disabled : 선택안됨(select의 제목?) -->
+						<option>식물생리학</option>
+						<option>동물생리학</option>
+						<option>생화학</option>
+					</select> 
+					<input type="text" placeholder="입력하세요" class="form-control" style="width: 55%; display: inline-block;">
+					<button type="button" class="btn btn-primary btn-sm">검색</button>
+				</div>
+			</div>
+		</div>
+		<!-- 검색 끝 -->
+		
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		<div class="col-sm-12 col-md-7" style="float: right; margin-right: 100px">
+			<div class="dataTables_paginate paging_simple_numbers"
+				id="example1_paginate">
+				<ul class="pagination">
+					<li class="paginate_button page-item previous disabled"
+						id="example1_previous"><a href="#" aria-controls="example1"
+						data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+					<li class="paginate_button page-item active"><a href="#"
+						aria-controls="example1" data-dt-idx="1" tabindex="0"
+						class="page-link">11111</a></li>
+					<li class="paginate_button page-item"><a href="#"
+						aria-controls="example1" data-dt-idx="2" tabindex="0"
+						class="page-link">2</a></li>
+					<li class="paginate_button page-item"><a href="#"
+						aria-controls="example1" data-dt-idx="3" tabindex="0"
+						class="page-link">3</a></li>
+					<li class="paginate_button page-item"><a href="#"
+						aria-controls="example1" data-dt-idx="4" tabindex="0"
+						class="page-link">4</a></li>
+					<li class="paginate_button page-item"><a href="#"
+						aria-controls="example1" data-dt-idx="5" tabindex="0"
+						class="page-link">5</a></li>
+					<li class="paginate_button page-item next" id="example1_next"><a
+						href="#" aria-controls="example1" data-dt-idx="6" tabindex="0"
+						class="page-link">Next</a></li>
+				</ul>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="tab-pane" id="paypal1" role="tabpanel">
+		<h4>2</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal2" role="tabpanel">
+		<h4>3</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal3" role="tabpanel">
+		<h4>4</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal4" role="tabpanel">
+		<h4>5</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,96 @@
+package kr.or.ddit.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.or.ddit.ServiceResult;
+import kr.or.ddit.service.IUnivManagementService;
+import kr.or.ddit.vo.UnivScheduleVO;
+
+
+@Controller
+@RequestMapping("/")
+public class UnivManagementController {
+	
+	@Inject
+	private IUnivManagementService univService;
+	
+	// 신고목록, 셔틀버스, 학사일정 등
+	
+	
+	// 신고 목록
+	// 신고 작성
+	
+	// 셔틀 버스 정보
+	// 셔틀버스 정보 업로드
+	
+	// 학사일정 목록
+	// 학사일정 추가
+	
+	// 온라인 증명서
+	// 온라인 증명서 발급
+	
+	// 이 밑으로 구현 ============================================
+	
+	// 학사일정 조회
+	@GetMapping("/employer/univSchedule.do")
+	public String univSchedule(Model model) {
+		List<UnivScheduleVO> univScheduleList = univService.univSchedule();
+		model.addAttribute("univSchedule", univScheduleList);
+		return "employer/univSchedule";
+	}
+	
+	// 학사일정 생성
+	@PostMapping("/employer/addSchedule.do")
+	public String addSchedule(UnivScheduleVO scheduleVO,RedirectAttributes ra, HttpServletRequest req, Model model) {
+		String goPage = "";
+		
+		// 에러 관리
+		Map<String, String> errors = new HashMap<String, String>();		
+		if(StringUtils.isBlank(scheduleVO.getUnivSchName()))
+		{
+			errors.put("scheduleName", "제목을 입력해주세요.");
+		}
+		if(errors.size()>0)
+		{
+			model.addAttribute("errors", errors);
+			model.addAttribute("scheduleVO", scheduleVO);
+			goPage = "employer/univSchedule";
+		}
+		// 정상 등록
+		else
+		{
+			ServiceResult result = univService.addSchedule(req, scheduleVO);
+			if(result.equals(ServiceResult.OK))
+			{
+				goPage = "redirect:/employer/addSchedule.do";
+				ra.addFlashAttribute("message", "일정이 등록되었습니다.");
+			}else
+			{
+				model.addAttribute("scheduleVO", scheduleVO);
+				model.addAttribute("message", "일정 등록 실패, 다시 시도해주세요!");
+				goPage = "employer/univSchedule";
+			}
+		}
+		return goPage;
+	}
+	
+	
+	
+	
+	
+}
+
+

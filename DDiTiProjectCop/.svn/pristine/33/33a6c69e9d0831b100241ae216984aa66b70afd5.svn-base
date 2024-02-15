@@ -1,0 +1,160 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<div class="content-header mb-10">
+	<div class="d-flex align-items-center">
+		<div class="me-auto">
+			<h3 class="page-title">시설 예약 목록</h3>
+			<div class="d-inline-block align-items-center">
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#"><i
+								class="mdi mdi-home-outline"></i></a></li>
+						<li class="breadcrumb-item" aria-current="page">기타</li>
+						<li class="breadcrumb-item" aria-current="page">시설 예약 목록</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="content">
+	<div class="row">
+		<div class="col-12">
+			<div class="box">
+				<div class="box-body">
+
+					<ul class="nav nav-tabs customtab2" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							data-bs-toggle="tab" href="#facilityList" role="tab"
+							aria-selected="true"> <span class="hidden-sm-up"><i
+									class="fa fa-cc"></i></span> <span class="hidden-xs-down">시설 예약 신청 현황</span>
+						</a></li>
+						<li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
+							href="#facilityCal" role="tab" aria-selected="false"> <span
+								class="hidden-sm-up"><i class="fa fa-paypal"></i></span> <span
+								class="hidden-xs-down">예약 현황 캘린더</span>
+						</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<!-- 시설 예약 신청 현황 시작 -->
+						<div class="tab-pane active" role="tabpanel" id="facilityList">
+							<div class="p-15">
+								<div class="row" style="justify-content: space-between;">
+									<div class="col-md-6">
+										<div class="form-group" style="margin-top: 10px">
+											<h4 style="display: inline-block;">시설 예약 신청 관리</h4>
+											<p style="display: inline-block; line-height: 1.2; color: #0d6efd;"></p>
+										</div>
+									</div>
+									<div class="col-md-4 col-12" style="margin-top: 5px;">
+										<div class="form-group">
+											<form method="post" id="searchForm">
+												<input type="hidden" name="page" id="page" /> <select
+													class="form-control" name="searchType"
+													style="width: 30%; display: inline-block;">
+													<option selected="selected">-선택-</option>
+													<option value="">상태</option>
+													<option value="">마스터</option>
+												</select> <input type="text" name="searchWord" value="${searchWord }"
+													class="form-control"
+													style="width: 50%; display: inline-block;" placeholder="검색">
+												<button type="submit" value="" class="btn btn-primary"
+													style="padding: 5px 12px;">검색</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table mb-0" style="text-align: center">
+										<thead class="bg-primary">
+											<tr>
+												<th scope="col">순번</th>
+												<th scope="col">예약날짜</th>
+												<th scope="col">예약시간</th>
+												<th scope="col">시설정보</th>
+												<th scope="col">신청정보</th>
+												<th scope="col">신청상태</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>2</td>
+												<td>3</td>
+												<td>4</td>
+												<td>5</td>
+												<td>6</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 시설 예약 신청 현황 끝 -->
+						<!-- 예약 현황 캘린더 시작 -->
+						<div class="tab-pane" role="tabpanel" id="facilityCal">
+							<div class="p-15">
+							
+								<div class="row" style="justify-content: space-between;">
+									<div class="col-md-6">
+										<div class="form-group" style="margin-top: 10px">
+											<h4 style="display: inline-block;">예약 현황 관리</h4>
+											<p
+												style="display: inline-block; line-height: 1.2; color: #0d6efd;"></p>
+										</div>
+									</div>
+									<div class="col-md-4 col-12" style="margin-top: 5px;">
+										<div class="form-group">
+											<form method="post" id="searchForm">
+												<input type="hidden" name="page" id="page" /> <select
+													class="form-control" name="searchType"
+													style="width: 30%; display: inline-block;">
+													<option selected="selected">-선택-</option>
+													<option value="type">모임분류</option>
+													<option value="master">마스터</option>
+												</select> <input type="text" name="searchWord" value="${searchWord }"
+													class="form-control"
+													style="width: 50%; display: inline-block;" placeholder="검색">
+												<button type="submit" value="" class="btn btn-primary"
+													style="padding: 5px 12px;">검색</button>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<div class="table-responsive">
+									<table class="table mb-0" style="text-align: center">
+										<thead class="bg-primary">
+											<tr>
+												<th scope="col">순번</th>
+												<th scope="col">모임분류</th>
+												<th scope="col">모임명</th>
+												<th scope="col">모임목표</th>
+												<th scope="col">정원</th>
+												<th scope="col">운영 상태</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>2</td>
+												<td>3</td>
+												<td>4</td>
+												<td>5</td>
+												<td>6</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 예약 현황 캘린더 끝 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

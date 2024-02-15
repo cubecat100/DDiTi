@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IClassManagementMapper">
+	
+	<select id="progressClassList" parameterType="int" resultType="ClassVO">
+		SELECT
+			class_no
+			, lec_no
+			, mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, exam_proprion
+			, hw_propotion
+			, at_propotion
+			, class_status_code
+			, class_week_cnt
+			, class_note
+			, class_reject
+			, file_no
+		FROM class
+		WHERE 
+			mem_no = #{memNo}
+			and (
+					CLASS_STATUS_CODE = 'CLS001'
+					or CLASS_STATUS_CODE = 'CLS003'
+					or CLASS_STATUS_CODE = 'CLS004' 
+					or CLASS_STATUS_CODE = 'CLS005' 
+					or CLASS_STATUS_CODE = 'CLS007' 
+				)
+	</select>
+	
+	<insert id="addClassBrd" parameterType="ClassBoardVO">
+		insert into class_board (
+			class_brd_no
+			, class_no
+			, class_brd_title
+			, class_brd_cont
+			, class_write_date
+			, class_brd_hit_count
+			, file_no
+		) values(
+			class_board_seq.nextval
+			, #{classNo}
+			, #{classBrdTitle}
+			, #{classBrdCont}
+			, sysDate
+			, 0
+			, #{fileNo}
+		)
+	</insert>
+	
+	<insert id="addClassHomework">
+		insert into homework (
+			hw_no
+			, class_no
+			, hw_title
+			, hw_upload
+			, hw_date
+			, hw_cont
+			, file_no
+		) values(
+			homework_seq.nextval
+			, #{classNo}
+			, #{hwTitle}
+			, TO_DATE(#{hwUpload}, 'YYYY-MM-DD HH24:MI:SS')
+			, sysDate
+			, #{hwCont}
+			, #{fileNo}
+		)
+	</insert>
+	
+	<resultMap type="HomeworkVO" id="homeworkMap">
+		<id property="hwNo" column="hw_no"/>
+		<result property="classNo" column="class_no"/>
+		<result property="hwTitle" column="hw_title"/>
+		<result property="hwUpload" column="hw_upload"/>
+		<result property="hwDate" column="hw_date"/>
+		<result property="hwCont" column="hw_cont"/>
+		
+		<collection property="hwSubList" resultMap="hwSubMap"/>
+	</resultMap>
+	
+	<resultMap type="HomeworkSubmitVO" id="hwSubMap">
+		<result property="hwSbNo" column="hw_sb_no"/>
+		<result property="memNo" column="mem_no"/>
+		<result property="hwNo" column="hw_no"/>
+		<result property="hwSbDate" column="hw_sb_date"/>
+		<result property="hwSbStatusCode" column="hw_sb_status_code"/>
+		<result property="hwContent" column="hw_content"/>
+		<result property="hwScore" column="hw_score"/>
+		<result property="fileNo" column="file_no"/>
+		
+		
+	</resultMap>
+	
+	<select id="getHwSubmitList" parameterType="int" resultMap="homeworkMap">
+		select
+		    hw.hw_no
+		    , hw.class_no
+		    , hw.hw_title
+		    , hw.hw_upload
+		    , hw.hw_date
+		    , hw.hw_cont
+		
+		    , hs.hw_sb_no
+		    , hs.mem_no
+		    , hs.hw_no
+		    , hs.hw_sb_date
+		    , hs.hw_sb_status_code
+		    , hs.hw_content
+		    , hs.hw_score
+		    , hs.file_no
+		from class cl, homework hw
+		    left outer join homework_submit hs on(hw.hw_no = hs.hw_no)
+		where
+		    cl.class_no = 501
+		    and cl.class_no = hw.class_no
+	</select>
+	
+</mapper>

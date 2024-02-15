@@ -1,0 +1,444 @@
+/**
+ * 
+ */
+ 
+ 
+const gridBtn = document.querySelector("#gridBtn");
+const gridBtnSpan = document.querySelector("#gridBtnSpan");
+const gridMenu = document.querySelector("#gridMenu");
+
+let clickFlag = true;
+
+
+
+function f_gridMenu() {
+	
+	if (clickFlag) {
+		gridBtnSpan.innerHTML = "화면 구성 완료";
+		gridMenu.style.display = "block";
+		grid.noMove(false);
+		loadGrid(items);
+	} else {
+		gridBtnSpan.innerHTML = "화면 구성 설정";
+		gridMenu.style.display = "none";
+		grid.noMove(true);
+		loadGrid(items);
+	}
+	clickFlag = !clickFlag;
+};
+
+function f_memoMenu() {
+	const memoBtn = document.querySelector("#memoBtn");
+	const inputText = document.querySelector("#inputText");
+	const inputTA = document.querySelector("#inputTA");
+	
+	if (clickFlag) {
+		memoBtn.innerHTML = "수정";
+		inputText.readOnly = true;
+		inputTA.readOnly = true; 
+	} else {
+		memoBtn.innerHTML = "완료";
+		inputText.readOnly = false;
+		inputTA.readOnly = false; 
+	}
+	clickFlag = !clickFlag;
+};
+
+function f_todoModify() {
+	const todoModify = document.querySelector("#todoModify");
+	const todoText = document.querySelector("#todoText");
+	
+	if (clickFlag) {
+		todoModify.innerHTML = "수정";
+		todoText.readOnly = true;
+	} else {
+		todoModify.innerHTML = "완료";
+		todoText.readOnly = false;
+	}
+	clickFlag = !clickFlag;
+}
+
+/* 위젯 시작 */
+
+// 학사일정
+academicCal = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">학사일정</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<a href="">더보기</a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive">
+				<table class="table mb-0 b-1 border-primary"
+					style="text-align: center">
+					<thead class="bg-primary">
+						<tr>
+							<th scope="col">순번</th>
+							<th scope="col">제목</th>
+							<th scope="col">학기</th>
+							<th scope="col">기간</th>
+							<th scope="col">내용</th>
+						</tr>
+					</thead>
+					<tbody id='uniScheduleBox'></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+`;
+
+// TODO
+todo = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">Todo</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<button class="btn btn-primary px-10" href="#"
+					style="font-size: 11px" data-bs-toggle="modal"
+						data-bs-target="#createTodo">추가하기</button>
+			</div>
+		</div>
+		<div class="box-body slimScrollDiv"
+			style="max-height: 210px; overflow: auto">
+			<div class="d-flex align-items-center mb-25">
+				<span class="bullet bullet-bar bg-success align-self-stretch"></span>
+				<div class="h-20 mx-20 flex-shrink-0">
+					<input type="checkbox" id="md_checkbox_21"
+						class="filled-in chk-col-success" /> <label
+						for="md_checkbox_21" class="h-20 p-10 mb-0"></label>
+				</div>
+
+				<div class="d-flex flex-column flex-grow-1">
+					<a class="text-dark hover-success fw-500 fs-16" data-bs-toggle="modal"
+						data-bs-target="#detailTodo"> to do 예시 </a> 
+					<span class="text-fade fw-500"> 2023-10-11 </span>
+				</div>
+			</div>
+		</div>
+	</div>
+`;
+
+// 공지사항
+noticeBoard = `
+		<div class="box">
+			<div class="box-header with-border">
+				<h4 class="box-title">공지사항</h4>
+				<div class="box-controls pull-right d-md-flex d-none">
+					<a href="">더보기</a>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="table-responsive">
+					<table class="table mb-0 b-1 border-primary"
+						style="text-align: center">
+						<thead class="bg-primary">
+							<tr>
+								<th scope="col">순번</th>
+								<th scope="col">제목</th>
+								<th scope="col">내용</th>
+								<th scope="col">게시일</th>
+							</tr>
+						</thead>
+						<tbody id="noticeWidgetBox">
+							<!-- 공지사항 게시물 아작스 -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+`;
+
+// 시간표
+classBoard = `
+	<div class="box">
+		<div class="box-header with-border">
+			<h4 class="box-title">수강 시간표</h4>
+			<div class="box-controls pull-right d-md-flex d-none">
+				<a href="">더보기</a>
+			</div>
+		</div>
+
+		<div class="box-body">
+			<p class="mb-5">
+				<span id="td_year">2023</span>년 <span id="td_month">01</span>월 <span
+					id="td_date">05</span>일
+			</p>
+			<!-- 수업 박스 1개 시작 -->
+			<div class="box mb-15 pull-up boar bg-primary-light">
+				<div>
+					<div class="table-responsive">
+						<table class="table no-border mb-0">
+							<tbody>
+								<tr>
+									<td class="fw-600 min-w-130">
+										<div class="d-flex flex-column fw-600">
+											<a href="#" class="text-dark hover-primary mb-1 fs-16">1교시
+												- 3교시</a> <span class="text-fade">IT대학 A동 102호</span>
+										</div>
+									</td>
+									<td class="fw-600 fs-16 min-w-200 text-center">
+										<i class="fa fa-fw fa-circle text-primary fs-12" style="display:inline-block;"></i>
+										<span>알고리즘의 이해</span>
+									</td>
+									<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+									<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+										<a href="#"> <span>Class room > </span> </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 수업 박스 1개 끝 -->
+			<div class="box mb-15 pull-up bg-primary-light">
+				<div>
+					<div class="table-responsive">
+						<table class="table no-border mb-0">
+							<tbody>
+								<tr>
+									<td class="fw-600 min-w-130">
+										<div class="d-flex flex-column fw-600">
+											<a href="#" class="text-dark hover-primary mb-1 fs-16">1교시
+												- 3교시</a> <span class="text-fade">IT대학 A동 102호</span>
+										</div>
+									</td>
+									<td class="fw-600 fs-16 min-w-200 text-center">
+										<i class="fa fa-fw fa-circle text-primary fs-12" style="display:inline-block;"></i>
+										<span>알고리즘의 이해</span>
+									</td>
+									<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+									<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+										<a href="#"> <span>Class room > </span> </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+`;
+
+// 메모
+memo = `
+	<div class="box box-outline-warning" style="width:100%; height:100%">
+	  <div class="box-header">
+		<h4 class="box-title" style="width:100%"><strong><input type="text" class="no-border row" style="width:80%" id="inputText"></strong></h4>
+		<div class="box-tools flex-end">					
+			<div class="box-controls">
+			  <button class="btn btn-rounded btn-secondary btn-sm btn-outline btn-primary" id="memoBtn" onclick="f_memoMenu()">수정</button>
+			</div>
+		</div>
+	  </div>
+
+	  <div class="box-body">
+		<div class="form-group">
+			<textarea class="form-control no-border" id="inputTA"></textarea>
+		</div>
+	  </div>
+	</div>
+`;
+
+/* 위젯 끝 */
+	
+	
+	
+/* 포틀릿 시작 */
+
+let gridOption = {
+    column: 12,                   // default 12 -> 6
+    oneColumnSize: 100,          // default 768 -> 100
+    minRow: 1,
+    // disableOneColumnMode: true,
+    margin: 10,
+    disableResize: true,
+    noMove: true,
+    removable: 'body',
+    removable: true,
+    resizable: { handles: 'e,se,s,sw,w' },
+}
+
+function loadGrid(widget){
+	
+	grid.load(widget);
+	let gridList = document.querySelectorAll('.grid-stack-item');
+    
+    for(let i=0; i<gridList.length; i++){
+	    let menu = gridList[i].getAttribute('gs-id');
+	    let menuName;
+	    switch (menu) {
+	        case 'academicCal': menuName = '학사일정'; break;
+	        case 'todo': menuName = '할일목록'; break;
+	        case 'noticeBoard': menuName = '공지사항'; break;
+	        case 'classBoard': menuName = '수강시간표'; break;
+	        case 'memo': menuName = '메모'; break;
+    	}
+	}
+	
+	grid.on('added removed change', function(e, items) {
+		let str = '';
+		items.forEach(function(item) {
+			 str += ' (x,y)=' + item.x + ',' + item.y;
+		});
+		
+		console.log(e.type + ' ' + items.length + ' items:' + str );
+    });
+}
+
+// 알아서 정리 메뉴
+function fcompact() {
+    grid.compact();
+}
+// 요소 더하기 메뉴 (메모 위젯만 추가)
+function f_addObj(){
+    var grid_x = document.querySelector("#grid_x").value;
+    var grid_y = document.querySelector("#grid_y").value;
+
+    grid.addWidget({ w: grid_x*2, h: grid_y*2, content: memo });
+}
+// 포지션 저장 메뉴
+function f_postionSave(){
+    console.log("position save...");
+    var items = [];
+
+    var itemList = grid.engine.nodes;
+    
+    console.log("포지션 저장메뉴 itemList", itemList);
+
+    for(var i=0; i<itemList.length; i++){
+        var item = {};
+        
+        item.memNo = memNo;
+        item.x = itemList[i].x;
+        item.y = itemList[i].y;
+        item.w = itemList[i].w;
+        item.h = itemList[i].h;
+        // item.content = itemList[i].content;
+        item.widType = itemList[i].id;
+
+        items.push(item);
+    }
+    console.log("저장할 데이터", items);
+
+	$.ajax({
+		type: "put",
+		url: "/mainpage.do/updateWidget",
+		contentType: "application/json" ,
+		data: JSON.stringify(items),
+		dataType: "text",
+		success: function (result) {
+		  console.log("update check : ", result);
+
+		  if (result == 1) {
+			alert("수정 완료 !");
+			fGetList(); // 새로고침
+		  }
+		},
+	  });
+
+    //스트링 형태로 저장
+    // localStorage.setItem("items", JSON.stringify(items));
+}
+// 모든 요소 삭제 메뉴
+function f_removeAll(){
+    grid.removeAll();
+}
+// 포지션 불러오기 메뉴
+function f_postionLoad(){
+    //스트링 변환
+    var items = JSON.parse(localStorage.getItem("items"));
+
+    if(items == null || items == ""){
+        console.log("position empty...")
+        return;
+    }
+
+    f_removeAll();
+    grid.load(items);
+    console.log(items);
+    univScheduleWidget();
+    noticeWidget();
+}
+
+/* 포틀릿 끝 */
+
+
+/* 학사일정 아작스 시작 */
+
+function univScheduleWidget(){
+	$.ajax({
+		type : "get",
+		url : "/mainpage.do/univSchedule",
+		dataType : "json",
+		success : function(result){
+			let html = "";
+			let index = 0;
+			
+			console.log("success check : ", result);
+			
+	        for (let i = 0; i < result.length; i++) {
+	          	let rs = result[i];
+	          	index = index + 1;
+	          	
+	          	html += '<tr><td>'+ index +'</td>';
+	          	html += '<td>' + rs.univSchName +'</td>';
+	          	html += '<td>' + rs.univSchSem  +'</td>';
+	          	html += '<td><span>' + rs.univSchStartDate + '</span> ~ <span>' + rs.univSchEndDate + '</span></td>';
+	          	html += '<td>' + rs.univSchCont + '</td></tr>';
+	        }
+	        
+	       $("#uniScheduleBox").html(html);
+		},
+		error: function (request, status, error) {
+	       console.log("code: " + request.status)
+	       console.log("message: " + request.responseText)
+	       console.log("error: " + error);
+		}
+	});
+}
+
+
+/* 학사일정 아작스 끝 */
+	
+	
+/* 공지사항 아작스 시작 */
+
+function noticeWidget(){
+	$.ajax({
+		type : "get",
+		url : "/mainpage.do/notice",
+		dataType : "json",
+		success : function(result){
+			let html = "";
+			let index = 0;
+			
+			console.log("success check : ", result);
+			
+	        for (let i = 0; i < result.length; i++) {
+	          	let rs = result[i];
+	          	index = index + 1;
+	          	
+	          	html += '<tr><td>'+ index +'</td><td><a href="/academicPlan/detail?brdNo='+ rs.brdNo +'">' + rs.brdTitle +'</a></td>'
+	          	html += '<td>' + rs.brdCont + '</td>'
+	          	html += '<td>' + rs.writeDate + '</td></tr>';
+	        }
+	        
+	       $("#noticeWidgetBox").html(html);
+		},
+		error: function (request, status, error) {
+		       console.log("code: " + request.status)
+		       console.log("message: " + request.responseText)
+		       console.log("error: " + error);
+		}
+	});
+}
+
+
+/* 공지사항 아작스 끝 */
+	
+	
+ 

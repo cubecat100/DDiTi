@@ -1,0 +1,26 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.TrainingVO;
+
+public interface IClassMapper {
+
+	public List<MyClassVO> getMyLectureList(int memNo);
+
+	public List<ClassBoardVO> getClassBoardList(int classNo);
+
+	public List<HomeworkVO> getHomeworkList(int classNo);
+
+	public List<ExampleVO> getExampleList(int classNo);
+
+	public List<TrainingVO> getTrainingList(int classNo);
+
+	public MyClassVO getMyLecture(int classNo);
+
+}

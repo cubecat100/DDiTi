@@ -1,0 +1,15 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+
+public interface IBoardMapper {
+
+	public List<BoardVO> academicPList(PaginationVO<BoardVO> pagingVO);
+	
+	public int academicPCount(PaginationVO<BoardVO> pagingVO);
+	
+	
+}

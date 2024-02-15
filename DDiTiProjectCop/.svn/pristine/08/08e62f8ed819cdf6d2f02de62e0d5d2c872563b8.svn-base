@@ -1,0 +1,302 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<style>
+.box {
+	max-height: 580px;
+	/* overflow: auto; */
+}
+
+ul.box>li {
+	list-style: none;
+}
+
+section {
+	position: relative;
+}
+
+.po {
+	position: absolute;
+	top: 20px;
+	right: 25px;
+}
+.inst {
+	width: 22%;
+	display: inline-block;
+}
+.margin * {
+	margin-right: 20px;
+}
+</style>
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">개설 신청 양식</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">강의 관리</li>
+							<li class="breadcrumb-item active" aria-current="page">개설 신청
+								목록</li>
+							<li class="breadcrumb-item active" aria-current="page">개설 신청
+								양식</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-12">
+				<div class="box">
+					<div class="box-body" style="display: flex;">
+						<div class="col-lg-6 col-12">
+							<!-- /.box-header -->
+							<form class="form">
+								<div class="box-body">
+									<h4 class="box-title text-info mb-0">
+										<i class="ti-user me-15"></i> 개설 강의 정보
+									</h4>
+									<hr class="my-15">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">대학</label> <input type="text"
+													class="form-control bg-lightest" readonly="readonly"
+													value="생명과학대학">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">학과</label> <input type="text"
+													class="form-control bg-lightest" readonly="readonly"
+													value="식품영양학과">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">교과목</label> <input type="text"
+													class="form-control bg-lightest" readonly="readonly"
+													value="식품안전학">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="form-group">
+													<label class="form-label">개설학기</label> <select
+														class="form-select">
+														<option>2024년 겨울학기</option>
+														<option>2024년 1학기</option>
+														<option>2024년 여름학기</option>
+														<option>2024년 2학기</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">개설강의명</label> <input type="text"
+													class="form-control" placeholder="개설할 강의명을 입력">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="form-label">이수구분</label> <select
+													class="form-select">
+													<option>전공필수</option>
+													<option>전공선택</option>
+													<option>교양필수</option>
+													<option>교양선택</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="form-label">학점</label> <input type="number"
+													class="form-control" placeholder="최대 5" max="5" min="0">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="form-label">수강인원</label> <input type="number"
+													class="form-control" placeholder="최대 100" max="100" min="0">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="form-label">총 강의 시간</label> <input
+													type="number" class="form-control" placeholder="최대 100"
+													max="100" min="0">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="form-label">총 횟수(주차)</label> <input
+													type="number" class="form-control" placeholder="최대 30"
+													max="30" min="0">
+											</div>
+										</div>
+									</div>
+									<div class="row" style="justify-content: space-evenly;">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="">요일</label> <select class="form-select">
+													<option>월</option>
+													<option>화</option>
+													<option>수</option>
+													<option>목</option>
+													<option>금</option>
+													<option>토</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="">시작 교시</label> <select class="form-select">
+													<option>1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+													<option>6</option>
+													<option>7</option>
+													<option>8</option>
+													<option>9</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="">종료 교시</label> <select class="form-select">
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+													<option>6</option>
+													<option>7</option>
+													<option>8</option>
+													<option>9</option>
+													<option>10</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-1" style="line-height: 50px;">
+											<div class="form-group">
+												<button class="btn btn-primary btn-sm btn-circle">+</button>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<ul class="box"
+												style="border: 1px solid #ccc; padding: 15px 20px; max-height: 57px; overflow: auto;">
+												<li><span>월요일</span>&emsp;|&emsp;<span>1교시</span> ~ <span>3교시</span></li>
+												<li><span>화요일</span>&emsp;|&emsp;<span>1교시</span> ~ <span>3교시</span></li>
+												<li><span>수요일</span>&emsp;|&emsp;<span>1교시</span> ~ <span>3교시</span></li>
+											</ul>
+										</div>
+									</div>
+									<p class="text-mute">
+										* 총 계산된 주간 강의 시간은 <span class="text-success"><strong>6</strong></span>,
+										담은 강의 시간은 <span class="text-danger"><strong>3</strong></span>으로
+										<span class="text-danger"><strong>부족</strong></span>합니다.
+									</p>
+								</div>
+								<!-- /.box-body -->
+							</form>
+							<!-- /.box -->
+						</div>
+						<div class="col-lg-6 col-12">
+							<!-- Basic Forms -->
+							<!-- /.box-header -->
+							<form>
+								<div class="box-body">
+									<h4 class="box-title text-info mb-0">
+										<i class="ti-settings me-15"></i> 강의 비율 조정
+									</h4>
+									<hr class="my-15">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label class="form-label">학점 비율 : </label> 
+												<div style="display: flex; justify-content: space-between;">
+													<input type="number" class="form-control inst" placeholder="A" min="0" max="100" step="5">
+													<input type="number" class="form-control inst" placeholder="B" min="0" max="100" step="5">
+													<input type="number" class="form-control inst" placeholder="C" min="0" max="100" step="5">
+													<input type="number" class="form-control inst" placeholder="D" min="0" max="100" step="5">
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<p>전체 평가 비율 (100%) : </p>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="form-label">시험 (%)</label> <input 
+													type="number" class="form-control" max="100" min="0" step="5">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="form-label">출석 (%)</label> <input
+													type="number" class="form-control" max="100" min="0" step="5">
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="form-label">과제 (%)</label> <input
+													type="number" class="form-control" max="100" min="0" step="5">
+											</div>
+										</div>
+									</div>
+									<br>
+									<h4 class="box-title text-info mb-0">
+										<i class="ti-clip me-15"></i> 기타 참고 사항
+									</h4>
+									<hr class="my-15">
+									<div class="form-group">
+										<label class="form-label">강의계획서 업로드 : </label> <label
+											class="file"> <input type="file" id="file">
+										</label>
+									</div>
+									<div class="form-group margin">
+										<label class="form-label">기타 참고사항</label>
+										<textarea rows="5" class="form-control"
+											placeholder="참고서, 강의 자료 등..." style="height: 117px;" maxlength="200"></textarea>
+									</div>
+								</div>
+							</form>
+							<!-- /.box -->
+						</div>
+
+					</div>
+					<div class="po">
+						<button type="button" class="btn btn-warning me-1" onclick="f_back()">
+							<i class="ti-trash"></i> 취소
+						</button>
+						<button type="submit" class="btn btn-primary">
+							<i class="ti-save-alt"></i> 신청
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script type="text/javascript">
+function f_back(){
+	window.history.back();
+}
+</script>

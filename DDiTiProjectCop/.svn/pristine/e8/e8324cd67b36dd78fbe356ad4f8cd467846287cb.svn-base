@@ -1,0 +1,23 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+
+public interface IBoardMapper {
+	//공지사항
+	public List<BoardVO> academicPList(PaginationVO<BoardVO> pagingVO);
+	
+	public int academicPCount(PaginationVO<BoardVO> pagingVO);
+	
+	public List<BoardVO> academicPList();
+
+	public List<BoardVO> noticeWidget();
+	
+	//분실물---------------------------
+	//리스트
+	public List<BoardVO> lostItems();
+	//등록
+	public int insertLostItem(BoardVO boardVO);
+}

@@ -1,0 +1,39 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.PaginationVO;
+import kr.or.ddit.vo.TrainingVO;
+
+public interface IClassMapper {
+	
+	public MemberVO getMyMember(int memNo);
+
+	public List<MyClassVO> getMyLectureList(int memNo);
+	public MyClassVO getMyLecture(int classNo);
+
+	public List<ClassBoardVO> getClassBoardList(int classNo);
+	public ClassBoardVO getClassBoard(int classBrdNo);
+
+	public List<HomeworkVO> getHomeworkList(int classNo);
+
+	public List<ExampleVO> getExampleList(int classNo);
+
+	public List<TrainingVO> getTrainingList(int classNo);
+
+
+
+
+	public int classOpenCnt(@Param("pagingVO") PaginationVO<ClassVO> pagingVO, @Param("memNo") int memNo);
+
+	public List<ClassVO> classOpenList(@Param("pagingVO") PaginationVO<ClassVO> pagingVO, @Param("memNo") int memNo);
+
+}

@@ -1,0 +1,16 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class HomeworkVO {
+
+	private int hwNo;
+	private int classNo;
+	private String hwTitle;
+	private String hwUpload;
+	private String hwDate;
+	private String hwCont;
+	private int fileNo;
+	
+}

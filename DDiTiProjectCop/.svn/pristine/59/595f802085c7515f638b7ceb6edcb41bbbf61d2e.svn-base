@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IWidgetMapper">
+		 
+	<select id="widgetList" resultType="widgetVO" parameterType="int">
+		select * from widget
+		where mem_no = #{memNo}
+	</select>
+
+	<insert id="createWidget" parameterType="list">
+    <foreach collection="list" item="item" separator=" " open="INSERT ALL" close="SELECT 1 FROM DUAL">
+		into widget(
+		         mem_no
+		         , x
+		         , y
+		         , w
+		         , h
+		         , content
+		         , wid_type
+		 ) values (
+				#{item.memNo},
+				#{item.x},
+				#{item.y},
+				#{item.w},
+				#{item.h},
+				#{item.content},
+				#{item.widType}
+			)
+    </foreach>
+	</insert>      
+				
+	<update id="updateWidget" parameterType="list">
+	<foreach collection="list" item="item" separator=";" open="DECLARE BEGIN" close=";END;">
+		update widget set
+			x = #{item.x},
+			y = #{item.y},
+			w = #{item.w},
+			h = #{item.h},
+			wid_type = #{item.widType}
+		where mem_no = #{item.memNo}
+	</foreach>
+	</update>
+</mapper>

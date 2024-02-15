@@ -1,0 +1,192 @@
+package kr.or.ddit.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.service.ICommunityService;
+import kr.or.ddit.vo.CommunityVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PaginationVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+public class CommunityController {
+	//커뮤니티 관련
+	
+	
+	// 커뮤니티 그룹 목록
+	// 커뮤니티 그룹 개설
+	// 커뮤니티 그룹 상세
+	// 커뮤니티 그룹 시간표
+	// 커뮤니티 일정 추가
+	
+	// 커뮤니티 채팅
+	
+	// 커뮤니티 게시판?
+	
+	// 이 밑으로 구현 ============================================
+	
+	
+	@Inject
+	private ICommunityService communityService;
+	
+	// 아작스로 데이터 따로 페이징 따로?
+	//  목록 
+	@RequestMapping(value="/communityHome")
+	public String communityList(
+			HttpSession session, 
+			@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(name = "page2", required = false, defaultValue = "1") int currentPage2,
+			@RequestParam(required = false, defaultValue = "type") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model,
+			String tab) {
+		
+		System.out.println("tab : " +tab);
+		
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		// 로그인한 정보를 꺼내서 memNo를 파라미터로 전달할때 사용할 정보에 셋팅한다.
+//		MemberVO memberVO = (MemberVO) session.getAttribute("SessionInfo");
+//		paramMap.put("empNo", memberVO.getMemNo());
+		
+		System.out.println("currentPage" +currentPage);
+		
+		System.out.println("title11 :" +  searchType);
+		System.out.println("searchWord11 :" +  searchWord);
+		
+		PaginationVO<CommunityVO> pagingVO = new PaginationVO<CommunityVO>();
+		// 검색
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+		}	
+		
+		pagingVO.setCurrentPage(currentPage);
+		System.out.println("currentPage 11: "+ currentPage);
+		
+		
+		int totalRecord = communityService.communityAllCount(pagingVO);// 총 게시글 수 가져오기
+		pagingVO.setTotalRecord(totalRecord);
+
+		List<CommunityVO> communityList = communityService.list(pagingVO);
+		pagingVO.setDataList(communityList);
+
+		model.addAttribute("pagingVO", pagingVO);
+			
+		System.out.println("1번pagingVO" + pagingVO);
+			
+		PaginationVO<CommunityVO> pagingVO2 = new PaginationVO<CommunityVO>();
+	
+		System.out.println("title22 :" +  searchType);
+		System.out.println("searchWord22 :" +  searchWord);
+		
+		pagingVO2.setCurrentPage(currentPage2);
+		System.out.println("currentPage2 >???: "+ currentPage2);
+		
+		
+		
+		int myCommunList= communityService.myCommunityListCount(pagingVO2);// 총 게시글 수 가져오기
+		pagingVO2.setTotalRecord(myCommunList);
+		
+		int memNo = 0;
+		paramMap.put("memNo", memNo);
+		paramMap.put("pagingVO", pagingVO2);
+		
+		List<CommunityVO> myCommunity = communityService.myCommunityList(paramMap);
+		pagingVO2.setDataList(myCommunity);
+
+		model.addAttribute("pagingVO2", pagingVO2);
+		
+		System.out.println("2번pagingVO2" + pagingVO2);
+		
+		model.addAttribute("tab",tab);
+		
+		return "student/communityHome"; // JSP
+		
+	}
+
+	
+	
+	// 모임 생성
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.GET )
+	public String insertForm(Model model) {
+		
+		
+		return "student/communityHome";
+	}
+	
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.POST )
+	public String insert(Model model, CommunityVO communityVO) {
+		log.info("insert () ^오^" );
+		
+		
+		communityService.insert(communityVO);
+		
+		model.addAttribute("communityVO",communityVO);
+		
+		
+		return "redirect:/communityHome";
+	}
+	
+	
+	// 상세보기 ajax
+	@ResponseBody
+	@RequestMapping(value = "/detailCommu", method = RequestMethod.POST)
+	public ResponseEntity<CommunityVO> detail(@RequestBody Map<String, String> map) {
+	    log.info("detail () ^오^");
+
+	    int cmNo = Integer.parseInt(map.get("cmNo"));
+	    CommunityVO communDetail = communityService.communDetail(cmNo);
+	    	System.out.println("communDetail" + communDetail);
+	    	
+	    	
+	    	log.info("게시글 번호  () ^오^" + map.get("cmNo"));
+	    return new ResponseEntity<CommunityVO>(communDetail, HttpStatus.OK);
+	}
+	
+	
+	// 수정 
+	@PostMapping("/commuUpdate")
+	@ResponseBody
+	public int commuUpdateModel(@RequestBody CommunityVO communityVO) {
+		log.debug("commuUpdate () {}",communityVO);
+			
+		return communityService.commuUpdate(communityVO);
+	}
+	
+	
+	// 폐쇄 
+	@PostMapping("/commuStatus")
+	@ResponseBody
+	public int commuStatus(@RequestBody CommunityVO communityVO) {
+		log.debug("commuUpdate () {}",communityVO);
+			
+		return communityService.communStatus(communityVO);
+	}
+	
+	
+	
+	
+	
+}

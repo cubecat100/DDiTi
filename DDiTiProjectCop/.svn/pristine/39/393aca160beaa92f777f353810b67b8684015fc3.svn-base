@@ -1,0 +1,10 @@
+package kr.or.ddit.service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.SurveyVO;
+
+public interface ISurveyService {
+
+	ServiceResult addSurvey(SurveyVO surveyVO);
+
+}

@@ -1,0 +1,40 @@
+package kr.or.ddit.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.service.IChatBotService;
+
+@Service
+public class ChatBotServiceImpl implements IChatBotService {
+
+	@Override
+	public String selectField(String key, String memRole) {
+		return settingMoveUrl(key, memRole);
+	}
+	
+	private String settingMoveUrl(String key, String memRole) {
+		String url = "";
+		if(key.contains("공지")) {
+			url = "/DYUniv/noticeBoard.do";
+		} else if(key.contains("익명")) {
+			url = "/DYUniv/ananyBoard.do";
+		} else if(key.contains("메인")) {
+			url = "/DYUniv/mainpage.do";
+		} else if(key.contains("상담")) {
+			url = "/DYUniv/counselList.do";
+		} else if(key.contains("강의")) {
+			if(memRole.equals("ROL001")) { // 학생 
+				url = "/DYUniv/student/class/myClassList.do";
+			} else if(memRole.equals("ROL002")) { // 교수
+				url = "/DYUniv/myProgressClassList.do";
+			}
+		} else if(key.contains("커뮤")) {
+			url = "/DYUniv/student/communityHome.do";
+		} else if(key.contains("학사")) {
+			url = "/DYUniv/univSchedule.do";
+		}
+		return url;
+	}
+	
+
+}

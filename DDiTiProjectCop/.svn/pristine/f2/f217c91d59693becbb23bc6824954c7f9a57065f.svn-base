@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ICounselMapper">
+
+
+	<select id="getCounselList" parameterType="int" resultType="CounselVO">
+		SELECT
+			cs.cnsl_no
+		,	cs.mem_no2
+		,	cs.mem_no1
+		,	cs.mem_name1
+		,	cs.mem_name2
+		,	cnsl_type
+		,	cnsl_start_date
+		,	cnsl_end_date
+		,	cnsl_reg_date
+		,	cnsl_status_code
+		,	cnsl_reason
+		,	cnsl_reject
+		FROM counsel cs, member cr, member std
+		WHERE
+			mem_no2 = #{memNo} 
+			and cs.mem_no1 = cr.mem_no
+			and cs.mem_no2 = std.mem_no
+	</select>
+	
+	<insert id="addRecord" parameterType="ChatRecordVO">
+		INSERT INTO chat_record(
+			chat_no
+			, mem_no
+			, chat_room_no
+			, chat_msg
+			, chat_sender
+			, chat_date
+		) VALUES (
+			chat_room_seq.nextval
+			, #{memNo}
+			, #{chatRoomNo}
+			, #{chatMsg}
+			, #{chatSender}
+			, SYSDATE
+		)
+	</insert>
+	
+	<select id="getRecordList" parameterType="int" resultType="ChatRecordVO">
+		SELECT
+			chat_no
+			, mem_no
+			, chat_room_no
+			, chat_msg
+			, chat_sender
+			, chat_date
+		FROM chat_record
+		WHERE
+			chat_room_no = #{chatRoomNo}
+		ORDER BY chat_date
+	</select>
+	
+	<select id="getCounselor" resultType="MemberVO">
+		SELECT 
+			mem_no
+			, dprt_no
+			, mem_id
+			, mem_name
+			, mem_ph
+			, mem_email
+			, mem_profile
+			, mem_nation_code
+			, mem_role
+		FROM member
+    	WHERE mem_role = 'ROL002'
+    		or mem_role = 'ROL003'
+	</select>
+	
+	<select id="counselSchDataList" parameterType="int" resultType="ScheduleDataVO">
+		SELECT 
+			sch_data_no
+			, mem_no
+			, sch_name
+			, sch_start
+			, sch_end
+			, sch_data_code
+		FROM schedule_data
+    	WHERE 
+    		mem_no = #{memNo }
+    		and sch_data_code = 'SDC003'
+	</select>
+	
+	
+	<insert id="addReserveCousel" parameterType="CounselVO">
+		INSERT into counsel
+		(
+			cnsl_no
+			, mem_no1
+			, mem_no2
+			, mem_name1
+			, mem_name2
+			, cnsl_type
+			, cnsl_start_date
+			, cnsl_end_date
+			, cnsl_reg_date
+			, cnsl_status_code
+			, cnsl_reason
+		) VALUES (
+			counsel_seq.nextval
+			, #{memNo1			}
+			, #{memNo2			}
+			, #{memName1		}
+			, #{memName2		}
+			, #{cnslType		}
+			, TO_DATE(#{cnslStartDate }, 'YYYY-MM-DD HH24:MI:SS')
+			, TO_DATE(#{cnslEndDate }, 'YYYY-MM-DD HH24:MI:SS')
+			, sysDate
+			, 'CNS001'
+			, #{cnslReason		}
+		)
+	</insert>
+	
+	<update id="updateSchedule" parameterType="ScheduleDataVO">
+		UPDATE schedule_data
+		SET
+			SCH_NAME = #{schName }
+		where 
+			SCH_DATA_NO = #{schDataNo }
+	</update>
+	
+</mapper>

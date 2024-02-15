@@ -1,0 +1,44 @@
+package kr.or.ddit.service.impl;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IProfessorInfoMapper;
+import kr.or.ddit.service.IProfessorInfoService;
+import kr.or.ddit.vo.ProfessorInfoVO;
+
+@Service
+public class ProfessorInfoServiceImpl implements IProfessorInfoService {
+
+	@Inject
+	private IProfessorInfoMapper professorInfoMapper;
+	
+	@Override
+	public ProfessorInfoVO getAllProfessorInfo(int memNo) {
+		ProfessorInfoVO professorInfoVO = professorInfoMapper.getAllProfessorInfo(memNo);
+		
+		String dprtCategory = professorInfoVO.getDepartmentVO().getDprtCategory();
+		String dprtCategoryStr = "";
+		
+		 if ("DPC001".equals(dprtCategory)) {
+	        dprtCategoryStr = "인문";
+	    } else if("DPC002".equals(dprtCategory)) {
+	        dprtCategoryStr = "사회";
+	    } else if("DPC003".equals(dprtCategory)) {
+	        dprtCategoryStr = "교육";
+	    } else if("DPC004".equals(dprtCategory)) {
+	        dprtCategoryStr = "공학";
+	    } else if("DPC005".equals(dprtCategory)) {
+	        dprtCategoryStr = "자연";
+	    } else if("DPC006".equals(dprtCategory)) {
+	        dprtCategoryStr = "의약";
+	    } else if("DPC007".equals(dprtCategory)) {
+	        dprtCategoryStr = "예체능";
+	    }
+		professorInfoVO.getDepartmentVO().setDprtCategoryStr(dprtCategoryStr);
+		
+		return professorInfoVO;
+	}
+
+}

@@ -1,0 +1,32 @@
+package kr.or.ddit.vo;
+
+import java.util.List;
+
+import lombok.Data;
+
+
+// 수강생 신청관리
+@Data
+public class ListenerVO {
+
+	private int listenNo;
+	private int classNo;
+	private int memNo;
+	private String classScore;
+	private String lsStatusCode;
+	
+	private MemberVO member;
+	private List<AttendVO> attendList;
+	
+	// 시험 성정 리스트
+	
+		// 과제 성적 리스트
+		
+		// 출석 비율 가져오기
+			//출석
+			//결석
+			//지각
+			//조퇴
+		
+				//합쳐서 100점 만점에 ~점으로 초기화
+}

@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class KaKaoReadyResponse {
+
+	
+	private String tid;
+	private String next_redirect_pc_url;
+	private String partner_order_id;
+	
+}

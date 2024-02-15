@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IUnivManagementMapper">
+	
+	<!-- 학사일정 조회 -->
+	<select id="univSchedule" resultType="UnivScheduleVO">
+		select
+		   univ_sch_no,
+		   univ_sch_name,
+		   to_char(univ_sch_start_date, 'yyyy-MM-dd HH24:mi:ss') univ_sch_start_date,
+		   to_char(univ_sch_end_date, 'yyyy-MM-dd HH24:mi:ss') univ_sch_end_date,
+		   univ_sch_cont,
+		   univ_sch_sem,
+		   univ_sch_reg
+		from univ_schedule
+		order by univ_sch_no desc
+	</select>
+	
+	<!-- 학사일정 등록 -->
+	<insert id="addSchedule" parameterType="UnivScheduleVO">
+		<selectKey keyProperty="univSchNo" resultType="int" order="BEFORE">
+			select univ_schedule_seq.nextval from dual
+		</selectKey>
+		insert into univ_schedule (
+			univ_sch_no,
+			univ_sch_name,
+			univ_sch_start_date,
+			univ_sch_end_date,
+			univ_sch_cont,
+			univ_sch_sem,
+			univ_sch_reg	
+		)values(
+			#{univSchNo},
+			#{univSchName},
+			#{univSchStartDate},
+			#{univSchEndDate},
+			#{univSchCont},
+			#{univSchSem},
+			#{univSchReg}
+		)
+	</insert>
+	
+	<!-- 학사일정 수정 -->
+	<update id="updateSchedule1" parameterType="UnivScheduleVO">
+		update univ_schedule
+		set
+		    univ_sch_name = #{univSchName},
+		    univ_sch_start_date = #{univSchStartDate},
+		    univ_sch_end_date = #{univSchEndDate},
+		    univ_sch_cont = #{univSchCont},
+		    univ_sch_sem = #{univSchSem},
+		    univ_sch_reg = #{univSchReg}
+		where univ_sch_no = #{univSchNo}
+	</update>
+	
+	<delete id="deleteSchedule" parameterType="int">
+		delete from univ_schedule
+		where univ_sch_no = #{univSchNo}
+	</delete>
+	
+	
+
+	<select id="univScheduleWidget" resultType="UnivScheduleVO">
+		select rownum, b.* 
+		from ( select * from univ_schedule
+				where 1 = 1
+				order by univ_sch_no desc
+		) b
+		where <![CDATA[ rownum <= 3 ]]>
+	</select>
+	
+</mapper>

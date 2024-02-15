@@ -1,0 +1,17 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+// 채팅 기록
+@Data
+public class CummunityChatRecordVO {
+
+	
+	private int chatNo;
+	private int cmNo;
+	private String chatMsg;
+	private String chatSender;
+	private String chatDate;
+	private int fileNo;
+	
+}

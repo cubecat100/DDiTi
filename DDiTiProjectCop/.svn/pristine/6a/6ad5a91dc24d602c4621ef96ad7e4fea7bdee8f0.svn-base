@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class AnonBoardVO {
+	private int    anon_brd_no    ;
+	private int    mem_no         ;
+	private String anon_brd_title ;
+	private String anon_brd_cont  ;
+	private String anon_write_date;
+	private int    anon_hit_count ;
+}

@@ -1,0 +1,22 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/DYUniv")
+public class ServeyController {
+	//설문조사 관련
+	
+	// 설문조사 목록
+	// 설문조사 상세?
+	// 설문조사 참여
+	// 설문조사 등록
+	// 설문조사 결과
+	
+	// 이 밑으로 구현 ============================================
+	
+}

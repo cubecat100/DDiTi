@@ -1,0 +1,31 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ReserveClassVO;
+
+public interface ILectureService {
+
+	List<ClassVO> getLectureList();
+
+	ServiceResult addReservClass(ReserveClassVO reserveClassVO);
+
+	ServiceResult ReservClassDuplicateCheck(ReserveClassVO reserveClassVO);
+
+	List<ReserveClassVO> reserveClassList(int memNo);
+
+	ServiceResult removeReservClass(ReserveClassVO reserveClassVO);
+
+<<<<<<< .mine
+	int addListenClass(ReserveClassVO recVO);
+
+	List<ReserveClassVO> myReserveClassList(int memNo);
+
+||||||| .r383931
+=======
+	List<ClassVO> getMyLectureList();
+
+>>>>>>> .r384399
+}

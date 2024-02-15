@@ -1,0 +1,158 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.or.ddit.service.IMemberService;
+import kr.or.ddit.vo.ChangeDepartmentApplyVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.DepartmentVO;
+import kr.or.ddit.vo.LectureScoreVO;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.RestApplyVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/DYUniv")
+public class MemberInfoController {
+
+	@Inject
+	private IMemberService memberService;
+	
+	// 학적 변동  불러오기
+	@GetMapping("/restApplyForm.do")
+	public String restApply(Model model,HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		// 로그인 정보 를세션에서 가져오기 위해서  사용
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		int memNo = memberVO.getMemNo();
+		
+		// 정보꺼내오기 위해서 사용
+		MemberStdVO memberInfo = memberService.restInfo(memNo);
+		
+		// 재학 휴학인 놈들만 들어가게 한다
+		if(memberInfo.getStudentInfoVO().getMemStatusCode().equals("MEM001") ||
+				memberInfo.getStudentInfoVO().getMemStatusCode().equals("MEM002")) {
+			model.addAttribute("memberInfo",memberInfo);
+			
+			return "student/restApplyForm";
+			
+		} else {
+			return "redirect:/DYUniv/mainpage.do";
+		}
+		
+	}
+	
+	// 학적 변동  요청 
+	@PostMapping("/restApplyForm.do")
+	public String restApplyForm(Model model, RestApplyVO  restApplyVO, 
+			HttpServletRequest req, RedirectAttributes ra) {
+		
+		HttpSession session = req.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			
+		restApplyVO.setMemNo(memberVO.getMemNo());
+		
+		int res = memberService.insertRestApply(restApplyVO);
+		
+		if(res == 1) {
+			ra.addFlashAttribute("message","요청완료 성공");
+		}else {
+			ra.addFlashAttribute("message", "요청 실패");
+			return "redirect:/student/restApplyForm";
+		}
+		
+		
+			return "redirect:/DYUniv/mainpage.do";
+	}
+	
+	
+	// 전과신청 
+	@GetMapping("/departChange.do")
+	public String departChange(Model model, HttpServletRequest req ) {
+		
+		
+		HttpSession session = req.getSession();
+		
+		// 로그인 정보 를세션에서 가져오기 위해서  사용
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		
+		int memNo = memberVO.getMemNo();
+		
+		MemberStdVO memberDpart = memberService.deptInfo(memNo);
+		System.out.println("memNo ::" +memNo);
+		// 전과명 리스트 목록 불러오기 
+		List<DepartmentVO> departList = memberService.departList();
+		
+		// 내 수강 리스트 가져오기
+		List<LectureScoreVO> myClassList = memberService.myClassList(memNo);
+
+		memberDpart.setLectureScoreList(myClassList);
+		
+		model.addAttribute("departList", departList);
+		System.out.println("departList :::" +departList);
+		
+		// 총 성적 평균
+		int sum = 0;
+		int point = 0;
+		for(LectureScoreVO lectureScore : memberDpart.getLectureScoreList()) {
+			// (과목당 받은 점수 * 학점) + (과목당 받은 점수 * 학점) +  = 총 sum...
+			// 총 sum / 과목 당 모든 학점 = 성적의 평균
+			sum += lectureScore.getLecScr() * lectureScore.getLecPoint();
+			point += lectureScore.getLecPoint();
+		}
+			
+		
+		
+		double totalGrade = (double)sum / point;
+		memberDpart.setMemTotalGrade(totalGrade + "");
+		
+		if(memberDpart.getStudentInfoVO().getMemStatusCode().equals("MEM001")){
+			model.addAttribute("memberDpart",memberDpart);
+			
+			return "student/departChange";
+			
+		} else {
+			return "redirect:/DYUniv/mainpage.do";
+		}
+		
+	}
+		// 전과신청 등록 요청 
+		@PostMapping("/departChange.do")
+		public String dptChangeForm (Model model,  ChangeDepartmentApplyVO changeDepartmentApplyVO,
+				HttpServletRequest req, RedirectAttributes ra) {
+			
+			HttpSession session = req.getSession();
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			
+			changeDepartmentApplyVO.setMemNo(memberVO.getMemNo());
+			
+			int res = memberService.insertDepartApply(changeDepartmentApplyVO);
+			
+			if(res == 1) {
+				ra.addFlashAttribute("message","요청완료 성공");
+			}else {
+				ra.addFlashAttribute("message", "요청 실패");
+				return "redirect:/student/departChange";
+			}
+			
+			
+			return "redirect:/DYUniv/mainpage.do";
+			
+		}
+}
+

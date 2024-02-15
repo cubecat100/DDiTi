@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ILectureMapper">
+	
+	<!-- 예비 수강 목록 -->
+	<select id="reserveClassList" parameterType="int" resultType="ReserveClassVO">
+		SELECT
+			rc.class_no
+			, rc.mem_no
+			, res_status_code
+			, lec_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+		FROM reserve_class rc, class c 
+		WHERE
+			rc.class_no = c.class_no
+			and rc.mem_no = #{memNo}
+	</select>
+	
+	<!-- 강의 목록 -->
+	<select id="getClassList" resultType="classVO">
+		SELECT
+			class_no
+			, lec_no
+			, mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+			, class_note
+			, file_no
+		FROM class
+		WHERE
+			class_status_code = 'CLS004'
+			and semester = '2024/03'
+	</select>
+	
+	<!-- 예비 수강신청 중복 검사-->
+	<select id="ReservClassDuplicateCheck" parameterType="reserveClassVO" resultType="int">
+		SELECT
+			count(*)
+		FROM reserve_class
+		WHERE
+			class_no = #{classNo}
+			and mem_no = #{memNo}
+	</select>
+	
+	<!-- 예비수강신청 목록 -->
+	<select id="myReserveClassList" resultType="reserveClassVO" parameterType="int">
+		SELECT
+			class_no
+			, mem_no
+			, res_status_code
+		FROM reserve_class
+		WHERE
+			mem_no = #{memNo}
+	</select>
+	
+	<!-- 예비 수강목록 추가 -->
+	<insert id="addReservClass" parameterType="reserveClassVO">
+		INSERT INTO reserve_class(
+			class_no
+			, mem_no
+			, res_status_code
+		) values (
+			#{classNo}
+			, #{memNo}
+			, 'RES001'
+		)
+		
+	</insert>
+	
+	<!-- 예비 수강 취소 -->
+	<delete id="removeReservClass" parameterType="reserveClassVO">
+		DELETE
+		FROM reserve_class
+		WHERE 
+			mem_no = #{memNo}
+			and class_no = #{classNo }
+	</delete>
+	
+	<!-- 수강신청 -->
+	<insert id="addListenClass" parameterType="ReserveClassVO">
+		INSERT INTO listener(
+			listen_no
+			, class_no
+			, mem_no
+			, ls_status_code
+		) SELECT 
+			listener_seq.nextval
+			, class_no
+			, #{memNo }
+			, 'LSS001'
+		FROM class
+		WHERE
+			class_no = #{classNo}
+	</insert>
+	
+	<!-- 수강인원 -->
+	<select id="totalClassListener" parameterType="int" resultType="int">
+		SELECT
+			count(*)
+		FROM listener
+		WHERE
+			class_no = #{classNo}
+	</select>
+	
+	<!-- 수강 정보 변경 -->
+	<update id="updateResClassListenState" parameterType="ReserveClassVO">
+		UPDATE reserve_class
+		SET
+			res_status_code = 'RES002'
+		WHERE 
+			mem_no = #{memNo }
+			and class_no = #{classNo }
+	</update>
+
+	<!-- 학과 목록 -->
+	<select id="getDprtList" resultType="DepartmentVO">
+		SELECT
+			dprt_no
+			, dprt_name
+			, dprt_category
+			, dprt_tuition
+			, dprt_srv_time
+			, dprt_lec_point
+			, sem_max_lec_point
+		FROM department
+	</select>
+	
+	<!-- 학과 추가 -->
+	<insert id="addDprt" parameterType="DepartmentVO">
+		INSERT INTO department(
+			dprt_no
+			, dprt_name
+			, dprt_category
+			, dprt_tuition
+			, dprt_srv_time
+			, dprt_lec_point
+			, sem_max_lec_point
+		) values (
+			department_seq.nextval
+			, #{dprtName}
+			, #{dprtCategory}
+			, #{dprtTuition}
+			, #{dprtSrvTime}
+			, #{dprtLecPoint}
+			, #{semMaxLecPoint}
+		)
+	</insert>
+	
+	<!-- 교과목 목록 -->
+	<select id="getLectureList" resultType="LectureVO">
+		SELECT
+			lec_no
+			, mem_no
+			, dprt_no
+			, lec_name
+			, lec_point
+			, lec_note
+		FROM lecture
+	</select>
+	
+	<!-- 강의 목록 -->
+	<select id="getAllClassList" resultType="classVO">
+		SELECT
+			class_no
+			, lec_no
+			, mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+			, class_status_code
+			, class_note
+			, file_no
+		FROM class
+	</select>
+	
+	<!-- 강의 상세정보 -->
+	<select id="getClassDetail" parameterType="int" resultType="ClassVO">
+		SELECT
+			class_no
+			, lec_no
+			, cl.mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+			, class_status_code
+			, class_note
+			, file_no
+			, mem_name
+			, mem_ph
+			, mem_email
+		FROM class cl, member mm
+		WHERE
+			class_no = #{classNo }
+			and cl.mem_no = mm.mem_no
+	</select>
+	
+	<!-- 클래스 허가/반려 -->
+	<update id="updateClassApply" parameterType="ClassVO">
+		UPDATE class
+		SET
+			class_status_code = #{classStatusCode }
+			, class_reject = #{classReject }
+		where 
+			CLASS_NO = #{classNo }
+	</update>
+	
+</mapper>

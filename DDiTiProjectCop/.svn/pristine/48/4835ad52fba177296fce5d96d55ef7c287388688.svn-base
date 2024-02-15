@@ -1,0 +1,16 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.vo.MemberVO;
+
+public interface IMemberMapper {
+
+	public List<MemberVO> newStuList();
+
+	public List<MemberVO> proList();
+	public int excelUpload(Map<String, String> article);
+	
+	
+}

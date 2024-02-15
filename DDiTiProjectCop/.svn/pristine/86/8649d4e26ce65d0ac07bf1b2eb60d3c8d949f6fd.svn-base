@@ -1,0 +1,12 @@
+package kr.or.ddit.service;
+
+import kr.or.ddit.vo.KakaoApproveResponse;
+import kr.or.ddit.vo.KakaoReadyResponse;
+
+public interface IKakaopayService {
+
+	KakaoReadyResponse kakaoPayReady();
+
+	KakaoApproveResponse approveResponse(String pgToken);
+
+}

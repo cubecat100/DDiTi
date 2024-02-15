@@ -1,0 +1,58 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IClassMapper;
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.TrainingVO;
+
+@Service
+public class ClassServiceImpl implements IClassService{
+
+	@Inject
+	IClassMapper classMapper;
+
+	@Override
+	public List<MyClassVO> getMyLectureList(int memNo) {
+		
+		return classMapper.getMyLectureList(memNo);
+	}
+
+	@Override
+	public List<ClassBoardVO> getClassBoardList(int classNo) {
+		
+		return classMapper.getClassBoardList(classNo);
+	}
+
+	@Override
+	public List<HomeworkVO> getHomeworkList(int classNo) {
+		return classMapper.getHomeworkList(classNo);
+	}
+
+	@Override
+	public List<ExampleVO> getExampleList(int classNo) {
+		return classMapper.getExampleList(classNo);
+	}
+
+	@Override
+	public List<TrainingVO> getTrainingList(int classNo) {
+		return classMapper.getTrainingList(classNo);
+	}
+
+	@Override
+	public MyClassVO getMyLecture(int classNo) {
+		return classMapper.getMyLecture(classNo);
+	}
+	
+
+
+}

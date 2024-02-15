@@ -1,0 +1,141 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<style>
+table, th, td {
+	background-color: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    width : 100px;
+    height: 40px;
+    padding: 20px;
+}
+th, td {
+    padding: 20px;
+}
+th {
+    text-align: center;
+}
+</style>
+
+
+
+<h3 style="text-align: center; font-weight: bold;">2024년도 2학기 강의 시간표</h3><br/>
+<div class="table-responsive">
+	<table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">9</th>
+                <td></td>
+                <td></td>
+                <td class="my-cell" rowspan="3">프로그래밍응용</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">10</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">11</th>
+                <td></td>
+                <td></td>
+                
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">12</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">13</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">14</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">15</th>
+                <td></td>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">16</th>
+                <td></td>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">17</th>
+                <td></td>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">18</th>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">19</th>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td class="my-cell">웹&앱응용</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">20</th>
+                <td></td>
+                <td class="my-cell"></td>
+                <td></td>
+                <td class="my-cell">웹&앱응용</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+

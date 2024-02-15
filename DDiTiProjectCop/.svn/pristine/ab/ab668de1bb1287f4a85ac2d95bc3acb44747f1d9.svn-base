@@ -1,0 +1,43 @@
+package kr.or.ddit.controller;
+
+import javax.inject.Inject;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.service.IChatBotService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/DYUniv")
+public class DDiTiController {
+	// 음성인식
+	
+	@Inject
+	private IChatBotService chatbotService;
+	
+	// key값으로 field 얻는 비동기 메소드
+	@ResponseBody
+	@PostMapping("/chatBot/selectField")
+	public String selectField(@RequestBody String key) {
+		log.info("챗봇, selectField");
+		System.out.println("key" + key);
+		
+		String result = chatbotService.selectField(key);
+		
+		/* 그냥 쪼메 있어 보이는 
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		return new ResponseEntity<>(result, headers, HttpStatus.OK);
+		*/
+		return result;
+	}
+}

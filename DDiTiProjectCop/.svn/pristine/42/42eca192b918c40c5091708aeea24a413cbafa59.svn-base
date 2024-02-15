@@ -1,0 +1,16 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ChatRecordVO;
+import kr.or.ddit.vo.CounselVO;
+
+public interface ICounselMapper {
+
+	List<CounselVO> getCounselList(int studentMemNo);
+
+	int addRecord(ChatRecordVO chatRecordVO);
+
+	List<ChatRecordVO> getRecordList(int chatRoomNo);
+
+}

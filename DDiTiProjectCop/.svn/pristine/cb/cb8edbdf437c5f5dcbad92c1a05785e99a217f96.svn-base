@@ -1,0 +1,31 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExamAnswerVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkSubmitVO;
+import kr.or.ddit.vo.HomeworkVO;
+
+public interface IClassManagementService {
+
+	List<ClassVO> progressClassList(int memNo);
+
+	ServiceResult addClassBrd(ClassBoardVO classBoardVO);
+
+	ServiceResult addClassHomework(HomeworkVO hwVO);
+
+	List<HomeworkSubmitVO> getHwSubmitList(int classNo);
+
+	List<HomeworkSubmitVO> getHwSubList(int hwNo);
+
+	ServiceResult updateHwScore(List<HomeworkSubmitVO> hwSubList);
+
+	List<ExamAnswerVO> getExSubList(int examNo);
+
+	ServiceResult addExample(ExampleVO exampleVO);
+
+}

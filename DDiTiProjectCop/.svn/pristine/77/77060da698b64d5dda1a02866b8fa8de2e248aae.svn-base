@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class CommunityController {
+	//커뮤니티 관련
+}

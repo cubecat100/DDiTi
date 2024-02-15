@@ -1,0 +1,140 @@
+package kr.or.ddit.service.impl;
+
+import java.io.File;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IMemberMapper;
+import kr.or.ddit.service.IMemberService;
+import kr.or.ddit.utils.excel.ExcelRead;
+import kr.or.ddit.utils.excel.ExcelReadOption;
+import kr.or.ddit.vo.DepartmentVO;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.ProfessorInfoVO;
+import kr.or.ddit.vo.WidgetVO;
+
+@Service
+public class MemberServiceImpl implements IMemberService {
+	
+	@Inject
+	private IMemberMapper memberMapper;
+
+	// 학생 리스트
+	@Override
+	public List<MemberVO> newStuList() {		
+		return memberMapper.newStuList();
+	}
+
+	// 교수 리스트
+	@Override
+	public List<MemberVO> proList() {
+		return memberMapper.proList();
+	}
+
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public ServiceResult excelUpload(File destFile) {
+		
+		ServiceResult res = ServiceResult.FAILED;
+		
+		ExcelReadOption excelReadOption = new ExcelReadOption();
+        excelReadOption.setFilePath(destFile.getAbsolutePath()); //파일경로 추가
+        excelReadOption.setOutputColumns("A", "B", "C", "D", "E", "F", "G", "H", "I"); //추출할 컬럼명 추가
+        excelReadOption.setStartRow(2); //시작행(헤더부분 제외)
+        
+        List<Map<String, String>> excelContent  = ExcelRead.read(excelReadOption);
+        
+        int resCnt = 0;
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        
+        for(Map<String, String> article: excelContent){
+        	article.put("memNo", "");
+        	article.put("dprtNo", "1");
+        	article.put("year", String.valueOf(year).substring(2,4));
+        	
+        	System.out.println("excel Data : " + article);
+        	
+        	resCnt += memberMapper.excelUpload(article);
+        	
+        	ProfessorInfoVO infoVO = new ProfessorInfoVO();
+        	String memNoStr = String.valueOf(article.get("memNo"));
+        	infoVO.setMemNo(Integer.parseInt(memNoStr));
+        	infoVO.setMemProCode("MPR002");
+        	memberMapper.setProInfo(infoVO);
+        	
+        }
+        
+        if(resCnt == excelContent.size()) {
+        	res = ServiceResult.OK;
+        }
+        
+		return res;
+	}
+
+	// 교수 계정 생성
+	@Override
+	public ServiceResult createProID(MemberVO memberVO) {		
+		ServiceResult res = ServiceResult.FAILED;
+		
+		ProfessorInfoVO professorInfo = new ProfessorInfoVO();
+		professorInfo.setMemNo(memberVO.getMemNo());
+	
+		int cnt = 0;
+		memberMapper.createMember(memberVO);
+		cnt += memberMapper.createProID(professorInfo);
+		System.out.println("cnt" + cnt);
+		
+		if(cnt > 0)
+		{
+			res = ServiceResult.OK;
+		}
+		return res;
+	}
+	
+	// 단과대학 리스트
+	@Override
+	public List<MemberVO> departmentList() {
+		return memberMapper.departmentList();
+	}
+	
+	// 단과대학 선택
+//	@Override
+//	public DepartmentVO selectDprt(String dprtCategory) {
+//		return memberMapper.selectDprt(dprtCategory);
+//	}
+
+
+	// 졸업증명서 
+	@Override
+	public MemberStdVO gradCrtDetail(int memNo) {
+		return memberMapper.gradCrtDetail(memNo);
+		
+	}
+
+	
+	// 재학증명서
+	@Override
+	public MemberStdVO schCrtDetail(int memNo) {
+		return memberMapper.schCrtDetail(memNo);
+	}
+
+	// 성적 증명서 
+	@Override
+	public MemberStdVO scoreCrtDetail(int memNo) {
+		return memberMapper.scoreCrtDetail(memNo);
+	}
+
+
+
+	
+}

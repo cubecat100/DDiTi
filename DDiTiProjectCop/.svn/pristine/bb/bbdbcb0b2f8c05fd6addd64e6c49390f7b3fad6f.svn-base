@@ -1,0 +1,12 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+
+public interface IBoardService {
+	public List<BoardVO> academicPList(PaginationVO<BoardVO> pagingVO);
+
+	public int academicPCount(PaginationVO<BoardVO> pagingVO);
+}

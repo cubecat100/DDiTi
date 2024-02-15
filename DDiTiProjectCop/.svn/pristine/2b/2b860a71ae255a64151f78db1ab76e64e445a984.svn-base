@@ -1,0 +1,16 @@
+package kr.or.ddit.mapper;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.SurveyQuestionChoiceVO;
+import kr.or.ddit.vo.SurveyQuestionVO;
+import kr.or.ddit.vo.SurveyVO;
+
+public interface ISurveyMapper {
+
+	int addSurvey(SurveyVO surveyVO);
+
+	int addSrvQuestion(SurveyQuestionVO srvQst);
+
+	int addSrvQstChoice(SurveyQuestionChoiceVO srvQstCh);
+
+}

@@ -1,0 +1,236 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	  <div class="container-full">
+		<!-- Content Header (Page header) -->	  
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="me-auto">
+					<h3 class="page-title">Gallery</h3>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">게시판 사용</li>
+								<li class="breadcrumb-item active" aria-current="page">분실물 게시판</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<!-- Main content -->
+		<section class="row content">
+			  <!-- Default box -->
+			  <div class="box bg-transparent no-shadow b-0">
+				<div class="row box-body">
+							
+							
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc"></h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">필통<br>대덕관 306호에서 보관중</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc"></h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">립밤<br>실용음악학과사무실에서 보관중</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc"></h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">111111</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							<div class="col-xl-4 col-lg-6 col-12">
+							  <div class="box box-widget widget-user-1">
+								<div class="widget-user-header bg-img" style="background: url('/resources/images/photo1.png');" data-overlay="5">
+								   <div class="box-body text-white">
+									   <div class="widget-user-image">
+										  <img class="rounded bg-success-light" src="/resources/images/gallery/thumb-sm/1.jpg" alt="User Avatar">
+										</div>
+										  <h6 class="widget-user-desc">Owner &amp; CEO</h6>
+								   </div>
+								</div>
+								<div class="box-footer">
+								  <div class="row">
+					
+									<div class="col-sm-12">
+									  <div class="description-block">
+										<span class="description-text">Tweets</span>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+							
+							
+					</div>
+				</div>
+		  <!-- /.box -->
+
+		</section>
+		<!-- /.content -->	  
+	  </div>

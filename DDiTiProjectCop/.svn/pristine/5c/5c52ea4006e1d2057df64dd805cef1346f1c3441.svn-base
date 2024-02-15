@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class CommunityMemberVO {
+
+	
+	private int cmMemNo;
+	private int memNo;
+	private int cmNo;
+	
+}

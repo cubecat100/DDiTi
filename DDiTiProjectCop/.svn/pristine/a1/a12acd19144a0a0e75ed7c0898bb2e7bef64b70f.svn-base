@@ -1,0 +1,101 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	  
+	  
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">설문조사 </h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">설문조사 조회 </li>
+							<li class="breadcrumb-item active" aria-current="page">설문조사 목록</li>
+						</ol>
+					</nav>
+				</div>
+			</div>		
+		</div>
+	</div>	  
+
+	<!-- Main content -->
+<section class="content">
+
+
+<div class="box">
+<div class="box-body">
+	
+	<div class="my-20 bg-white" align="center">
+		<form id="searchForm" method="post">
+			<select id="sclDateType" class="form-control" name="sclDate" style="width: 30%; display: inline-block;">
+				<option value="">-설문 분류 -</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
+			</select>
+			<select class="form-control" name="schType" style="width: 30%; display: inline-block;">
+				<option selected="selected">--학기--</option>
+				<option value="semester">1</option>
+				<option value="semester">2</option>
+			</select>
+			<button type="submit" class="btn btn-primary" style="padding: 5px 12px;">검색</button>
+		</form>
+	</div>
+			
+			<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</section>
+</div>

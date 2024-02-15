@@ -1,0 +1,63 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IMemberMapper;
+import kr.or.ddit.service.IMemberService;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.WidgetVO;
+
+@Service
+public class MemberServiceImpl implements IMemberService {
+	
+	@Inject
+	private IMemberMapper memberMapper;
+
+	@Override
+	public List<MemberVO> newStuList() {		
+		return memberMapper.newStuList();
+	}
+
+
+	@Override
+	public List<MemberVO> ProList() {
+		return memberMapper.proList();
+	}
+
+//	@Override
+//	public ServiceResult addProId(MemberVO memberVO) {
+//		
+//		int cnt = memberMapper.addMemInfo(memberVO);
+//		
+//		return null;
+//	}
+	
+
+	/**
+	 *  사용자별로 위젯 정보를 모두 가져오는 메소드
+	 */
+	@Override
+	public List<WidgetVO> widgetList(int memNo) {
+		return memberMapper.widgetList(memNo);
+	}
+	/**
+	 * 	신입생인 경우 위젯 정보를 새로 주입하는 메소드
+	 */
+	@Override
+	public ServiceResult createWidget(List<WidgetVO> widget) {
+		ServiceResult result = null;
+		int status = memberMapper.createWidget(widget);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+}

@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class SurveyVO {
+
+	private int srvNo;
+	private int memNo;
+	private String srvName;
+	private String srvCategory;
+	private String srvEndDate;
+	
+}

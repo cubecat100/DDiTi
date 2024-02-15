@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IMemberMapper">
+	
+	<!-- 신입생 조회 -->
+	<select id="newStuList" resultType="MemberVO">
+		select
+		    m.mem_no, 
+		    dprt_no, 
+		    mem_id, 
+		    mem_pw, 
+		    mem_name,
+		    si.mem_reg_date, 
+		    si.mem_std_grade, 
+		    si.mem_status_code
+		from member m left outer join student_info si on(m.mem_no = si.mem_no)
+		where m.mem_role = 'ROL001'
+	</select>
+	
+	<!-- 교수 조회 -->
+	<select id="proList" resultType="MemberVO">
+		select
+			m.mem_no,
+			dprt_no,
+			mem_id,
+			mem_pw,
+			mem_name,
+			mem_role,
+			pr.mem_join_date as memJoinDate,
+			pr.mem_out_date,
+			pr.mem_pro_code
+		from member m left outer join professor_info pr on(m.mem_no = pr.mem_no)
+		where m.mem_role = 'ROL002'
+	</select>
+	
+	<insert id="excelUpload" parameterType="hashMap"> 
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE"> 
+			select member_seq.nextval from dual 
+		</selectKey> 
+		INSERT INTO member 
+		( 
+			mem_no
+			, dprt_no
+			, mem_id
+			, mem_pw
+			, mem_name
+			, mem_gen
+			, mem_bir
+			, mem_ph
+			, mem_email
+			, mem_postcode
+			, mem_addr1
+			, mem_addr2
+		) VALUES ( 
+			#{memNo}
+			, TO_NUMBER(#{dprtNo})
+			, #{year} || LPAD(#{memNo }, 6, '0')
+			, 'java'
+			, #{A}
+			, #{C}
+			, #{D}
+			, #{E}
+			, #{F}
+			, #{G}
+			, #{H}
+			, #{I}
+		)
+	</insert>
+	
+	<!-- 교수 계정 생성 -->
+<!-- 	
+	<insert id="">
+		<selectKey keyProperty="memdNo" resultType="int" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		INSERT INTO professor_info
+		(
+		    mem_no
+		    , mem_join_date
+		    , mem_pro_code
+		) VALUES(
+		    #{memNo}
+		    , sysdate
+		    , #{memProCode}
+		)
+		
+		INSERT ALL
+		INTO sal_history(employee_id, hire_date, salary)
+		
+		      values(id, day, sal)
+		
+		INTO mgr_history(employee_id, manager_id, salary)
+		
+		      values(id, mgr, sal)
+		
+		select employee_id id, hire_date day, manager_id mgr, salary sal
+		
+		from employees
+	</insert>	
+	 -->
+	 
+	 <!-- 학생 계정 생성 -->
+	<!--  
+	<insert id="">
+		<selectKey keyProperty="memdNo" resultType="int" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		INSERT ALL
+		INTO member
+		(
+			MEM_NO,
+			DPRT_NO,
+			MEM_ID,
+			MEM_PW,
+			MEM_NAME,
+			MEM_GEN,
+			MEM_BIR,
+			MEM_PH,
+			MEM_EMAIL,
+			MEM_POSTCODE,
+			MEM_ADDR1,
+			MEM_ADDR2,
+			MEM_ROLE
+		) values (
+		member_seq.nextval,
+			1,
+			'a005',
+			'1234',
+			'asd',
+			'M',
+			sysdate,
+			'010-1111-1111',
+			'aa@a.aa',
+			'1234',
+			'~~동',
+			null,
+			'ROL001'
+		)
+		INTO student_info
+		(
+			MEM_NO,
+			MEM_REG_DATE,
+			MEM_STATUS_CODE,
+			MEM_STD_GRADE
+		) 
+		values(
+			50,
+			sysdate,
+			'MEM001',
+			1
+		)
+		select * from dual;
+	</insert>
+	 -->
+
+</mapper>

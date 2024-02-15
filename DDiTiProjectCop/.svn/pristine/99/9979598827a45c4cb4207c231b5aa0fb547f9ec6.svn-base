@@ -1,0 +1,148 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">학사일정</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">관리 정보</li>
+							<li class="breadcrumb-item active" aria-current="page">학사일정</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- 일정 캘린더 -->
+			<div class="col-xl-12 col-lg-12 col-12">
+				<div class="box">
+					<div class="box-body">
+						<div id="calendar"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 일정 목록 -->
+			<div class="col-xl-12 col-lg-12 col-12">
+				<div class="box no-border no-shadow">
+					<div class="box-header with-border">
+						<h4 class="box-title">Events</h4>
+					</div>
+					<div class="box-body p-20">
+						<div class="row">
+							<div class="col-lg-6 col-12">
+								<button onclick="#" data-bs-toggle="modal"
+									data-bs-target="#add-new-events"
+									class="btn btn-success bg-primary"> <i class="ti-plus"></i>
+									Add New Event
+								</button>
+							</div>
+							<div class="text-end col-lg-6 col-12">
+								<div class="lookup lookup-circle lookup-right">
+									<input type="text" data-provide="media-search"
+										placeholder="Search">
+								</div>
+							</div>
+							<div class="table-responsive p-10">
+								<table class="table mb-0 b-1 border-primary"
+									style="text-align: center">
+									<thead class="bg-primary">
+										<tr>
+											<th scope="col">번호</th>
+											<th scope="col">학사일정</th>
+											<th scope="col">학기</th>
+											<th scope="col">시작일자</th>
+											<th scope="col">종료일자</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>내용</td>
+											<td>2023 1학기</td>
+											<td>2023-10-10</td>
+											<td>2023-10-10</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>내용</td>
+											<td>2023 1학기</td>
+											<td>2023-10-10</td>
+											<td>2023-10-10</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 일정 목록 -->
+		</div>
+	</section>
+	<!-- /.content -->
+</div>
+
+
+
+<!-- BEGIN MODAL -->
+<!-- Modal Add Category -->
+<div class="modal fade none-border" id="add-new-events">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					<strong>Add</strong> a category
+				</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form role="form">
+					<div class="row">
+						<div class="col-md-6">
+							<label class="form-label">Category Name</label> <input
+								class="form-control form-white" placeholder="Enter name"
+								type="text" name="category-name" />
+						</div>
+						<div class="col-md-6">
+							<label class="form-label">Choose Category Color</label> <select
+								class="form-select form-white"
+								data-placeholder="Choose a color..." name="category-color">
+								<option value="success">Success</option>
+								<option value="danger">Danger</option>
+								<option value="info">Info</option>
+								<option value="primary">Primary</option>
+								<option value="warning">Warning</option>
+								<option value="inverse">Inverse</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success save-category"
+					data-bs-dismiss="modal">Save</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END MODAL -->
+<script>
+var calendarType = "month";
+</script>
+
+
+<!-- Vendor JS -->
+<script	src="${pageContext.request.contextPath}/resources/assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js"></script>

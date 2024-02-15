@@ -1,0 +1,149 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.ListenerVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.TrainingVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/")
+public class ClassController {
+	//강의 관련
+	
+	//내 강의 목록
+	//수강 시간표 조회
+	//성적 조회
+	
+	// 과제 목록
+	// 과제 상세
+	// 과제 생성
+	// 과제 수정
+	// 교수 기준 과제 제출 목록
+	// 교수 기준 과제 제출 상세
+	// 과제 점수 등록
+	
+	
+	// 온라인 시험 목록
+	// 온라인 시험 응시
+	// 온라인 시험 제출
+	// 온라인 시험 결과
+	// 온라인 시험 출제
+	// 시험 점수 등록?
+
+	//현장실습 신청
+	// 현장실습 목록
+	
+	// 강의 평가
+	// 강의 평가 결과
+
+	// 성적 조회
+	// 성적 입력
+	// 성적 등록
+	// 성적 정정(이의) 신청 목록
+	// 성적 정정 허가/반려
+	
+	// 회원 출결 목록
+	// 강의 출결 목록
+	// 강의 출결 등록
+	
+	
+	// 이 밑으로 구현 ============================================
+
+	@Inject
+	private IClassService classService;
+	
+	//내 강의 리스트
+	@GetMapping("/student/class/myClassList.do")
+	public String myClassList(HttpSession session, Model model) {
+		
+		//테스트용
+		int memNo = 1;
+		
+		List<MyClassVO> mylectureList = classService.getMyLectureList(memNo);
+		model.addAttribute("mylectureList", mylectureList);
+		
+		return "student/myClassList";
+	}
+	
+	
+	// 학생 강의  화면
+	@GetMapping("/student/class/classRoom/{classNo}")
+	public String stdClassRoom(Model model, @PathVariable int classNo) {
+	log.debug("classNo"+classNo );
+	
+	//테스트용
+	int memNo = 1;
+	
+	MyClassVO myClassVO = classService.getMyLecture(classNo);
+	model.addAttribute("myClassVO", myClassVO);
+	
+	
+	//강의자료실
+	List<ClassBoardVO> classBoardList = classService.getClassBoardList(classNo);
+	model.addAttribute("classBoardList", classBoardList);
+	
+	//강의 과제
+	List<HomeworkVO> homeworkList = classService.getHomeworkList(classNo);
+	model.addAttribute("homeworkList", homeworkList);
+	
+	//온라인 시험
+	List<ExampleVO> exampleList = classService.getExampleList(classNo);
+	model.addAttribute("exampleList", exampleList);
+	
+	//현장실습
+	List<TrainingVO> trainingList = classService.getTrainingList(classNo);
+	model.addAttribute("trainingList", trainingList);
+	
+	//강의 평가
+	
+	
+	return "student/classRoom";
+	}
+	
+	
+	// 학생 강의 과제
+	@GetMapping("/student/class/classHomeWork/{classNo}")
+	public String classHomeWork(Model model, @PathVariable int classNo) {
+		log.debug("classNo"+classNo );
+		return "student/classHomeWork";
+	}
+
+
+	
+	//내 현장 실습 후기 작성폼
+	@GetMapping("/student/class/TrainingReviewForm")
+	public String TrainingReviewForm(Model model) {
+		return "student/classTrainingReviewForm";
+	}
+	//내 강의 과제 제출폼
+	@GetMapping("/student/class/classHomeworkDetail")
+	public String classHomeworkDetail(Model model) {
+		return "student/classHomeworkDetail";
+	}
+	
+	//현장학습
+	@GetMapping("/student/class/classTraining/{classNo}")
+	public String classTraining(Model model, @PathVariable int classNo) {
+		log.debug("classNo"+classNo );
+		return "student/classTraining";
+	}
+	
+}

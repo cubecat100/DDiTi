@@ -1,0 +1,69 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IClassManagementMapper;
+import kr.or.ddit.service.IClassManagementService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.FilesVO;
+
+@Service
+public class ClassManagementImpl implements IClassManagementService {
+
+	@Inject
+	private IClassManagementMapper classMapper;
+
+	@Override
+	public List<ClassVO> progressClassList(int memNo) {
+		return classMapper.progressClassList(memNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public ServiceResult addClassBrd(ClassBoardVO classBoardVO) {
+		ServiceResult res = ServiceResult.FAILED;
+		
+		int filesCnt = 0;
+		int brdCnt = 0;
+		
+		List<FilesVO> files = classBoardVO.getFileList();
+		
+		try {
+			
+			//파일 업로드
+			int fileNo = 0;
+			if(files != null && files.size() > 0) {
+				filesCnt += classMapper.addClassBrdFile(files);
+				fileNo = files.get(0).getFileNo();
+			}
+			
+			//자료실 게시글 등록
+			if(filesCnt == files.size()) {
+				classBoardVO.setFileNo(fileNo);
+				brdCnt = classMapper.addClassBrd(classBoardVO);
+			}
+			
+			//에러처리
+			if(brdCnt == 1) {
+				res = ServiceResult.OK;
+			} else {
+				throw new Exception();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceResult.FAILED;
+		}
+		
+		return res;
+	}
+	
+	
+}

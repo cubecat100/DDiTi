@@ -1,0 +1,15 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.CommunityVO;
+
+public interface ICommunityMapper {
+
+	public List<CommunityVO> list();
+
+	public void insert(CommunityVO communityVO);
+
+	public List<CommunityVO> myCommunityList(int memNo);
+
+}

@@ -1,0 +1,30 @@
+package kr.or.ddit.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.service.IChatBotService;
+
+@Service
+public class ChatBotServiceImpl implements IChatBotService {
+
+	@Override
+	public String selectField(String key) {
+		return settingMoveUrl(key);
+	}
+	
+	private String settingMoveUrl(String key) {
+		String url = "";
+		if(key.contains("공지")) {
+			url = "noticeBoard.do";
+		} else if(key.contains("익명")) {
+			url = "anonymousBoard.do";
+		} else if(key.contains("메인")) {
+			url = "mainpage.do";
+		} else if(key.contains("상담")) {
+			url = "counselList.do";
+		}
+		return url;
+	}
+	
+
+}

@@ -1,0 +1,347 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+	#add-new-events {
+		position: fixed;
+		left: 0; top: 0;
+		width: 100%; height: 100%;
+		background-color: rgba(170, 170, 170, 0.5);
+		z-index: 10000; 
+		display: none;
+	}
+	#mContent {
+		margin:10% auto;
+		width: 60%;
+		background-color: white;
+		padding: 20px;
+	}
+	
+</style>
+
+<!-- 학사일정등록 모달창 -->
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">학사일정</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">관리 정보</li>
+							<li class="breadcrumb-item active" aria-current="page">학사일정</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- 일정 캘린더 -->
+			<div class="col-xl-12 col-lg-12 col-12">
+				<div class="box">
+					<div class="box-body">
+						<div id="calendar"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 일정 목록 -->
+			<div class="col-xl-12 col-lg-12 col-12">
+				<div class="box no-border no-shadow">
+					<div class="box-header with-border">
+						<h4 class="box-title">Events</h4>
+					</div>
+					<div class="box-body p-20">
+						<div class="row">
+							<div class="col-lg-6 col-12">
+								<button onclick="mOpen()" id="mOpenBtn" class="btn btn-success bg-primary">
+									<i class="ti-plus"></i> Add New Event
+								</button>
+							</div>
+							<div class="text-end col-lg-6 col-12">
+								<div class="lookup lookup-circle lookup-right">
+									<input type="text" data-provide="media-search" placeholder="Search">
+								</div>
+							</div>
+							<div class="table-responsive p-10">
+								<table class="table mb-0 b-1 border-primary"
+									style="text-align: center">
+									<thead class="bg-primary">
+										<tr>
+											<th scope="col">번호</th>
+											<th scope="col">학사일정</th>
+											<th scope="col">학기</th>
+											<th scope="col">시작일자</th>
+											<th scope="col">종료일자</th>
+											<th scope="col">등록자</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${univSchedule }" var="list">
+											<c:choose>
+												<c:when test="${empty list }">
+													<tr>
+														<td colspan="5">생성된 일정이 없습니다.</td>
+													</tr>
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td>${list.univSchNo }</td>
+														<td>${list.univSchName }</td>
+														<td>${list.univSchSem }</td>
+														<td>${list.univSchStartDate }</td>
+														<td>${list.univSchEndDate }</td>
+														<td>${list.univSchReg }</td>
+													</tr>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 일정 목록 -->
+		</div>
+	</section>
+</div>
+
+<button onclick="addScheduleToCalendar()">addScheduleToCalendar</button>
+
+<script>
+	var calendarType = "month";
+</script>
+<c:if test="${not empty message }">
+	<script type="text/javascript">
+		alert("${message }");
+		<c:remove var="message" scope="request"/>
+		<c:remove var="message" scope="session"/>
+	</script>
+</c:if>
+
+<jsp:include page="/WEB-INF/views/modal.jsp"></jsp:include>
+
+<!-- Vendor JS -->
+<script src="${pageContext.request.contextPath}/resources/assets/vendor_components/perfect-scrollbar-master/perfect-scrollbar.jquery.min.js"></script>
+<script src='fullcalendar/dist/index.global.js'></script>
+
+
+<script>
+//////////////////////// calendar.js => editable : true 줄것!
+
+
+var sdate = $("#sdate");	// 시작일 id
+var edate = $("#edate");	// 종료일 id
+
+
+
+function addScheduleToCalendar() {
+	
+
+	
+	var schedule = {
+        title: '추가추가!',                
+        start: "2024-01-10 12:00:00",
+		end: "2024-01-10 16:00:00",
+        className: 'bg-info'
+    }
+	console.log("schedule", schedule);
+	$("#calendar").fullCalendar('renderEvent', schedule);
+	
+}
+
+
+//모달 열기
+function mOpen(){
+	sdate.val("");
+	edate.val("");
+	addevents.css("display","block");
+}
+// 모달 닫기
+function mClose(){
+	addevents.css("display","none");
+}
+
+var addevents = $("#add-new-events");  // 모달 창 Form
+var jhBtnClose = $("#jhBtnClose");    // close 버튼
+var mOpenBtn = $("#mOpen");	// open 버튼
+
+jhBtnClose.on("click",mClose);
+mOpenBtn.on("click",mOpen);
+
+
+function f_newEventCustom() {
+
+}
+
+// 시작,종료일 => 모달창 적용 이벤트 
+function f_calendarClickEvent(start, end, allDay) {
+	console.log("원래  => ",start,end,allDay);
+	
+	
+	var syear = start.year();			// 년
+	var date = new Date(start._i);		// 일	
+	
+	var startMonth = new Date(start._i);// 시작월
+	var endMonth = new Date(end._i);	// 종료월
+	var startDate = new Date(start._i);	// 시작일
+	var endDate = new Date(end._i);		// 종료일
+	
+	endDate.setDate(endDate.getDate()-1);	// endDate => -1
+	
+	console.log("원래 Date => ", date);
+	console.log("기준일자", date.toLocaleString());	
+	console.log("시작월",	("00"+(startMonth.toLocaleString()).split(".")[1].trim()).slice(-2)	);
+	console.log("종료월",	("00"+(endMonth.toLocaleString()).split(".")[1].trim()).slice(-2)	);
+	console.log("시작일",	("00"+(startDate.toLocaleString()).split(".")[2].trim()).slice(-2)	);
+	console.log("종료일",	("00"+(endDate.toLocaleString()).split(".")[2].trim()).slice(-2)	);
+	
+	console.log("dddddddddddddd", endMonth.getMonth()+1);
+	
+	
+	//if(endDate.getDate())
+	
+	
+	// 시작날짜
+	var startSchedule = syear + "-" 
+					+ ("00"+(startMonth.toLocaleString()).split(".")[1].trim()).slice(-2) + "-"
+					+ ("00"+(startDate.toLocaleString()).split(".")[2].trim()).slice(-2);
+	console.log(startSchedule);
+	sdate.val(startSchedule);
+	
+	// 종료날짜
+	var endSchedule = syear + "-" 
+					+ ("00"+(endMonth.toLocaleString()).split(".")[1].trim()).slice(-2) + "-"
+					+ ("00"+(endDate.toLocaleString()).split(".")[2].trim()).slice(-2);
+	console.log(endSchedule);
+	edate.val(endSchedule);
+	
+	
+	
+	console.log("sdate.val()", sdate.val());
+	if(sdate.val() < edate.val()){
+		console.log("edate가 더 크다");
+	}
+	
+	
+	
+	/*
+	console.log("end-1 => ",endDate.getDate());
+	console.log("month1 => ", month.getMonth());
+	console.log("month2 => ",		(("00"+month.getMonth()).slice(-2))		);
+	
+	// 시작일
+	var smonth = start.month();
+	if(start.month() <= 8){
+		smonth = "0" + (start.month()+1);
+	}
+	
+	var sdate = start.date();
+	console.log("startDate => ", sdate);
+	if(start.date() <= 9){
+		sdate = "0" + (start.date());
+	}
+		
+	// 종료일
+	var eyear = end.year();
+	var emonth = end.month();
+	if(end.month() <= 8){
+		emonth = "0" + (end.month()+1);
+	}
+	var edate = endDate.getDate();
+	console.log("endDate => ", edate);
+	if(end.date() <= 10 && end.date()>1){
+		edate = "0" + (endDate.getDate());
+	}	
+	
+	// 적용
+	var startDate = syear+ "-" + smonth + "-" + sdate;
+	console.log(startDate);
+	$("#sdate").val(startDate);
+	
+	var endDate = eyear+ "-" + emonth + "-" + edate;
+	console.log(endDate);
+	$("#edate").val(endDate);
+	
+	*/
+	
+	addevents.css("display","block");
+	//addevents.modal('show');
+}
+	
+	
+// 일정 저장 이벤트
+$(function() {
+	console.log("캘린더");
+	
+ 	var scheduleForm = $("#scheduleForm");	// 일정 등록 From
+	var addBtn = $("#addBtn"); 				// 일정 등록 버튼
+
+	addBtn.on("click", function() {
+		console.log("save 버튼 클릭");
+		var scheduleTitle = $("#scheduleTitle").val();			// 제목
+		var scheduleCont = $("#scheduleCont").val();			// 내용
+		var currentSem = $("#currentSem option:checked").val();// 학기
+		var startDate = sdate.val();							// 시작일자
+		var endDate = edate.val();								// 종료일자
+		
+ 		
+		if (scheduleTitle == null || scheduleTitle == "") {
+			alert("제목을 입력해주세요");
+			$("#scheduleTitle").focus();
+			return false;
+		}
+ 		if(currentSem == "none"){
+ 			console.log("currentSem", currentSem);
+ 			alert("학기를 선택해주세요");
+ 			return false;
+ 		}
+ 		if(startDate == null || startDate == ""){
+ 			alert("시작 일자를 설정해주세요.");
+ 			return false;
+ 		}
+ 		if(endDate == null || endDate == ""){
+ 			alert("종료 일자를 설정해주세요.");
+ 			return false;
+ 		}
+ 		if(startDate > endDate){
+ 			alert("시작일자는 종료일자보다 클 수 없습니다.")
+ 			return false;
+ 		}
+
+		scheduleForm.submit();
+		console.log("전송완료");
+	});
+});
+
+
+
+/*
+// ajax => addSchedule
+const scheduleForm = document.forms[0];
+
+function faddSchedule(){
+	let scheduleVO = {
+			scheduleTitle : scheduleForm.scheduleTitle.value,
+			scheduleCont : scheduleForm.scheduleCont.value,
+			currentSem : scheduleForm.currentSem.value,
+			startDate : scheduleForm.startDatee.value,
+			endDate : scheduleForm.endDate.value
+	}
+	console.log(schedultVO);
+	
+	
+}
+*/
+	
+
+
+</script>

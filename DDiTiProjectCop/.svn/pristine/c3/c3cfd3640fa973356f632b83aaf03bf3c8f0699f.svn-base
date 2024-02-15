@@ -1,0 +1,16 @@
+package kr.or.ddit.service;
+
+import kr.or.ddit.vo.MemberVO;
+
+public interface ILoginService {
+
+	MemberVO login(MemberVO memberVO);
+
+	MemberVO findId(MemberVO memberVO);
+	
+	MemberVO findPw(MemberVO memberVO);
+
+	public void sendEmail(MemberVO memberVO, String div);
+
+	
+}

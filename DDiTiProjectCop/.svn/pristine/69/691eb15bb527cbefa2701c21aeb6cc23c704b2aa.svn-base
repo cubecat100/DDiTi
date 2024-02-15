@@ -1,0 +1,123 @@
+/**
+ * 
+ */
+ 
+ 
+ function f_addReservClass(classNo) {
+	console.log("classNo :",classNo);
+	
+	var memNo = 1;
+	
+	var data = {
+			"memNo" : memNo,
+			"classNo" : classNo
+	}
+	
+	console.log("data :",data)
+	
+	$.ajax({
+		 type : 'post',
+		 url : '/lecture/lectureReserveAdd.do',
+		 contentType : "application/json; charset=utf-8",
+		 data : JSON.stringify(data),
+		 success : function(res) { // 결과 성공 콜백함수       
+			console.log(res);
+		 
+		 	if(res == "duplicated") {
+		 		alert("중복신청은 불가능합니다.")
+		 	} else if (res == "success") {
+		 		alert("신청 성공");
+		 		
+		 		//예비목록 업데이트
+		 		f_updateReservClass(memNo);
+		 		
+		 	} else {
+		 		alert("예비 신청에 실패")
+		 	}
+		 }
+	})
+}
+
+function f_cancleReservClass(classNo) {
+	console.log(classNo);
+	
+	var memNo = 1;
+	
+	var data = {
+			"memNo" : memNo,
+			"classNo" : classNo
+	}
+	
+	console.log("data :",data)
+	
+	$.ajax({
+		 type : 'post',
+		 url : '/lecture/lectureReserveRemove.do',
+		 contentType : "application/json; charset=utf-8",
+		 data : JSON.stringify(data),
+		 success : function(res) { // 결과 성공 콜백함수       
+			 console.log(res);
+			 f_updateReservClass(memNo);
+		 }
+	})
+}
+
+function f_updateReservClass(memNo) {
+	
+	var reserveList = $("#reserveList");
+	
+	data = {
+			"memNo" : memNo,
+	}
+	
+	$.ajax({
+		 type : 'post',
+		 url : '/lecture/lectureReserveUpdate.do',
+		 contentType : "application/json; charset=utf-8",
+		 data : JSON.stringify(data),
+		 success : function(res) { // 결과 성공 콜백함수       
+			console.log("update : " + res);
+		 
+		 	if(res == null){
+		 		reserveList.html("<tr><td colspan="10">목록이 없습니다...</td></tr>");
+		 	} else {
+		 		var code = "";
+		 		$.each (res, function (i, v) {
+					code = `
+						<tr>
+							<td style="text-align: center;"><strong>1</strong></td>
+							<td style="text-align: center;">
+								<button type="button"
+									class="btn btn-rounded btn-danger-light mb-5"
+									style="font-size: 12px;" onclick="f_cancleReservClass(${v.classNo })">취소</button>
+							</td>
+							<td>(~~대학)</td>
+							<td>(~~학과)</td>
+							<td>${v.className }</td>
+							<td>
+								<c:if test="${v.classReqCode eq 'CLR001' }">전공필수</c:if>
+								<c:if test="${v.classReqCode eq 'CLR002' }">전공선택</c:if>
+								<c:if test="${v.classReqCode eq 'CLR003' }">교양필수</c:if>
+								<c:if test="${v.classReqCode eq 'CLR004' }">교양선택</c:if>
+							</td>
+							<td>${v.lecPoint }</td>
+							<td>(교수이름)</td>
+							<td>(강의 일정)
+							</td>
+							<td style="text-align: center;">
+								<button type="button"
+									class="btn btn-circle btn-xs btn-primary">
+									<i class="fa fa-folder-open" style="color: white"></i>
+								</button>
+							</td>
+						</tr>
+					`;
+				});
+		 		
+		 		console.log(code);
+		 		
+		 		reserveList.html(code);
+		 	}
+		 }
+	})
+}

@@ -1,0 +1,131 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IClassMapper;
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.PaginationVO;
+import kr.or.ddit.vo.TrainingVO;
+
+@Service
+public class ClassServiceImpl implements IClassService{
+
+	@Inject
+	IClassMapper classMapper;
+
+	@Override
+	public List<MyClassVO> getMyLectureList(int memNo) {
+		
+		return classMapper.getMyLectureList(memNo);
+	}
+
+	@Override
+	public List<ClassBoardVO> getClassBoardList(int classNo) {
+		
+		return classMapper.getClassBoardList(classNo);
+	}
+	
+	@Override
+	public List<HomeworkVO> getHomeworkList(int classNo) {
+		return classMapper.getHomeworkList(classNo);
+	}
+
+	@Override
+	public List<ExampleVO> getExampleList(int classNo) {
+		return classMapper.getExampleList(classNo);
+	}
+
+	@Override
+	public List<TrainingVO> getTrainingList(int classNo) {
+		return classMapper.getTrainingList(classNo);
+	}
+
+	@Override
+	public MyClassVO getMyLecture(int classNo) {
+		return classMapper.getMyLecture(classNo);
+	}
+
+	@Override
+	public MemberVO getMyMember(int memNo) {
+		return classMapper.getMyMember(memNo);
+	}
+	
+	@Override
+	public ClassBoardVO getClassBoard(int classBrdNo) {
+		
+		classMapper.incrementClassBrdHit(classBrdNo);
+		
+		return classMapper.getClassBoard(classBrdNo);
+	}
+
+	
+	
+	@Override
+	public int classOpenCnt(PaginationVO<ClassVO> pagingVO, int memNo) {
+		return classMapper.classOpenCnt(pagingVO, memNo);
+	}
+
+	@Override
+	public List<ClassVO> classOpenList(PaginationVO<ClassVO> pagingVO, int memNo) {
+		
+		
+		List<ClassVO> classOpenList = classMapper.classOpenList(pagingVO, memNo);
+		
+		String classReqStr = "";
+		String classStatusStr = "";
+		
+		for(int i=0;i < classOpenList.size();i++) {
+			// 이수구분코드를 문자열 값으로 변환
+			String classReqCode = classOpenList.get(i).getClassReqCode();
+			if ("CLR001".equals(classReqCode)) {
+			    classReqStr = "전공필수";
+			} else if("CLR002".equals(classReqCode)) {
+			    classReqStr = "전공선택";
+			} else if("CLR003".equals(classReqCode)) {
+			    classReqStr = "교양필수";
+			} else if("CLR004".equals(classReqCode)) {
+			    classReqStr = "교양선택";
+			}
+
+			classOpenList.get(i).setClassReqStr(classReqStr);
+
+			// 강의개설신청상태코드를 문자열 값으로 변환
+			String classStatusCode = classOpenList.get(i).getClassStatusCode();
+			if ("CLS001".equals(classStatusCode)) {
+			    classStatusStr = "신청";
+			} else if("CLS002".equals(classStatusCode)) {
+			    classStatusStr = "개설";
+			} else if("CLS003".equals(classStatusCode)) {
+			    classStatusStr = "반려";
+			} else if("CLS004".equals(classStatusCode)) {
+			    classStatusStr = "모집";
+			} else if("CLS005".equals(classStatusCode)) {
+			    classStatusStr = "진행";
+			} else if("CLS006".equals(classStatusCode)) {
+			    classStatusStr = "폐쇄";
+			} else if("CLS007".equals(classStatusCode)) {
+			    classStatusStr = "종료";
+			}
+
+			classOpenList.get(i).setClassStatusStr(classStatusStr);
+		}
+		
+		return classOpenList;
+	}
+
+
+
+
+
+
+}

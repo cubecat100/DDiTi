@@ -1,0 +1,75 @@
+package kr.or.ddit.controller;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.service.IMemberService;
+
+@Controller
+@RequestMapping("/")
+public class MemberController {
+	
+	@Inject
+	private IMemberService memberService;
+	
+   //회원 정보 관련
+   // 휴복학, 알림, 일정, 위젯 등
+
+   
+   @GetMapping("/test")
+   public String test(Model model) {
+      return "test/test001";
+   }
+   
+   
+   //마이페이지 + 위젯
+   // 위젯 정보 저장
+   // 학생 목록
+   
+   // 신입생 목록
+   
+   // 학생 정보 상세
+   // 교수 목록
+   // 교수 정보 상세
+   
+   // 신입생 아이디 생성
+   
+   // 등록금 내역
+   // 장학금 내역
+   
+   // 학적 변경 신청
+   // 전과 신청
+   
+   
+   // 일정 목록
+   // 일정 등록
+   // 일정 삭제
+   
+   // 이 밑으로 구현 ============================================
+   
+   
+   //마이페이지 + 위젯
+   @GetMapping("/student/mypage")
+   public String myPageStd(Model model) {
+	   return "student/mypage";
+   }
+   @GetMapping("/professor/mypage")
+   public String myPagePro(Model model) {
+	   return "professor/mypage";
+   }
+   @GetMapping("/employer/mypage")
+   public String myPageEmp(Model model) {
+	   return "employer/mypage";
+   }
+  
+      
+   // 장학금 내역
+	@GetMapping("/scholarship")
+	public String scholarship(Model model) {
+		return "student/scholarship";
+	}
+}

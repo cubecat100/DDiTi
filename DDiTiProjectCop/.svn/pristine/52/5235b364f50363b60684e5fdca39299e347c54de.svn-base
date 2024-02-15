@@ -1,0 +1,116 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.service.ICommunityService;
+import kr.or.ddit.vo.CommunityVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+public class CommunityController {
+	//커뮤니티 관련
+	
+	
+	// 커뮤니티 그룹 목록
+	// 커뮤니티 그룹 개설
+	// 커뮤니티 그룹 상세
+	// 커뮤니티 그룹 시간표
+	// 커뮤니티 일정 추가
+	
+	// 커뮤니티 채팅
+	
+	// 커뮤니티 게시판?
+	
+	// 이 밑으로 구현 ============================================
+	
+	
+	@Inject
+	private ICommunityService communityService;
+	
+	
+	// 생성된 그룹 목록 
+	@RequestMapping(value="/communityHome", method=RequestMethod.GET)
+	public String communityList(Model model) {
+		log.info("communityList () ^오^" );
+		int memNo = 0;
+		
+		List<CommunityVO> communityList = communityService.list();
+		model.addAttribute("communityList",communityList);
+		
+		
+		List<CommunityVO> myCommunityList = communityService.myCommunityList(memNo);
+		model.addAttribute("myCommunityList",myCommunityList);
+		
+		return "student/communityHome"; // JSP
+	}
+
+	
+	
+	// 모임 생성
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.GET )
+	public String insertForm(Model model) {
+		
+		
+		return "student/communityHome";
+	}
+	
+	@RequestMapping(value ="/commuRegistr" , method = RequestMethod.POST )
+	public String insert(Model model, CommunityVO communityVO) {
+		log.info("insert () ^오^" );
+		
+		
+		communityService.insert(communityVO);
+		
+		model.addAttribute("communityVO",communityVO);
+		
+		
+		return "redirect:/communityHome";
+	}
+	
+	
+	// 상세보기 ajax
+	@ResponseBody
+	@RequestMapping(value = "/detailCommu", method = RequestMethod.POST)
+	public ResponseEntity<CommunityVO> detail(@RequestBody Map<String, String> map) {
+	    log.info("detail () ^오^");
+
+	    int cmNo = Integer.parseInt(map.get("cmNo"));
+	    CommunityVO communDetail = communityService.communDetail(cmNo);
+	    	System.out.println("communDetail" + communDetail);
+	    	
+	    	
+	    	log.info("게시글 번호  () ^오^" + map.get("cmNo"));
+	    return new ResponseEntity<CommunityVO>(communDetail, HttpStatus.OK);
+	}
+	
+	
+	// 수정 
+	@PostMapping("/commuUpdate")
+	@ResponseBody
+	public int commuUpdateModel(@RequestBody CommunityVO communityVO) {
+		log.debug("commuUpdate () {}",communityVO);
+			
+		return communityService.commuUpdate(communityVO);
+	}
+	
+	// 검색 
+	
+	
+	
+}

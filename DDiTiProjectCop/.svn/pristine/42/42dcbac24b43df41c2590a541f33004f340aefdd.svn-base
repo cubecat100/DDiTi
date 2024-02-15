@@ -1,0 +1,196 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<h4 class="box-title">성적 조회</h4>
+
+<div class="col-lg-11">
+    <div class="box">
+        <div class="box-body">
+           <div class="box-header">
+            <div class="col-sm-3">
+                <label class="form-label">학번 / 성명 </label>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="ti-user"></i></span>
+                    <input type="text" class="form-control" placeholder="학번 / 성명" readonly>
+                </div>
+            </div>
+                <h4 class="box-title">성적 내역</h4>
+            </div>
+            
+            <h6 class="box-subtitle mb-20"> </h6>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>순번</th>
+                            <th>신청 학점</th>
+                            <th>취득 학점</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Nigam</td>
+                            <td>Eichmann</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Deshmukh</td>
+                            <td>Prohaska</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Roshan</td>
+                            <td>Rogahn</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box">
+	<div class="box-body">
+		<h4 class="box-title">학기별 성적</h4>
+		<h6 class="box-subtitle mb-20"></h6>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>번호</th>
+						<th>년도</th>
+						<th>학기</th>
+						<th>성적</th>
+						<th>이수학점</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>2023</td>
+						<td>1</td>
+						<td>A+</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>2023</td>
+						<td>1</td>
+						<td>A+</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>2023</td>
+						<td>1</td>
+						<td>A+</td>
+						<td>3</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<div class="col-12">
+    <div class="box">
+        <div class="box-header">						
+            <h4 class="box-title">성적조회 > 년도/학기별 성적</h4>
+        </div>
+
+            <h3 class="box-title">교과목별 성적</h3>
+            
+      </div>
+           </div>
+               <div class="box">
+                <div class="box-body ">
+                <div class="d-flex col-12">
+                <div class="col-3">
+                   	년도
+                    <select name="complex_header_length" aria-controls="complex_header" class="form-select form-control-sm">
+                        <option value="">------</option>
+                        <option value="10">2020</option>
+                        <option value="25">2021</option>
+                        <option value="50">2022</option>
+                        <option value="100">2023</option>
+                    </select>
+                </div>
+                <div class="col-1"></div>
+                
+                <div class="col-3">
+                 	   학기
+                    <select name="complex_header_length" aria-controls="complex_header" class="form-select form-control-sm ">
+                        <option value="">------</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                 </div>
+                 </div>
+                    <h6 class="box-subtitle mb-20"></h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th>번호</th>
+                                    <th>년도</th>
+                                    <th>학기</th>
+                                    <th>교과목명</th>
+                                    <th>학점</th>
+                                    <th>이수 구분</th>
+                                    <th>등급</th>
+                                    <th>학점 구분</th>
+                                    <th>이의 신청</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2023</td>
+                                    <td>1</td>
+                                    <td>사회복지</td>
+                                    <td>3</td>
+                                    <td>전공필수</td>
+                                    <td>A+</td>
+                                    <td>일반 성적</td>
+                                    <td>손바닥 모양</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>2023</td>
+                                    <td>1</td>
+                                    <td>사회복지</td>
+                                    <td>3</td>
+                                    <td>전공필수</td>
+                                    <td>A+</td>
+                                    <td>일반 성적</td>
+                                    <td>손바닥 모양</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>2023</td>
+                                    <td>1</td>
+                                    <td>사회복지</td>
+                                    <td>3</td>
+                                    <td>전공필수</td>
+                                    <td>A+</td>
+                                    <td>일반 성적</td>
+                                    <td>손바닥 모양</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                
+               

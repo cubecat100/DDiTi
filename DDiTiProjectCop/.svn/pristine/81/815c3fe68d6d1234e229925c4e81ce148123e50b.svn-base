@@ -1,0 +1,16 @@
+package kr.or.ddit.service;
+
+import java.io.File;
+import java.util.List;
+
+import kr.or.ddit.vo.ExcelVO;
+
+public interface IExcelService {
+
+	List<ExcelVO> selectExcelList();
+		
+	// 엑셀 업로드 
+	public void excelUpload(File destFile) throws Exception;
+	
+
+}

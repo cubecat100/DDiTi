@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class KaKaoAmount {
+
+	private int total;
+	private int tax_free;
+	private int vat;
+	private int point;
+	private int discount;
+}

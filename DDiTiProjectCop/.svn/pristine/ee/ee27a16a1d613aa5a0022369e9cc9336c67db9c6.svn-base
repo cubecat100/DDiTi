@@ -1,0 +1,30 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IBoardMapper;
+import kr.or.ddit.service.IBoardService;
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+
+@Service
+public class BoardServiceImpl implements IBoardService {
+
+	@Inject
+	private IBoardMapper boardMapper;
+
+	@Override
+	public List<BoardVO> academicPList(PaginationVO<BoardVO> pagingVO) {
+		return boardMapper.academicPList(pagingVO);
+	}
+
+	@Override
+	public int academicPCount(PaginationVO<BoardVO> pagingVO) {
+		return boardMapper.academicPCount(pagingVO);
+	}
+
+}

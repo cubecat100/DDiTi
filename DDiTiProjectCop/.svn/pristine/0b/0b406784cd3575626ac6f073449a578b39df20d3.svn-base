@@ -1,0 +1,118 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IClassMapper;
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.HomeworkSubmitVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.PaginationVO;
+import kr.or.ddit.vo.TrainingVO;
+
+@Service
+public class ClassServiceImpl implements IClassService{
+
+	@Inject
+	IClassMapper classMapper;
+
+	@Override
+	public List<MyClassVO> getMyLectureList(int memNo) {
+		
+		return classMapper.getMyLectureList(memNo);
+	}
+
+	@Override
+	public List<ClassBoardVO> getClassBoardList(int classNo) {
+		
+		return classMapper.getClassBoardList(classNo);
+	}
+	
+	@Override
+	public List<HomeworkVO> getHomeworkList(int classNo) {
+		return classMapper.getHomeworkList(classNo);
+	}
+	
+	@Override
+	public int insertHomework(HomeworkSubmitVO homeworkSubmitVO) {
+		return classMapper.insertHomework(homeworkSubmitVO);
+	}
+	
+
+	@Override
+	public List<ExampleVO> getExampleList(int classNo) {
+		return classMapper.getExampleList(classNo);
+	}
+
+	@Override
+	public List<TrainingVO> getTrainingList(int classNo) {
+		return classMapper.getTrainingList(classNo);
+	}
+
+	@Override
+	public MyClassVO getMyLecture(int classNo) {
+		return classMapper.getMyLecture(classNo);
+	}
+
+	@Override
+	public MemberVO getMyMember(int memNo) {
+		return classMapper.getMyMember(memNo);
+	}
+	
+	@Override
+	public ClassBoardVO getClassBoard(int classBrdNo) {
+		
+		classMapper.incrementClassBrdHit(classBrdNo);
+		
+		return classMapper.getClassBoard(classBrdNo);
+	}
+
+	
+	
+	@Override
+	public int classOpenCnt(PaginationVO<ClassVO> pagingVO, int memNo) {
+		return classMapper.classOpenCnt(pagingVO, memNo);
+	}
+
+	@Override
+	public List<ClassVO> classOpenList(PaginationVO<ClassVO> pagingVO, int memNo) {
+		return classMapper.classOpenList(pagingVO, memNo);
+	}
+
+	@Override
+	public List<MyClassVO> classScheduleList(int memNo) {
+		return classMapper.classScheduleList(memNo);
+	}
+
+	@Override
+	public int createClassOpen(ClassVO classVO) {
+		return classMapper.createClassOpen(classVO);
+	}
+
+	@Override
+	public List<MyClassVO> classScheduleList2(MyClassVO myClassVO) {
+		return classMapper.classScheduleList2(myClassVO);
+	}
+
+	@Override
+	public List<MyClassVO> memberList() {
+		return classMapper.memberList();
+	}
+
+	@Override
+	public List<MemberStdVO> memberStuList() {
+		return classMapper.memberSutList();
+	}
+	
+
+
+}

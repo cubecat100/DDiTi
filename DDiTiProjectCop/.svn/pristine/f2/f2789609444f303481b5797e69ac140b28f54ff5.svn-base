@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ICommunityMapper">
+	
+	<sql id="commnuSearch">
+		<if test="searchType != null and searchType == 'type'">
+			and (cm_type like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'master'">
+			and (cm_master like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+
+
+	<select id="list" resultType="CommunityVO" parameterType="PaginationVO">
+	 select b.*
+  		  from (
+        select a.*, row_number() over (order by a.cm_no desc) rnum
+        from (
+            select 
+                cm_no,mem_no,cm_name,
+                cm_master,cm_max_mem,
+                cm_type,cm_goal,
+                cm_open_status_code
+            from community
+            where cm_open_status_code = 'CMO002'
+            and 1 = 1
+            <include refid="commnuSearch" />
+            order by cm_no desc
+        ) a
+    ) b
+    <![CDATA[
+        where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+    ]]>
+	</select>
+		  <!-- 'CMO002' -->
+			
+	<select id="myCommunityList"  resultType="CommunityVO" parameterType="hashMap">
+		select b.*
+  			from (
+   			   select a.*, row_number() over (order by a.cm_no desc) rnum
+   		   from (
+      		    select 
+      		        cm_no,mem_no,cm_name,
+        			    cm_master,cm_max_mem,
+        		     	cm_type,cm_goal,
+              		cm_open_status_code
+          	from community
+        		where mem_no =#{memNo}
+          order by cm_no desc
+      ) a
+    ) b
+    <![CDATA[
+        where b.rnum >= #{pagingVO.startRow} and b.rnum <= #{pagingVO.endRow}
+    ]]>
+    
+	</select>
+		
+ 		<select id="communityAllCount" resultType="int" parameterType="PaginationVO">
+			select count(cm_no) from community where cm_open_status_code ='CMO002' and 1 = 1
+			<include refid="commnuSearch"/>
+		</select>	
+			
+		<select id="myCommunityListCount" resultType="int">
+			select count(cm_no) from community 
+		</select>
+			
+		
+		<insert id="insert" parameterType="CommunityVO" useGeneratedKeys="true">
+			<selectKey keyProperty="cmNo" resultType="int" order="BEFORE">
+				select community_seq.nextval from dual
+			</selectKey>
+			insert into community(
+				cm_no,
+				mem_no,
+				cm_name,
+				cm_master,
+				cm_max_mem,
+				cm_type,
+				cm_goal,
+				cm_open_status_code
+			)values(
+				#{cmNo},#{memNo},#{cmName},
+				'치킨보이',#{cmMaxMem},
+				#{cmType},#{cmGoal},
+				'CMO002'
+			)
+		
+		</insert>
+
+
+		<select id="communDetail" parameterType="int" resultType="CommunityVO">
+			select 
+				cm_no,
+				mem_no,
+				cm_name,
+				cm_master,
+				cm_max_mem,
+				cm_type,
+				cm_goal,
+				cm_open_status_code
+			from community
+			where cm_no = #{cmNo}
+			
+		</select>
+		
+		<update id="commuUpdate" parameterType="CommunityVO">
+			update community
+			set
+				cm_type =#{cmType},
+				cm_name =#{cmName},
+				cm_goal =#{cmGoal},
+				cm_max_mem =#{cmMaxMem}
+			where cm_no = #{cmNo}
+		</update>
+		
+		<update id="communStatus" parameterType="CommunityVO">
+			update community
+			set
+				cm_open_status_code = 'CMO003'
+			where cm_no = #{cmNo}
+		</update>
+
+
+
+
+</mapper>

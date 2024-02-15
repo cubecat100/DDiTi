@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IMemberMapper">
+	<!-- 검색 ,페이징 -->
+	<sql id="academicPSearch">
+    <if test="searchType != null and searchType == 'memId'">
+        and (mem_id like '%'||#{searchWord}||'%')
+    </if>
+    <if test="searchType != null and searchType == 'memName'">
+        and (mem_name like '%'||#{searchWord}||'%')
+    </if>
+    <if test="searchType != null and searchType == 'dprtName'">
+        and (dprt_name like '%'||#{searchWord}||'%')
+    </if>
+</sql>
+	
+	<select id="proacademicPList" resultType="MemberVO" parameterType="PaginationVO">
+		select
+			b.*
+		from (
+			select
+				a.*, row_number() over (order by a.mem_no desc) rnum
+			from (
+				select 
+					*
+				from member mm
+				where 1 = 1
+					and mem_role = 'ROL002'
+					<include refid="academicPSearch" />
+				order by mem_no desc
+			) a
+		) b
+		<![CDATA[
+			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="academicPCountPro" resultType="int" >
+		select count(mem_no) from member where 1 = 1 and mem_role = 'ROL002'
+		<include refid="academicPSearch" />
+	</select>
+	
+	<!-- 학생 조회 -->
+	<select id="newStuList" resultType="MemberVO">
+		select
+		    m.mem_no, 
+		    dprt_no, 
+		    mem_id, 
+		    mem_pw, 
+		    mem_name,
+		    si.mem_reg_date, 
+		    si.mem_std_grade, 
+		    si.mem_status_code
+		from member m left outer join student_info si on(m.mem_no = si.mem_no)
+		where m.mem_role = 'ROL001'
+	</select>
+	
+	<!-- 교수 조회 -->
+	<select id="proList" resultType="MemberVO">
+		select
+			m.mem_no,
+			dprt_no,
+			mem_id,
+			mem_pw,
+			mem_name,
+			mem_role,
+			pr.mem_join_date as memJoinDate,
+			pr.mem_out_date,
+			pr.mem_pro_code
+		from member m left outer join professor_info pr on(m.mem_no = pr.mem_no)
+		where m.mem_role = 'ROL002'
+	</select>
+	<!-- 교수 일괄등록 -->
+	<insert id="excelUpload" parameterType="hashMap"> 
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE"> 
+			select member_seq.nextval from dual 
+		</selectKey> 
+		INSERT INTO member 
+		( 
+			mem_no
+			, dprt_no
+			, mem_id
+			, mem_pw
+			
+			, mem_name
+			, mem_gen
+			, mem_bir
+			, mem_ph
+			
+			, mem_email
+			, mem_postcode
+			, mem_addr1
+			, mem_addr2
+			
+			, mem_role
+		) VALUES ( 
+			#{memNo}
+			, TO_NUMBER(#{dprtNo})
+			, #{year} || LPAD(#{dprtNo }, 2, '0') || LPAD(#{memNo }, 4, '0')
+			, 'java'
+			
+			, #{A}
+			, #{C}
+			, #{D}
+			, #{E}
+			
+			, #{F}
+			, #{G}
+			, #{H}
+			, #{I}
+			
+			, 'ROL002'
+		)
+	</insert>
+	
+	<!-- 학생 일괄등록 -->
+		<insert id="studentUpload" parameterType="hashMap"> 
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE"> 
+			select member_seq.nextval from dual 
+		</selectKey> 
+		INSERT INTO member 
+		( 
+			mem_no
+			, dprt_no
+			, mem_id
+			, mem_pw
+			
+			, mem_name
+			, mem_gen
+			, mem_bir
+			, mem_ph
+			
+			, mem_email
+			, mem_postcode
+			, mem_addr1
+			, mem_addr2
+		) VALUES ( 
+			#{memNo}
+			, TO_NUMBER(#{dprtNo})
+			, #{year} || LPAD(#{dprtNo }, 2, '0') || LPAD(#{memNo }, 4, '0')
+			, #{pw}
+			
+			, #{A}
+			, #{C}
+			, #{D}
+			, #{E}
+			
+			, #{F}
+			, #{G}
+			, #{H}
+			, #{I}
+		)
+	</insert>
+	
+	
+	<insert id="setProInfo" parameterType="ProfessorInfoVO">
+		INSERT INTO professor_info
+		(
+			mem_no
+			, mem_join_date
+			, mem_pro_code
+		) VALUES (
+			#{memNo }
+			, sysDate
+			, #{memProCode }
+		)
+		
+	</insert>
+	
+	<insert id="setStdInfo" parameterType="StudentInfoVO">
+		INSERT INTO student_info
+		(
+			mem_no
+			, mem_reg_date
+			, mem_status_code
+			, mem_std_grade
+		) VALUES (
+			#{memNo }
+			, sysDate
+			, #{memStatusCode }
+			, #{memStdGrade}
+		)
+		
+	</insert>
+	
+	
+
+	<!-- 교수 계정 생성 -->	
+	<!-- 
+	<insert id="createProID" parameterType="MemberVO">
+		<selectKey keyProperty="memdNo" resultType="int" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		INSERT ALL
+	    INTO member
+	    (
+	        mem_no,
+	        dprt_no,
+	        mem_id,
+	        mem_pw,
+	        mem_name,
+	        mem_gen,
+	        mem_bir,
+	        mem_ph,
+	        mem_email,
+	        mem_postcode,
+	        mem_addr1,
+	        mem_addr1,
+	        mem_role
+	    ) values (
+	        #{memNo},
+	        #{dprtNo},
+	        #{memId},
+	        #{memPw},
+	        #{memName},
+	        #{memGen},
+	        #{memBir},
+	        #{memPh},
+	        #{memEmail},
+	        #{memPostcode},
+	        #{memAddr1},
+	        #{memAddr2},
+	        #{memRole}
+	    )INTO professor_info
+	    (
+	        mem_no,
+	        mem_join_date,
+	        mem_pro_code
+	    ) values(
+	        #{memNo},
+	        #{professorInfo.memJoinDate},
+	        'MPR002'
+	    )
+		select * from dual;
+	</insert>
+	-->
+	<!-- 멤버 생성 -->
+	<insert id="createMember" parameterType="MemberVO">
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE">
+			select member_seq.nextval from dual
+		</selectKey>
+		INSERT
+	    INTO member
+	    (
+	        mem_no,
+	        dprt_no,
+	        mem_id,
+	        mem_pw,
+	        mem_name,
+	        mem_gen,
+	        mem_bir,
+	        mem_ph,
+	        mem_email,
+	        mem_postcode,
+	        mem_addr1,
+	        mem_addr2,
+	        mem_role
+	    ) values (
+	        #{memNo},
+	        #{dprtNo},
+	        #{memId},
+	        #{memPw},
+	        #{memName},
+	        #{memGen},
+	        #{memBir},
+	        #{memPh},
+	        #{memEmail},
+	        #{memPostcode},
+	        #{memAddr1},
+	        #{memAddr2},
+	        #{memRole}
+	    )
+	</insert>
+	<!-- 교수계정 생성 -->
+	<insert id="createProID" parameterType="ProfessorInfoVO">
+		insert 
+	    into professor_info(
+	        mem_no,
+	        mem_join_date,
+	        mem_pro_code
+	    )values(
+	        #{memNo},
+	        #{memJoinDate},
+	        'MPR002'
+		)
+	</insert>
+	<!-- 단과대학 리스트 -->
+	<select id="departmentList" resultType="DepartmentVO">
+		select
+		    dprt_no,
+		    dprt_name,
+		    dprt_category,
+		    dprt_tuition,
+		    dprt_srv_time,
+		    dprt_lec_point,
+		    sem_max_lec_point
+		from department
+	</select> 
+
+	 <!-- 학생 계정 생성 -->
+	<!--  
+	<insert id="">
+		<selectKey keyProperty="memNo" resultType="int" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		INSERT ALL
+		    INTO member
+		    (
+		        mem_no,
+		        dprt_no,
+		        mem_id,
+		        mem_pw,
+		        mem_name,
+		        mem_gen,
+		        mem_bir,
+		        mem_ph,
+		        mem_email,
+		        mem_postcode,
+		        mem_addr1,
+		        mem_addr1,
+		        mem_role
+		    ) values (
+		        #{memNo},
+		        1,
+		        ${memId},
+		        ${memPw},
+		        ${memName},
+		        ${memGen},
+		        ${memBir},
+		        ${memPh},
+		        ${memEmail},
+		        ${memPostcode},
+		        ${memAddr1},
+		        ${memAddr2},
+		        'ROL002'
+		   )INTO student_info
+			(
+				MEM_NO,
+				MEM_REG_DATE,
+				MEM_STATUS_CODE,
+				MEM_STD_GRADE
+			) 
+			values(
+				50,
+				sysdate,
+				'MEM001',
+				1
+			)
+		select * from dual;
+	</insert>
+	 -->
+
+	<!-- 졸업 증명서   -->
+	<select id="gradCrtDetail" resultType="MemberStdVO">
+		SELECT
+		    m.mem_no,
+		    m.dprt_no,
+		    m.mem_id,
+		    m.mem_pw,
+		    m.mem_name,
+		    m.mem_gen,
+		    m.mem_bir,
+		    m.mem_ph,
+		    m.mem_email,
+		    m.mem_postcode,
+		    m.mem_addr1,
+		    m.mem_addr2,
+		    m.otp_key,
+		    m.mem_profile,
+		    m.mem_nation_code,
+		    m.mem_temp_pw,
+		    m.mem_role,
+		    s.mem_reg_date,
+		    s.mem_grd_date,
+		    s.mem_status_code,
+		    s.mem_std_grade,
+		    t.dprt_name,
+		    t.dprt_category
+		FROM
+		    member m,
+		    department t,
+		    student_info s
+		WHERE
+		    m.mem_no = s.mem_no
+		    AND t.dprt_no = m.dprt_no
+		    AND s.mem_status_code = 'MEM004'
+	</select>
+
+</mapper>

@@ -1,0 +1,24 @@
+package kr.or.ddit.service.impl;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IExampleMapper;
+import kr.or.ddit.service.IExampleService;
+import kr.or.ddit.vo.ExampleVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class ExampleService implements IExampleService {
+	
+	@Inject
+	private IExampleMapper exampleMapper;
+	
+	@Override
+	public ExampleVO getExam(int examNo) {
+		return exampleMapper.getExam(examNo);
+	}
+
+}

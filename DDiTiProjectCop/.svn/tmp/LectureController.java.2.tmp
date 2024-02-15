@@ -1,0 +1,176 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.service.ILectureService;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ReserveClassVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/")
+public class LectureController {
+	// 교과목, 강의 개설, 수강 신청
+	
+	// 학과 목록
+	// 학과 상세
+	// 학과 추가
+	// 학과 삭제
+	
+	// 강의 개설 신청
+	// 강의 목록
+	// 강의 상세
+	
+	// 예비 수강 신청 목록
+	// 예비 수강 신청 추가
+	// 예비 수강 신청 삭제
+	
+	// 수강 신청
+	// 수강 목록
+	
+	// 이 밑으로 구현 ============================================
+
+	@Inject
+	private ILectureService lectureService;
+	
+	@RequestMapping(value="/professor/classRoom.do", method=RequestMethod.GET)
+	public String proClassRoom() {
+		return "professor/classRoom";
+	}
+	
+	
+	
+	//강의 목록/예비신청 폼
+	@GetMapping("/student/lecture/lectureList.do")
+	public String classList(Model model) {
+		
+		int memNo = 1;
+		model.addAttribute("memNo", memNo);
+		
+		List<ClassVO> lectureList = lectureService.getLectureList();
+		model.addAttribute("lectureList", lectureList);
+		
+		log.info(lectureList.toString());
+		
+		List<ReserveClassVO> reserveClassList = lectureService.reserveClassList(memNo);
+		model.addAttribute("reserveClassList", reserveClassList);
+		
+		log.info("reserveClassList : " + reserveClassList);
+		
+		return "student/reserveClassForm";
+	}
+	
+<<<<<<< .mine
+	// 수강신청
+	@PostMapping("/student/lecture/classListenApplyForm.do")
+	public String enrollment(Model model, int memNo) {
+		log.info("enrollment() run...");
+		
+		//예비 목록 가져오기
+		List<ReserveClassVO> reserveClassList = lectureService.myReserveClassList(memNo);
+		log.info(reserveClassList.toString());
+		
+		//수강 신청 하기
+		int res = 0;
+		
+		if(reserveClassList != null && reserveClassList.size() > 0) {
+			for (ReserveClassVO recVO : reserveClassList) {
+				res += lectureService.addListenClass(recVO);
+			}
+		}
+		
+		//수강 성공/실패 정보 설정
+		model.addAttribute("message", res + "개의 신청이 완료 되었습니다");
+		
+		return "redirect:/student/lecture/lectureList.do";		//강의 신청 이후 페이지? 
+	}
+||||||| .r383952
+=======
+
+	//내 강의 목록
+	@GetMapping("/student/lecture/myLectureList.do")
+	public String myLectureList(Model model) {
+		List<ClassVO> mylectureList = lectureService.getMyLectureList();
+		model.addAttribute("mylectureList", mylectureList);
+		
+		return "student/myLectureList";
+	}
+	
+>>>>>>> .r384399
+	
+	
+	
+	
+	
+	
+	// 비동기 처리  컨트롤러 ============================
+	
+	@ResponseBody
+	@PostMapping("/lecture/lectureReserveAdd.do")
+	public ResponseEntity<String> ReservAdd(@RequestBody ReserveClassVO reserveClassVO) {
+		log.info("ReservAdd() run...");
+		//log.info(reserveClassVO.toString());
+
+		// 예비수강목록 중복 체크
+		ServiceResult check = lectureService.ReservClassDuplicateCheck(reserveClassVO);
+		if(check == ServiceResult.FAILED) {
+			//중복시 메시지 반환
+			return new ResponseEntity<String>("duplicated", HttpStatus.OK);
+		} 
+		
+		// 예비 수강목록 추가
+		ServiceResult res = lectureService.addReservClass(reserveClassVO);
+		
+		if(res == ServiceResult.OK) {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("failed", HttpStatus.OK);
+		}
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/lecture/lectureReserveRemove.do")
+	public ResponseEntity<String> ReservRemove(@RequestBody ReserveClassVO reserveClassVO) {
+		
+		// 예비 수강목록 삭제
+		ServiceResult res = lectureService.removeReservClass(reserveClassVO);
+		
+		if(res == ServiceResult.OK) {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("failed", HttpStatus.OK);
+		}
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/lecture/lectureReserveUpdate.do")
+	public ResponseEntity<List<ReserveClassVO>> ReservRemove(@RequestBody Map<String, Integer> memData) {
+		log.info("data : " + memData);
+		
+		// 예비 수강목록 리스트
+		List<ReserveClassVO> reserveClassList = lectureService.reserveClassList(memData.get("memNo"));
+		log.info("reserveClassList : " + reserveClassList);
+		
+		return new ResponseEntity<List<ReserveClassVO>>(reserveClassList, HttpStatus.OK);
+	}
+	
+	
+}

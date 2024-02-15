@@ -1,0 +1,80 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IUnivManagementMapper;
+import kr.or.ddit.service.IUnivManagementService;
+import kr.or.ddit.vo.BuildingVO;
+import kr.or.ddit.vo.CalendarVO;
+import kr.or.ddit.vo.UnivScheduleVO;
+
+@Service
+public class UnivManagementServiceImpl implements IUnivManagementService {
+	
+	@Inject
+	private IUnivManagementMapper mapper;
+	
+	// 학사일정 리스트(동기)
+	@Override
+	public List<UnivScheduleVO> univSchedule() {		
+		return mapper.univSchedule();
+	}
+	
+	// 학사일정 등록
+	@Override
+	public ServiceResult addSchedule(UnivScheduleVO scheduleVO) {
+		ServiceResult result = null;
+		
+		int status = mapper.addSchedule(scheduleVO);
+		if(status > 0)
+		{
+			result = ServiceResult.OK;
+		}else
+		{
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+	
+	// 학사일정 리스트(비동기)
+	@Override
+	public List<UnivScheduleVO> univScheduleWidget() {
+		return mapper.univScheduleWidget();
+	}
+	
+	// 학사일정 수정(비동기)
+	@Override
+	public int updateSchedule(UnivScheduleVO univScheduleVO) {
+		return mapper.updateSchedule(univScheduleVO);
+	}
+	// 학사일정 수정(동기)
+	@Override
+	public int updateSchedule1(UnivScheduleVO scheduleVO) {
+		return mapper.updateSchedule1(scheduleVO);
+	}
+	// 학사일정 삭제(동기)
+	@Override
+	public int deleteSchedule(UnivScheduleVO univScheduleVO) {
+		return mapper.deleteSchedule(univScheduleVO);
+	}
+	
+	// 건물 리스트
+	@Override
+	public List<BuildingVO> buildingList() {
+		return mapper.buildingList();
+	}
+	
+	
+	
+
+
+	
+
+
+}

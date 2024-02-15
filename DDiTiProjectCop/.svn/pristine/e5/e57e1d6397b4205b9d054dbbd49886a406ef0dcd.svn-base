@@ -1,0 +1,28 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.BuildingVO;
+import kr.or.ddit.vo.CalendarVO;
+import kr.or.ddit.vo.FacilityRentVO;
+import kr.or.ddit.vo.FacilityVO;
+import kr.or.ddit.vo.UnivScheduleVO;
+
+public interface IUnivManagementService {
+
+	public List<UnivScheduleVO> univSchedule();
+	public ServiceResult addSchedule(UnivScheduleVO scheduleVO);
+	public List<UnivScheduleVO> univScheduleWidget();
+	public int updateSchedule(UnivScheduleVO univScheduleVO);
+	public int updateSchedule1(UnivScheduleVO scheduleVO);
+	public int deleteSchedule(UnivScheduleVO univScheduleVO);
+	public List<BuildingVO> buildingList();
+	public BuildingVO buildingSelect(BuildingVO buildingVO);
+	public FacilityVO facilitySelect(FacilityVO facilityVO);
+	public int facReservation(FacilityRentVO facilityRentVO);
+	
+	
+}

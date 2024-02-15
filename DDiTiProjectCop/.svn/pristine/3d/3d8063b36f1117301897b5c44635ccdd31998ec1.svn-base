@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class ChangeScoreApplyVO {
+
+	private int chApNo;
+	private int lecScrNo;
+	private String chStatusCode;
+	private String chReason;
+	private String chApReject;
+	
+}

@@ -1,0 +1,13 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.UnivScheduleVO;
+
+public interface IUnivManagementMapper {
+
+	public List<UnivScheduleVO> univSchedule();
+	public int addSchedule(UnivScheduleVO scheduleVO);
+	
+	
+}

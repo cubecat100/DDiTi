@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<section class="content m-10">
+	<h2>상담 예약</h2>
+<div class="box-body">
+	<div class="table-responsive">
+		<div id="complex_header_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+			<div class="row my-15">
+				<div class="col-sm-12 col-md-6">
+					<div class="dataTables_length" id="complex_header_length">
+						
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<div id="complex_header_filter" class="dataTables_filter">
+						<label>Search:
+							<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="complex_header">
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="bg-primary">
+								<tr>
+									<th>#</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Username</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Nigam</td>
+									<td>Eichmann</td>
+									<td>@Sonu</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Deshmukh</td>
+									<td>Prohaska</td>
+									<td>@Genelia</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Roshan</td>
+									<td>Rogahn</td>
+									<td>@Hritik</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+	
+	
+	
+	
+</section>

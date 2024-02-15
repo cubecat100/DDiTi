@@ -1,0 +1,15 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class LectureVO {
+
+	private int lecNo;
+	private int memNo;
+	private int dprtNo;
+	private String lecName;
+	private int lecPoint;
+	private String lecNote;
+	
+}

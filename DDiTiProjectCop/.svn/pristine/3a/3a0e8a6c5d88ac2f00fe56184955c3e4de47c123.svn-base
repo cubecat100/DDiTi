@@ -1,0 +1,112 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+    
+ <div class="container-full">
+    
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="d-flex align-items-center">
+		<div class="me-auto">
+				<h3 class="page-title"><a href="/ananyBoard">대나무 숲</a></h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/ananyBoard"><i
+									class="mdi mdi-home-outline"></i>게시판 사용</a></li>
+							<li class="breadcrumb-item" aria-current="page">대나무 숲 (상세보기)</li>
+						</ol>
+					</nav>
+				</div>
+		</div>
+
+	</div>
+</div>
+   <section class="content"> 
+   
+   <div class="box">
+		<div class="box-body">
+			<div class="col-lg-12 col-12">
+					<!-- Default box -->
+					  <div class="box">
+					  	<div class="row box-header with-border">
+					    	<div class="col-7">
+						      <h4 class="box-title">${anonyVO.anonBrdTitle}<a href="/anoyBoardDetail?anonBrdNo=${anonyVO.anonBrdNo}"></a>
+ </h4>
+						    </div>
+					    	<div class="col-md-3 col-lg-12 text-end">
+					     	 	<b>날짜:</b> &nbsp&nbsp ${anonyVO.anonWriteDate }&nbsp&nbsp&nbsp
+					     	 	<b>조회수:</b> &nbsp&nbsp ${anonyVO.anonHitCount }
+					   		 </div>
+				  		</div>
+					</div>
+
+						<div class="box-body">
+						
+						<table>
+						<thead>
+							<tr>
+							<%-- 	<th>제목</th>
+								<th>${anonyVO.anonBrdTitle}</th> --%>
+							</tr>
+						</thead>
+							<tr>
+							
+								<td>
+								${anonyVO.anonBrdCont }
+								</td>
+								
+							</tr>
+							
+						</table>
+						
+						
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer" align="right">
+							<div class="d-inline-block pull-right mt-10">
+								<form>
+								<input type="hidden" name="anonBrdNo" value="${anonyVO.anonBrdNo }"/>
+								</form>
+
+						  		<button type="button" class="waves-effect waves-light btn btn-primary mb-5" id="modifyBtn">수정</button>
+						  		<button type="button" class="waves-effect waves-light btn btn-primary mb-5" id="deleteBtn">삭제</button>
+						  		<button type="button" class="waves-effect waves-light btn btn-primary mb-5" id="listBtn">목록</button>
+						  		
+
+							</div>
+						</div>
+						<!-- /.box-footer-->
+					  </div>
+					<!-- /.box -->
+				</div>
+			</div>
+   </section>
+</div>
+<script type="text/javascript">
+$(function(){
+	var modifyBtn = $("#modifyBtn");
+	var deleteBtn = $("#deleteBtn");
+	var listBtn = $("#listBtn");
+	var delForm = $("#delForm");
+	
+	modifyBtn.on("click", function(){
+		delForm.attr("action", "/student/anonymousBoard");
+		delForm.attr("method", "get");
+		delForm.submit();
+	});
+	deleteBtn.on("click", function(){
+		if(confirm("정말로 삭제하시겠습니까?")){
+			delForm.submit();
+		}
+	});
+	listBtn.on("click", function(){
+		location.href="/ananyBoard";
+	});
+});
+</script>
+
+
+
+
+      

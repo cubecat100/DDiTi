@@ -1,0 +1,23 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.vo.ChatRecordVO;
+import kr.or.ddit.vo.CounselVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.ScheduleDataVO;
+
+public interface ICounselService {
+
+	List<CounselVO> getCounselList(int studentMemNo);
+
+	ServiceResult addRecord(ChatRecordVO chatRecordVO);
+
+	List<ChatRecordVO> getRecordList(int chatRoomNo);
+
+	List<MemberVO> getCounselor();
+
+	List<ScheduleDataVO> counselSchDataList(int memNo);
+
+}

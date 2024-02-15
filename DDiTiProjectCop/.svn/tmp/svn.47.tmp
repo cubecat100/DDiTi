@@ -1,0 +1,18 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+// 과제 제출
+@Data
+public class HomeworkSubmitVO {
+
+	private int hwSbNo;
+	private int memNo;
+	private int hwNo;
+	private String hwSbDate;
+	private String hwSbStatusCode;
+	private String hwContent;
+	private int hwScore;
+	private int fileNo;
+	
+}

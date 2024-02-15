@@ -1,0 +1,71 @@
+package kr.or.ddit.config;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.service.ICounselService;
+import kr.or.ddit.vo.ChatRecordVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class CounselHandler extends TextWebSocketHandler {
+
+	// 소켓에 연결된 전체 세션, 모든 세션에 메시지를 전송하기 위함
+	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+
+	// 데이터 관련된 서비스 연결
+	@Inject
+	private ICounselService counselService;
+
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		sessionList.add(session);
+		log.info("/chat websocket open...");
+		
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		log.info("msg payload : " + message.getPayload());
+
+		
+		ObjectMapper mapper = new ObjectMapper();
+		ChatRecordVO chatRecordVO = mapper.readValue(message.getPayload(), ChatRecordVO.class);
+		
+		ServiceResult res = counselService.addRecord(chatRecordVO);
+		
+		//테스트용
+		if(res.equals(ServiceResult.OK)) {
+			chatRecordVO.setChatDate(new Date().toString());
+			for(WebSocketSession ss : sessionList) {
+				ss.sendMessage(new TextMessage(new Gson().toJson(chatRecordVO)));
+			}
+		} else {
+			// 업로드 실패
+		}
+
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		log.info("websocket close...");
+		log.info("session : " + session.getAttributes());
+		sessionList.remove(session);
+	}
+
+}

@@ -1,0 +1,26 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.FilesVO;
+import kr.or.ddit.vo.HomeworkSubmitVO;
+import kr.or.ddit.vo.HomeworkVO;
+
+@Service
+public interface IClassManagementMapper {
+
+	List<ClassVO> progressClassList(int memNo);
+
+	int addClassBrd(ClassBoardVO classBoardVO);
+
+	int addClassHomework(HomeworkVO hwVO);
+
+	List<HomeworkSubmitVO> getHwSubmitList(int classNo);
+
+	List<HomeworkSubmitVO> getHwSubList(int hwNo);
+
+}

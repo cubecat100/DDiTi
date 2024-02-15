@@ -1,0 +1,27 @@
+//[calendar Javascript]
+
+//Project:	EduAdmin - Responsive Admin Template
+//Primary use:   Used only for the event calendar
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		eventMinHeight : 15,
+		slotDuration : '00:30:00',		// 주간 시간표의 슬롯 간격
+	  	initialView: 'dayGridMonth',	// 기본 랜더 뷰
+	  	slotEventOverlap : false,
+	  	slotMinTime : "08:00:00",
+	  	slotMaxTime	: "21:00:00",
+	  	header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek'
+        },
+        selectable : true,
+        events: {},
+	});
+	
+	calendar.render();
+});

@@ -1,0 +1,14 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+
+public interface IClassMapper {
+
+	public List<ClassVO> getMyLectureList();
+
+	public List<ClassBoardVO> getClassBoardList(int classNo);
+
+}

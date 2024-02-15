@@ -1,0 +1,38 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class CalendarVO {
+	private String id;
+	private String title;
+	private String start;
+	private String end;
+	
+	private String className;
+	
+	private String univSchType;
+	
+	public void setUnivSchType(String univSchType) {
+		this.univSchType = univSchType;
+		if(univSchType.equals("UST001")) {
+			className = "bg-success";
+		}
+		if(univSchType.equals("UST002")) {
+			className = "bg-info";
+		}
+		if(univSchType.equals("UST003")) {
+			className = "bg-warning";
+		}
+		if(univSchType.equals("UST004")) {
+			className = "bg-secondary";
+		}
+	}
+	
+	public void setId(int id) {
+		this.id = String.valueOf(id);
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+}

@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class AlarmVO {
+	private int    alm_no         ;
+	private int    mem_no         ;
+	private String alm_msg        ;
+	private String alm_date       ;
+	private String alm_check_code ;
+	private String alm_conn_url   ;
+}

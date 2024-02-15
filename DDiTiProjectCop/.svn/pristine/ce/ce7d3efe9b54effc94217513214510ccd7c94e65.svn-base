@@ -1,0 +1,82 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.ICommunityMapper;
+import kr.or.ddit.service.ICommunityService;
+import kr.or.ddit.vo.CommunityVO;
+import kr.or.ddit.vo.PaginationVO;
+
+
+@Service
+public class CommunityServiceImpl implements ICommunityService {
+
+	@Inject
+	private ICommunityMapper communityMapper;
+	
+	@Override
+	public List<CommunityVO> list() {
+		return communityMapper.list();
+	}
+
+	@Override
+	public int insert(CommunityVO communityVO) {
+		return communityMapper.insert(communityVO);
+	}
+
+//	@Override
+//	public List<CommunityVO> myCommunityList(int memNo) {
+//		return communityMapper.myCommunityList(memNo );
+//	}
+
+	@Override
+	public List<CommunityVO> myCommunityList(Map<String, Object> paramMap) {
+		return communityMapper.myCommunityList(paramMap);
+	}
+	
+	
+	@Override
+	public CommunityVO communDetail(int cmNo) {
+		
+		return communityMapper.communDetail(cmNo);
+	}
+
+	@Override
+	public int commuUpdate(CommunityVO communityVO) {
+		return communityMapper.commuUpdate(communityVO);
+	}
+
+	@Override
+	public int communStatus(CommunityVO communityVO) {
+		return communityMapper.communStatus(communityVO);
+	}
+
+	@Override
+	public List<CommunityVO> list(PaginationVO<CommunityVO> pagingVO) {
+		return communityMapper.list(pagingVO);
+	}
+
+	@Override
+	public int communityAllCount(PaginationVO<CommunityVO> pagingVO) {
+		
+		return communityMapper.communityAllCount(pagingVO);
+	}
+
+	@Override
+	public int myCommunityListCount(PaginationVO<CommunityVO> pagingVO) {
+		
+		return communityMapper.myCommunityListCount(pagingVO);
+	}
+
+	
+
+
+
+
+
+}

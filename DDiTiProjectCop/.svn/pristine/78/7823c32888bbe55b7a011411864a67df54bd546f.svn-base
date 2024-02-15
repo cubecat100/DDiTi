@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class BoardController {
+	//게시판 관련
+}

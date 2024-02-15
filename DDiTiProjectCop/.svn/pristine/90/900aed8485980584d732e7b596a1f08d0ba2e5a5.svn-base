@@ -1,0 +1,180 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IClassMapper;
+import kr.or.ddit.mapper.IFilesMapper;
+import kr.or.ddit.mapper.ILectureScheduleMapper;
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.ExampleVO;
+import kr.or.ddit.vo.FilesVO;
+import kr.or.ddit.vo.HomeworkSubmitVO;
+import kr.or.ddit.vo.HomeworkVO;
+import kr.or.ddit.vo.LectureScheduleVO;
+import kr.or.ddit.vo.MemberStdVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MyClassVO;
+import kr.or.ddit.vo.PaginationVO;
+import kr.or.ddit.vo.TrainingVO;
+
+@Service
+public class ClassServiceImpl implements IClassService{
+
+	@Inject
+	IClassMapper classMapper;
+	
+	@Inject
+	ILectureScheduleMapper lectureScheduleMapper;
+	
+	@Inject
+	IFilesMapper filesMapper;
+
+	@Override
+	public List<MyClassVO> getMyLectureList(int memNo) {
+		
+		return classMapper.getMyLectureList(memNo);
+	}
+
+	@Override
+	public List<ClassBoardVO> getClassBoardList(int classNo) {
+		
+		return classMapper.getClassBoardList(classNo);
+	}
+	
+	@Override
+	public List<HomeworkVO> getHomeworkList(int classNo) {
+		return classMapper.getHomeworkList(classNo);
+	}
+	
+	@Override
+	public int insertHomework(HomeworkSubmitVO homeworkSubmitVO) {
+		return classMapper.insertHomework(homeworkSubmitVO);
+	}
+	
+
+	@Override
+	public List<ExampleVO> getExampleList(int classNo) {
+		return classMapper.getExampleList(classNo);
+	}
+
+	@Override
+	public List<TrainingVO> getTrainingList(int classNo) {
+		return classMapper.getTrainingList(classNo);
+	}
+
+	@Override
+	public MyClassVO getMyLecture(int classNo) {
+		return classMapper.getMyLecture(classNo);
+	}
+
+	@Override
+	public MemberVO getMyMember(int memNo) {
+		return classMapper.getMyMember(memNo);
+	}
+	
+	@Override
+	public ClassBoardVO getClassBoard(int classBrdNo) {
+		
+		classMapper.incrementClassBrdHit(classBrdNo);
+		
+		return classMapper.getClassBoard(classBrdNo);
+	}
+
+	
+	
+	@Override
+	public int classOpenCnt(PaginationVO<ClassVO> pagingVO, int memNo) {
+		return classMapper.classOpenCnt(pagingVO, memNo);
+	}
+
+	@Override
+	public List<ClassVO> classOpenList(PaginationVO<ClassVO> pagingVO, int memNo) {
+		return classMapper.classOpenList(pagingVO, memNo);
+	}
+
+	@Override
+	public List<MyClassVO> classScheduleList(int memNo) {
+		return classMapper.classScheduleList(memNo);
+	}
+
+	@Override
+	public ServiceResult createClassOpen(ClassVO classVO) {
+		ServiceResult res = ServiceResult.FAILED;
+		
+		int filesCnt = 0;
+		int classCnt = 0;
+		int sheduleCnt = 0;
+		
+		FilesVO file = classVO.getFile();
+		
+		try {
+			// 강의계획서 업로드
+			int fileNo = 0;
+			if(file != null && file.getFilePath() != null) {
+				System.out.println("files : " + file);
+				filesCnt += filesMapper.createFile(file);
+				fileNo = file.getFileNo();					
+			}
+			
+			System.out.println("강의계획서 업로드 성공 !~");
+			
+			// 강의개설
+			int classNo = 0;
+			if(filesCnt == 1){
+				classVO.setFileNo(fileNo);
+				classCnt = classMapper.createClassOpen(classVO);
+				classNo = classVO.getClassNo();
+			}
+
+			System.out.println("강의 개설 성공 !~");
+			
+			// 강의스케줄 생성
+			if(classCnt == 1) {
+				List<LectureScheduleVO> lecScheduleList = classVO.getLecScheduleList();
+				for(LectureScheduleVO lecScheduleVO : lecScheduleList) {
+					lecScheduleVO.setClassNo(classNo);
+					sheduleCnt += lectureScheduleMapper.createLectureSchedule(lecScheduleVO);
+				}
+			}
+
+			System.out.println("강의 스케줄 생성 성공 !~");
+			
+			//에러처리
+			if(sheduleCnt == classVO.getLecScheduleList().size()) {
+				res = ServiceResult.OK;
+			} else {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceResult.FAILED;
+		}
+		
+		return res;
+	}
+
+	@Override
+	public List<MyClassVO> classScheduleList2(MyClassVO myClassVO) {
+		return classMapper.classScheduleList2(myClassVO);
+	}
+
+	@Override
+	public List<MyClassVO> memberList() {
+		return classMapper.memberList();
+	}
+
+	@Override
+	public List<MemberStdVO> memberStuList() {
+		return classMapper.memberSutList();
+	}
+	
+
+
+}

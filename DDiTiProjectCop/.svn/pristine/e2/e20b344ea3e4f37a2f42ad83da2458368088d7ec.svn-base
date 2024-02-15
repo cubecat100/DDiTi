@@ -1,0 +1,20 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class FacilityController {
+	//건물, 시설 예약 관련
+	
+	// 건물 목록
+	// 시설 목록
+	// 시설 기준 예약 목록
+	// 회원 기준 시설 예약 목록
+	// 시설 예약 신청
+	// 시설 예약 허가/반려
+	
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+}

@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class UnivVolunteerApplyVO {
+
+	private int univVlntApNo;
+	private int univVlntNo;
+	private int memNo;
+	private String memName;
+	private String univVlntDate;
+	
+}

@@ -1,0 +1,134 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.or.ddit.service.IBoardService;
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+@RequestMapping("/")
+public class BoardController {
+	
+	@Inject
+	private IBoardService boardService;
+	
+	// 게시판 관련
+	
+	// 공지 게시글 목록
+	// 공지 게시글 상세
+	// 공지 게시글 작성
+	// 공지 게시글 수정
+	
+	// 분실물 게시글 목록
+
+	// 익명 게시글 목록
+	@RequestMapping(value="/list",method= RequestMethod.GET)
+	public String anonyList(Model model) {
+		log.info("anonList() 실행");
+		List<BoardVO>boardList = boardService.anonylist();
+		model.addAttribute("boardList",boardList);
+		return "student/anonymousBoard";
+	}
+	// 익명 게시글 상세 + 익명 댓글 목록
+	// 익명 게시글 작성
+	// 익명 게시글 삭제
+	// 익명 댓글 작성
+	// 익명 댓글 삭제
+	
+	// 강의 자료실 게시글 목록
+	// 강의 게시글 상세
+	// 강의 게시글 작성
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+	// 공지사항 시작 =====================
+	
+	/*
+	 * @GetMapping("/academicPlan") public String academicPlan(Model model) {
+	 * 
+	 * return "student/academicPlan"; }
+	 */
+	
+	// 리스트 + 페이징
+	@RequestMapping(value="/employer/noticeBoard.do")
+	public String noticeBoard(
+			@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model) {
+		
+		
+		PaginationVO<BoardVO> pagingVO = new PaginationVO<BoardVO>();
+		
+		// 검색
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+		}
+		
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = boardService.academicPCount(pagingVO);	// 총 게시글 수 가져오기
+		pagingVO.setTotalRecord(totalRecord);
+		
+		List<BoardVO> dataList = boardService.academicPList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
+		System.out.println("pagingVO" + pagingVO);
+		
+		return "employer/noticeBoard";
+	}
+	
+	// 상세보기
+	
+	// 등록
+	
+	// 수정
+	
+	// 삭제
+	
+	// 공지사항 끝 =========================
+	
+	// 분실물 게시글 목록
+	@GetMapping("/employer/lostItemBoard.do")
+	public String lostItemBoard(Model model) {
+		
+		List<BoardVO> lostItemList = boardService.lostItems();
+		model.addAttribute("lostItemBoard", lostItemList);
+		
+	return "employer/lostItemBoard";
+	}
+/*	
+	// 분실물 게시글 작성
+	@ResponseBody
+	@PostMapping("/employer/lostItemBoard")
+	public String insertLostItemBoard(BoardVO boardVO) {
+		
+		MultipartFile updateFile = boardVO.getFileNo();
+		updateFile.transferTo(new File("d:/sdUpload/"+updateFile.getOriginalFilename()));
+		boardVO.setLostFile("/sdfile/"+ updateFile.getOriginalFilename());
+		int count = boardService.insertLostItem(boardVO);
+		
+		return "success";
+	}
+	*/
+}

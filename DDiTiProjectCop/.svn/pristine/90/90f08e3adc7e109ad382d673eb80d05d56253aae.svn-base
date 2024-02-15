@@ -1,0 +1,21 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class CommunityController {
+	//커뮤니티 관련
+	
+	
+	// 커뮤니티 그룹 목록
+	// 커뮤니티 그룹 상세
+	// 커뮤니티 그룹 개설
+	// 커뮤니티 그룹 시간표
+	// 커뮤니티 일정 추가
+	
+	// 커뮤니티 채팅
+	
+	// 커뮤니티 게시판?
+	
+	// 이 밑으로 구현 ============================================
+}

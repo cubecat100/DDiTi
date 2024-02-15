@@ -1,0 +1,34 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.or.ddit.vo.CommunityVO;
+import kr.or.ddit.vo.PaginationVO;
+
+public interface ICommunityMapper {
+
+	public List<CommunityVO> list();
+	
+	public List<CommunityVO> list(PaginationVO<CommunityVO> pagingVO);
+
+	public List<CommunityVO> myCommunityList(Map<String, Object> paramMap);
+
+	public int communityAllCount(PaginationVO<CommunityVO> pagingVO);
+
+	public int myCommunityListCount(PaginationVO<CommunityVO> pagingVO);
+	// 
+	
+	public int  insert(CommunityVO communityVO);
+	
+	public CommunityVO communDetail(int cmNo);
+	
+	public int commuUpdate(CommunityVO communityVO);
+	
+	public int communStatus(CommunityVO communityVO);
+
+	
+
+}

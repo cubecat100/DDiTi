@@ -1,0 +1,20 @@
+package kr.or.ddit.service;
+
+import java.util.List;
+
+
+import kr.or.ddit.vo.CommunityVO;
+
+public interface ICommunityService {
+
+	public List<CommunityVO> list();
+
+	public int insert(CommunityVO communityVO);
+
+	public List<CommunityVO> myCommunityList(int memNo);
+
+	public CommunityVO communDetail(int cmNo);
+
+	public int  commuUpdate(CommunityVO communityVO);
+
+}

@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class UnivManagementController {
+	// 신고목록, 셔틀버스, 학사일정 등
+}

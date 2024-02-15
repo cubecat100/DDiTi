@@ -1,0 +1,19 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BuildingVO;
+import kr.or.ddit.vo.CalendarVO;
+import kr.or.ddit.vo.UnivScheduleVO;
+
+public interface IUnivManagementMapper {
+
+	public List<UnivScheduleVO> univSchedule();
+	public int addSchedule(UnivScheduleVO scheduleVO);
+	public List<UnivScheduleVO> univScheduleWidget();
+	public int updateSchedule(UnivScheduleVO univScheduleVO);
+	public int updateSchedule1(UnivScheduleVO scheduleVO);
+	public int deleteSchedule(UnivScheduleVO univScheduleVO);
+	public List<BuildingVO> buildingList();
+	
+}

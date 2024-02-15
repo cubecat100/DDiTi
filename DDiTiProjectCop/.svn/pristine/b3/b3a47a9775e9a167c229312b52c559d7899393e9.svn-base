@@ -1,0 +1,123 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">모임 홈</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">모임</li>
+							<li class="breadcrumb-item active" aria-current="page">모임 홈</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-12">
+				<div class="box">
+					<div class="box-body">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs customtab2" role="tablist">
+							<li class="nav-item"><a class="nav-link active"
+								data-bs-toggle="tab" href="#home7" role="tab"><span
+									class="hidden-sm-up"><i class="ion-home"></i></span> <span
+									class="hidden-xs-down">전체 모임 목록</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								data-bs-toggle="tab" href="#messages7" role="tab"><span
+									class="hidden-sm-up"><i class="ion-email"></i></span> <span
+									class="hidden-xs-down">새 모임 생성</span></a></li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<!-- 전체 모임 목록 -->
+							<div class="tab-pane active" id="home7" role="tabpanel">
+								<div class="p-15">
+									<div class="row" style="justify-content: space-between;">
+										<div class="col-md-6">
+										<div class="form-group" style="margin-top: 10px">
+											<h4 style="display: inline-block;">전체 모임</h4>
+											<p style="display: inline-block; line-height: 1.2; color: #0d6efd;">
+												총 <span>156</span>개
+											</p>
+											</div>
+										</div>
+										<div class="col-md-4 col-12" style="margin-top: 5px;">
+											<div class="form-group">
+												<select class="form-control"
+													style="width: 30%; display: inline-block;">
+													<option selected="selected">모임분류</option>
+													<option>모임명</option>
+													<option>마스터</option>
+												</select> <input type="text" placeholder="입력하세요" class="form-control"
+													style="width: 50%; display: inline-block;">
+												<button type="button" class="btn btn-primary" style="padding: 5px 12px;">조회</button>
+											</div>
+										</div>
+										<div class="table-responsive">
+											<table class="table mb-0 b-1 border-primary"
+												style="text-align: center">
+												<thead class="bg-primary">
+													<tr>
+														<th scope="col">제목</th>
+														<th scope="col">내용</th>
+														<th scope="col">작성일</th>
+													</tr>
+												</thead>
+												<tbody>
+													<%-- 공지사항 게시물 1개 시작 --%>
+													<tr>
+														<td>공지사항1 제목</td>
+														<td>공지사항1 내용</td>
+														<td>2023-10-10</td>
+													</tr>
+													<%-- 공지사항 게시물 1개 끝 --%>
+													<tr>
+														<td>공지사항2 제목</td>
+														<td>공지사항2 내용</td>
+														<td>2023-10-10</td>
+													</tr>
+													<tr>
+														<td>공지사항3 제목</td>
+														<td>공지사항3 내용</td>
+														<td>2023-10-10</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- 새 모임 생성 -->
+								<div class="tab-pane" id="messages7" role="tabpanel">
+									<div class="p-15">
+										<!-- <h3>Donec vitae laoreet neque, id convallis ante.</h3>
+									<p>Duis cursus eros lorem, pretium ornare purus tincidunt
+										eleifend. Etiam quis justo vitae erat faucibus pharetra. Morbi
+										in ullamcorper diam. Morbi lacinia, sem vitae dignissim
+										cursus, massa nibh semper magna, nec pellentesque lorem nisl
+										quis ex.</p> -->
+									</div>
+									<!-- <h4>Fusce porta eros a nisl varius, non molestie metus
+									mollis. Pellentesque tincidunt ante sit amet ornare lacinia.</h4> -->
+								</div>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+			</div>
+	</section>
+
+</div>

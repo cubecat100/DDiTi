@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ICounselMapper">
+
+
+	<select id="getCounselList" parameterType="int" resultType="counselVO">
+		SELECT
+			cs.cnsl_no
+		,	cs.mem_no2
+		,	cs.mem_no1
+		,	cs.mem_name1
+		,	cs.mem_name2
+		,	cnsl_type
+		,	cnsl_start_date
+		,	cnsl_end_date
+		,	cnsl_reg_date
+		,	cnsl_status_code
+		,	cnsl_reason
+		,	cnsl_reject
+		FROM counsel cs, member cr, member std
+		WHERE
+			mem_no2 = #{memNo} 
+			and cs.mem_no1 = cr.mem_no
+			and cs.mem_no2 = std.mem_no
+	</select>
+	
+	<insert id="addRecord" parameterType="chatRecordVO">
+		INSERT INTO chat_record(
+			chat_no
+			, mem_no
+			, chat_room_no
+			, chat_msg
+			, chat_sender
+			, chat_date
+		) VALUES (
+			chat_room_seq.nextval
+			, #{memNo}
+			, #{chatRoomNo}
+			, #{chatMsg}
+			, #{chatSender}
+			, SYSDATE
+		)
+	</insert>
+	
+	<select id="getRecordList" parameterType="int" resultType="chatRecordVO">
+		SELECT
+			chat_no
+			, mem_no
+			, chat_room_no
+			, chat_msg
+			, chat_sender
+			, chat_date
+		FROM chat_record
+		WHERE
+			chat_room_no = #{chatRoomNo}
+		ORDER BY chat_no DESC
+	</select>
+	
+	
+	
+</mapper>

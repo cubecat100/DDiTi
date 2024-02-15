@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ICommunityMapper">
+
+	<select id="list" resultType="CommunityVO">
+		select 
+			cm_no,mem_no,cm_name,
+			cm_master,cm_max_mem,
+			cm_type,cm_goal,
+			cm_open_status_code
+		from community
+		where cm_open_status_code = 'CMO002'
+		order by cm_no desc
+		
+	</select>
+  <!-- 'CMO002' -->
+	
+	<select id="myCommunityList" resultType="CommunityVO" parameterType="int">
+		select 
+			cm_no,mem_no,cm_name,
+			cm_master,cm_max_mem,
+			cm_type,cm_goal,
+			cm_open_status_code
+		from community
+		where mem_no =#{memNo}
+		order by cm_no desc
+		
+	</select>
+
+<insert id="insert" parameterType="CommunityVO" useGeneratedKeys="true">
+	<selectKey keyProperty="cmNo" resultType="int" order="BEFORE">
+		select community_seq.nextval from dual
+	</selectKey>
+	insert into community(
+		cm_no,
+		mem_no,
+		cm_name,
+		cm_master,
+		cm_max_mem,
+		cm_type,
+		cm_goal,
+		cm_open_status_code
+	)values(
+		#{cmNo},#{memNo},#{cmName},
+		'치킨보이',#{cmMaxMem},
+		#{cmType},#{cmGoal},
+		'CMO002'
+	)
+
+</insert>
+
+
+<select id="communDetail" parameterType="int" resultType="CommunityVO">
+	select 
+		cm_no,
+		mem_no,
+		cm_name,
+		cm_master,
+		cm_max_mem,
+		cm_type,
+		cm_goal,
+		cm_open_status_code
+	from community
+	where cm_no = #{cmNo}
+	
+</select>
+
+<update id="commuUpdate" parameterType="communityVO">
+	update community
+	set
+		cm_type =#{cmType},
+		cm_name =#{cmName},
+		cm_goal =#{cmGoal},
+		cm_max_mem =#{cmMaxMem}
+	where cm_no = #{cmNo}
+</update>
+
+</mapper>

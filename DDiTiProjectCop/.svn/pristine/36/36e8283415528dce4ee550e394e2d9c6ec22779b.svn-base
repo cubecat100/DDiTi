@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+    <h1>employer side test</h1>
+    
+    
+<span class="text-blue fs-24">예시1</span><br/>
+<div class="col-md-6 invoice-col text-end">
+  <strong>예시2</strong>
+</div>
+<br/>
+<h2 class="d-inline">
+	<span class="fs-30">예시3</span><br/>
+	<strong class="text-blue fs-24">예시4</strong>
+</h2>
+<br/></br>

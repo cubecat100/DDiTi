@@ -1,0 +1,33 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.DepartmentVO;
+import kr.or.ddit.vo.ReserveClassVO;
+
+public interface ILectureMapper {
+
+	List<ClassVO> getLectureList();
+
+	int addReservClass(ReserveClassVO reserveClassVO);
+
+	int ReservClassDuplicateCheck(ReserveClassVO reserveClassVO);
+
+	List<ReserveClassVO> reserveClassList(int memNo);
+
+	int removeReservClass(ReserveClassVO reserveClassVO);
+
+	int addListenClass(ReserveClassVO recVO);
+
+	List<ReserveClassVO> myReserveClassList(int memNo);
+
+	int totalClassListener(int classNo);
+
+	int updateResClassListenState(ReserveClassVO recVO);
+
+	List<DepartmentVO> getDprtList();
+
+	int addDprt(DepartmentVO departmentVO);
+
+}

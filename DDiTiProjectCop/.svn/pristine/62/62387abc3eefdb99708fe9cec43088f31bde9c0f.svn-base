@@ -1,0 +1,43 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class TestContoller {
+	
+	/*
+	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String home()
+	 * { return "home"; }
+	 */
+	
+	/*
+	 * @RequestMapping(value="/nav", method=RequestMethod.GET) public String test()
+	 * { return "/common/tiles/nav"; }
+	 */
+	
+	@RequestMapping(value="/tilesTest", method=RequestMethod.GET)
+	public String tiles() {
+		return "test/test001";
+	}
+	
+	
+	// 교수 side
+	@GetMapping("/professor")
+	public String proaside(Model model) {
+		return "professor/sideTest";
+	}
+	// 교직원 side
+	@GetMapping("/employer")
+	public String empaside(Model model) {
+		return "employer/sideTest";
+	}
+	// 학생 side
+	@GetMapping("/student")
+	public String stdaside(Model model) {
+		return "student/sideTest";
+	}
+}

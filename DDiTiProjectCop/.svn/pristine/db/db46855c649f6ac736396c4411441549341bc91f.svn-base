@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class StudentInfoVO {
+
+	private int memNo;
+	private String memRegDate;
+	private String memGrdDate;
+	private String memStatusCode;
+	private int memStdGrade;
+	
+}

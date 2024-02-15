@@ -1,0 +1,24 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class ClassVO {
+
+	
+	private int classNo;
+	private int lecNo;
+	private int memNo;
+	private String roomNo;
+	private String valueType;
+	private String className;
+	private int lecPoint;
+	private String semester;
+	private String classReqCode;
+	private int classMaxMem;
+	private int classTotalTime;
+	private int examProprion;
+	private int hwPropotion;
+	
+	
+}

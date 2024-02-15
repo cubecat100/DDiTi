@@ -1,0 +1,21 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+
+
+// 강의 자료실
+
+@Data
+public class ClassBoardVO {
+
+	
+	private int classBrdNo;
+	private int lecNo;
+	private String classBrdTitle;
+	private String classBrdCont;
+	private String classWriteDate;
+	private int classBrdHitCount;
+	private int fileNo;
+	
+}

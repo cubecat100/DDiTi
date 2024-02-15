@@ -1,0 +1,118 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.service.ICounselService;
+import kr.or.ddit.vo.ChatRecordVO;
+import kr.or.ddit.vo.CounselVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.ScheduleDataVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class CounselController {
+	//상담 관련
+	
+	
+	// 상담 신청 목록
+	// 상담 신청
+	//채팅 상담 페이지
+	
+	// 상담 일정 등록
+	// 상담 일정 취소
+	// 상담 신청 취소
+	// 상담 결과 입력
+	
+	
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+	@Inject
+	private ICounselService counselService;
+	
+	// 상담 신청 목록
+	@GetMapping("/student/counsel/cunselList")
+	public String counselList(Model model) {
+		log.info("counselList() run...");
+		
+		//회원 번호
+		int studentMemNo = 1;
+		
+		List<CounselVO> counselList = counselService.getCounselList(studentMemNo);
+		model.addAttribute("counselList", counselList);
+		
+		log.info(counselList.toString());
+		
+		return "student/counselList";
+	}
+	
+	//상담 신청 페이지
+	@GetMapping("/student/counselReserve")
+	public String reserveCounsel(Model model) {
+		
+		List<MemberVO> counselorList = counselService.getCounselor();
+		model.addAttribute("counselorList", counselorList);
+		
+		return "student/counselReservForm";
+	}
+	
+	//채팅 상담 페이지
+	@GetMapping("/student/counsel/csRoom/{chatRoomNo}")
+	public String csRoom(Model model, @PathVariable("chatRoomNo") int chatRoomNo) {
+		log.info("csRoom() run...");
+		
+		log.info("chatRoomNo : " + chatRoomNo);
+		
+		int memNo = 1;
+		model.addAttribute("memNo", memNo);
+		
+		model.addAttribute("chatRoomNo", chatRoomNo);
+		
+		//채팅방 참가자 인지 확인
+		
+		//방의 채팅 목록 가져오기
+		List<ChatRecordVO> recordList = counselService.getRecordList(chatRoomNo);
+		model.addAttribute("recordList", recordList);
+		log.info(recordList.toString());
+		
+		// 방의 채팅 참여자 가져오기
+		
+		return "student/counselChatRoom";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 비동기 처리  ========================
+	@ResponseBody
+	@PostMapping("/counsel/getSchData")
+	public ResponseEntity<List<ScheduleDataVO>> getSchData(@RequestBody Map<String, String> data) {
+		
+		int memNo = Integer.parseInt(data.get("memNo"));
+		List<ScheduleDataVO> scData = counselService.counselSchDataList(memNo);
+		
+		return new ResponseEntity<List<ScheduleDataVO>>(scData, HttpStatus.OK);
+	}
+	
+}

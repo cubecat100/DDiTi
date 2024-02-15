@@ -1,0 +1,14 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.MemberVO;
+
+public interface IMemberMapper {
+
+	public List<MemberVO> newStuList();
+
+	public List<MemberVO> proList();
+	
+	
+}

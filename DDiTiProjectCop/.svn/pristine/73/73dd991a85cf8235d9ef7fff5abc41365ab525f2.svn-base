@@ -1,0 +1,432 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack.min.css" />
+<!-- column 갯수 제한 할 땐 아래 꺼도 피로-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack-extra.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack-all.min.js"></script>
+
+<style>
+.grid-stack-placeholder {
+  background: rgba(250, 250, 250, 0);
+  box-shadow: none;
+  border-width: 3px;
+  border-style: dashed;
+  border-color: #149fff;
+}
+
+</style>
+
+<div class="container-full">
+	<!-- Main content -->
+	<section class="content">
+		<%-- 환영메시지 박스 --%>
+		<div class="row align-items-end">
+			<div class="col-xl-12 col-12">
+				<div class="box bg-primary-light pull-up">
+					<div class="box-body p-xl-0">
+						<div class="row align-items-center">
+							<div class="col-12 col-lg-3">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/svg-icon/color-svg/custom-14.svg"
+									alt="" />
+							</div>
+							<div class="col-12 col-lg-9">
+								<h2>
+									안녕하세요!
+									<%-- ${이름 } --%>
+									홍길동님, 환영합니다.
+								</h2>
+								<p class="text-dark mb-0 fs-16">오늘도 힘찬 하루 되세요!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%-- 환영메시지 박스 --%>
+
+		<!-- 포틀릿 시작 -->
+		<div class="grid-stack" >
+			<!-- 캘린더위젯 시작 -->
+			<div class="grid-stack-item" id="calWidget">
+				<div class="box grid-stack-item-content">
+					<div class="box-header with-border">
+						<h4 class="box-title">학사일정</h4>
+						<div class="box-controls pull-right d-md-flex d-none">
+							<a href="#">더보기</a>
+						</div>
+					</div>
+					<div class="box-body">
+						<div id="calendar" class="dask evt-cal min-h-400"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 캘린더위젯 끝 -->
+			<!-- TODO 위젯 시작 -->
+			<div class="grid-stack-item" id="todoWidget" >
+				<div class="box grid-stack-item-content">
+					<div class="box-header with-border">
+						<h4 class="box-title">Todo</h4>
+						<div class="box-controls pull-right d-md-flex d-none">
+							<button class="btn btn-primary px-10" href="#"
+								style="font-size: 11px">추가하기</button>
+						</div>
+					</div>
+					<div class="box-body slimScrollDiv"
+						style="max-height: 210px; overflow: auto">
+						<%-- todo 하나 시작 --%>
+						<div class="d-flex align-items-center mb-25">
+							<span class="bullet bullet-bar bg-success align-self-stretch"></span>
+							<div class="h-20 mx-20 flex-shrink-0">
+								<input type="checkbox" id="md_checkbox_21"
+									class="filled-in chk-col-success" /> <label
+									for="md_checkbox_21" class="h-20 p-10 mb-0"></label>
+							</div>
+
+							<div class="d-flex flex-column flex-grow-1">
+								<a href="#" class="text-dark hover-success fw-500 fs-16"> to
+									do 예시 </a> <span class="text-fade fw-500"> 2023-10-11 </span>
+							</div>
+							<div class="dropdown">
+								<a class="px-10 pt-5" href="#" data-bs-toggle="dropdown"><i
+									class="ti-more-alt"></i></a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<h6 class="dropdown-header">Choose option:</h6>
+									<%--
+										<a class="dropdown-item flexbox" href="#">
+											<span class="badge badge-primary-light">⭐⭐⭐⭐</span>
+										</a>
+										<a class="dropdown-item" href="#">
+											<span class="badge badge-danger-light">⭐⭐⭐</span>
+										</a>
+										<a class="dropdown-item" href="#">
+											<span class="badge badge-success-light">⭐⭐</span>
+										</a>
+										<a class="dropdown-item" href="#">
+											<span class="badge badge-info-light">⭐</span>
+										</a>
+										<div class="dropdown-divider"></div>
+									--%>
+									<a class="dropdown-item flexbox" href="#"> <span>수정</span>
+										<span class="badge badge-pill badge-default">+</span>
+									</a> <a class="dropdown-item flexbox" href="#"> <span>삭제</span>
+										<span class="badge badge-pill badge-default">×</span>
+									</a>
+								</div>
+							</div>
+						</div>
+						<%-- todo 하나 끝 --%>
+					</div>
+				</div>
+			</div>
+			<!-- TODO 위젯 끝 -->
+			<!-- 공지사항 위젯 시작 -->
+			<div class="grid-stack-item" id="acadWidget">
+				<div class="box grid-stack-item-content">
+					<div class="box-header with-border">
+						<h4 class="box-title">공지사항</h4>
+						<div class="box-controls pull-right d-md-flex d-none">
+							<a href="#">더보기</a>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="table-responsive">
+							<table class="table mb-0 b-1 border-primary"
+								style="text-align: center">
+								<thead class="bg-primary">
+									<tr>
+										<th scope="col">제목</th>
+										<th scope="col">내용</th>
+										<th scope="col">작성일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%-- 공지사항 게시물 1개 시작 --%>
+									<tr>
+										<td>공지사항1 제목</td>
+										<td>공지사항1 내용</td>
+										<td>2023-10-10</td>
+									</tr>
+									<%-- 공지사항 게시물 1개 끝 --%>
+									<tr>
+										<td>공지사항2 제목</td>
+										<td>공지사항2 내용</td>
+										<td>2023-10-10</td>
+									</tr>
+									<tr>
+										<td>공지사항3 제목</td>
+										<td>공지사항3 내용</td>
+										<td>2023-10-10</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 공지사항 위젯 끝 -->
+			<!-- 수업 시간표 시작 -->
+			<div class="grid-stack-item" id="scheduleWidget">
+				<div class="box grid-stack-item-content">
+					<div class="box-header with-border">
+						<h4 class="box-title">수강 시간표</h4>
+						<div class="box-controls pull-right d-md-flex d-none">
+							<a href="#">더보기</a>
+						</div>
+					</div>
+
+					<div class="box-body">
+						<p class="mb-5">
+							<span id="td_year">2023</span>년 <span id="td_month">01</span>월 <span
+								id="td_date">05</span>일
+						</p>
+						<!-- <small class="table-scroll-contant">***Drag a table to scroll***</small> -->
+						<!-- 수업 박스 1개 시작 -->
+						<div class="box mb-15 pull-up boar bg-primary-light">
+							<div>
+								<div class="table-responsive">
+									<table class="table no-border mb-0">
+										<tbody>
+											<tr>
+												<td class="fw-600 min-w-170">
+													<div class="d-flex flex-column fw-600">
+														<a href="#" class="text-dark hover-primary mb-1 fs-16">1교시
+															- 3교시</a> <span class="text-fade">IT대학 A동 102호</span>
+													</div>
+												</td>
+												<td class="fw-600 fs-16 min-w-150 text-center"><i
+													class="fa fa-fw fa-circle text-primary fs-12"></i> 알고리즘의 이해
+												</td>
+												<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+												<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+													<a href="#">Class room <i
+														class="fa fa-fw fa-angle-right fs-24"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 수업 박스 1개 끝 -->
+						<div class="box mb-15 pull-up bg-primary-light">
+							<div>
+								<div class="table-responsive">
+									<table class="table no-border mb-0">
+										<tbody>
+											<tr>
+												<td class="fw-600 min-w-170">
+													<div class="d-flex flex-column fw-600">
+														<a href="#" class="text-dark hover-primary mb-1 fs-16">5교시
+															- 6교시</a> <span class="text-fade">교육대학 B동 301호</span>
+													</div>
+												</td>
+												<td class="fw-600 fs-16 min-w-150 text-center"><i
+													class="fa fa-fw fa-circle text-primary fs-12"></i> 글쓰기 초급반
+												</td>
+												<td class="fw-400 fs-16 min-w-150 text-center">홍길동 교수</td>
+												<td class="text-primary fw-600 fs-16 min-w-150 text-end">
+													<a href="#">Class room <i
+														class="fa fa-fw fa-angle-right fs-24"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 수업 시간표 끝 -->
+
+		</div>
+		<!-- 포틀릿 끝 -->
+
+		<!-- 포틀릿 메뉴 시작 -->
+		<div class="row" style="border: 1px solid red">
+			<div class="d-none d-sm-inline-block" style="border: 1px solid blue">
+				<button class="btn bg-gradient-primary btn-rounded" id="gsBtn">
+					<i class="fa fa-gear"></i> <span id="gsBtnSpan">화면 구성 설정</span>
+				</button>
+				<button class="btn btn-warning btn-rounded" onclick="fcompact()">알아서정리</button>
+				<button class="btn btn-light btn-rounded" onclick="f_removeAll()">모든 요소 삭제</button>
+				<button class="btn btn-danger btn-rounded"  onclick="f_postionSave()">포지션 저장</button>
+				<button class="btn btn-success btn-rounded"  onclick="f_postionLoad()">포지션 불러오기</button>
+				<div><button onclick="f_postion()">포지션</button></div>
+				<div><button onclick="f_addWidget()">포지션</button></div>
+			</div>
+		</div>
+		<!-- 포틀릿 메뉴 끝 -->
+	</section>
+	<!-- /.content -->
+</div>
+
+<!-- 스크립트 -->
+<script>
+	const gsBtn = document.querySelector("#gsBtn");
+	const gsBtnSpan = document.querySelector("#gsBtnSpan");
+	
+ 	let calWidget = document.querySelector("#calWidget");
+ 	let todoWidget = document.querySelector("#todoWidget");
+ 	let acadWidget = document.querySelector("#acadWidget");
+ 	let scheduleWidget  = document.querySelector("#scheduleWidget "); 
+	
+	let clickFlag = true;
+
+	gsBtn.addEventListener("click", function() {
+		if (clickFlag) {
+			gsBtnSpan.innerHTML = "화면 구성 설정";
+			/* f_grisStack(); */
+		} else {
+			gsBtnSpan.innerHTML = "화면 구성 완료";
+		}
+		clickFlag = !clickFlag;
+	});
+
+   	let items = [
+	    { x: 0, y: 0, w: 6, h: 6, content : calWidget },
+	    { x: 6, y: 0, w: 4, h: 2, content : todoWidget },
+	    { x: 6, y: 2, w: 6, h: 4, content : acadWidget },
+	    { x: 0, y: 6, w: 6, h: 4, content : scheduleWidget }
+	];  
+	
+	//확장 (jQuery Plugin 느낌!)
+	GridStack.prototype.e7eMerong = function () {
+	    console.log("GridStack", this);
+	}
+	
+	/* 공통으로 들어가는 옵션 */
+	let defaultGridOption = {
+	    //column: 6,                   // default 12
+	    //oneColumnSize: 100,          // default 768
+	    minRow: 1,
+	    disableOneColumnMode: true,
+	    margin: '1em',
+	    placeholderClass: 'grid-stack-placeholder',
+	    placeholderText:'',
+	    disableResize: true,
+	    float: true,
+	    animate:true,
+	    //removable: false,    //body로 설정하면 구성화면 밖으로 던지면 삭제됨
+	    //cellHeight: 50,
+	    //cellWidth: 50,
+	    // 한줄 혼자 꽉 채우는 거 금지!,default value of oneColumnSize is 768px
+	    disableOneColumnMode: true,
+	    resizable: { handles: 'e,se,s,sw,w' }
+	}
+	
+    let gridOptions = {
+        calWidget: calWidgetOption,
+        todoWidget: todoWidgetOption,
+        acadWidget: acadWidgetOption,
+        scheduleWidget: scheduleWidgetOption
+    };
+
+    // 각 위젯에 대해 설정을 적용하고 초기화
+    for (let widgetId in gridOptions) {
+        let widgetGridOption = gridOptions[widgetId];
+        widgetGridOption = Object.assign(widgetGridOption, { removable: '#' + widgetId });
+
+        let grid = GridStack.init(widgetGridOption);
+        grid.load(items[widgetId]);
+        
+        console.log("widgetGridOption", widgetGridOption);
+    }
+	
+	/* console.log("widgetGridOption", widgetGridOption); */
+	/* console.log("gridOption", gridOption); */
+
+	// const grid = GridStack.init(); // 옵션 없이 생성(Default)
+	// let grid = GridStack.init(gridOption);
+	
+	function f_loadGrid(){
+	    grid.load(items);
+	    grid.e7eMerong();
+	}
+
+	f_loadGrid();
+	// 컴팩트
+	function fcompact() {
+	    grid.compact();
+	}
+
+	function f_addObj(){
+	    var grid_x = document.querySelector("#grid_x").value;
+	    var grid_y = document.querySelector("#grid_y").value;
+
+	    grid.addWidget({ w: grid_x, h: grid_y, content: "add obj" });
+	}
+
+	console.log("postion", grid.engine.nodes);
+
+	//현재설정 저장하기
+	function f_postionSave(){
+	    console.log("position save...");
+	    var items = [];
+
+	    var itemList = grid.engine.nodes;
+
+	    for(var i=0; i<itemList.length; i++){
+	        var item = {};
+	        item.x = itemList[i].x;
+	        item.y = itemList[i].y;
+	        item.w = itemList[i].w;
+	        item.h = itemList[i].h;
+	        item.content = itemList[i].content;
+
+	        items.push(item);
+	    }
+
+	    console.log(items);
+
+	    //스트링 형태로 저장
+	    localStorage.setItem("items", JSON.stringify(items));
+	}
+
+	//모두 삭제
+	function f_removeAll(){
+	    grid.removeAll();
+	}
+
+	//요소 삭제
+	function f_removeWidget(el){
+	    //console.log(el);
+	    grid.removeWidget(el, false);
+	    el.remove();
+	}
+
+	//불러오기
+	function f_postionLoad(){
+	    //스트링 변환
+	    var items = JSON.parse(localStorage.getItem("items"));
+
+	    if(items == null || items == ""){
+	        console.log("position empty...")
+	        return;
+	    }
+
+	    f_removeAll();
+	    grid.load(items);
+	    console.log(items);
+	}
+	
+	function f_postion(){
+	    console.log(grid.engine.nodes);
+	}
+	function f_addWidget(){
+		grid.addWidget({ w: 1, h: 1, content: "<h1>test</h1> test" });
+	}
+	
+	
+	
+</script>
+ <script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/lodash.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/gridstack.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/gridstack.jQueryUI.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/pages/gridstackjs.js"></script>

@@ -1,0 +1,17 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class FacilityRentVO {
+
+	private int facRentNo;
+	private int memNo;
+	private int facNo;
+	private String memName;
+	private String facRegDate;
+	private String facRsvStartDate;
+	private String facRsvEndDate;
+	private String facRentStatusCode;
+	
+}

@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class TrainingReviewVO {
+
+	private int trnRvNo;
+	private int trnNo;
+	private int memNo;
+	private String memName;
+	private String trnRvCont;
+	
+}

@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class FacilityController {
+	//건물, 시설 예약 관련
+}

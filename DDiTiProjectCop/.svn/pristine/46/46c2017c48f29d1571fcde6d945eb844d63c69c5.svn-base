@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ISurveyMapper">
+	
+	
+	<insert id="addSurvey" parameterType="surveyVO">
+		<selectKey keyProperty="srvNo" resultType="int" order="BEFORE">
+			select survey_seq.nextval from dual
+		</selectKey>
+		INSERT INTO survey (
+			srv_no
+			, mem_no
+			, srv_name
+			, srv_category
+			, srv_end_date
+		) VALUES (
+			#{srvNo}
+			, #{memNo}
+			, #{srvName}
+			, #{srvCategory}
+			, TO_DATE(#{srvEndDate}, 'YYYY-MM-DD HH24:MI:SS')
+		)
+	</insert>
+	
+	<insert id="addSrvQuestion" parameterType="SurveyQuestionVO">
+		<selectKey keyProperty="srvQstNo" resultType="int" order="BEFORE">
+			select survey_question_seq.nextval from dual
+		</selectKey>
+		INSERT INTO survey_question (
+			srv_qst_no
+			, srv_no
+			, qst_no
+			, srv_qst
+		) VALUES (
+			#{srvQstNo}
+			, #{srvNo}
+			, #{qstNo}
+			, #{srvQst}
+		)
+	</insert>
+	
+	<insert id="addSrvQstChoice" parameterType="SurveyQuestionChoiceVO">
+		INSERT INTO survey_question_choice (
+			qst_ch_no
+			, srv_qst_no
+			, srv_no
+			, ch_no
+			, ch_str
+		) VALUES (
+			survey_question_choice_seq.nextval
+			, #{srvQstNo}
+			, #{srvNo}
+			, #{chNo}
+			, #{chStr}
+		)
+	</insert>
+</mapper>

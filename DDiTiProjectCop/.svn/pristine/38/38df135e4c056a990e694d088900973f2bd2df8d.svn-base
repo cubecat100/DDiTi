@@ -1,0 +1,17 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ServeyController {
+	//설문조사 관련
+	
+	// 설문조사 목록
+	// 설문조사 상세?
+	// 설문조사 참여
+	// 설문조사 등록
+	// 설문조사 결과
+	
+	// 이 밑으로 구현 ============================================
+	
+}

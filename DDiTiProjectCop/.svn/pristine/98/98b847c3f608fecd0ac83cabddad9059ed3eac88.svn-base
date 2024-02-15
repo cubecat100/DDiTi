@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class TrainingController {
+	//현장실습 관련
+}

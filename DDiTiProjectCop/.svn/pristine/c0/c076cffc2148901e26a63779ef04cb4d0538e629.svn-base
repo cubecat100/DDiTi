@@ -1,0 +1,92 @@
+package kr.or.ddit.service.impl;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.mapper.IBoardMapper;
+import kr.or.ddit.service.IBoardService;
+import kr.or.ddit.vo.AnonymousBoardVO;
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.PaginationVO;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@Service
+public class BoardServiceImpl implements IBoardService {
+
+	@Inject
+	private IBoardMapper boardMapper;
+
+	@Override
+	public List<BoardVO> academicPList(PaginationVO<BoardVO> pagingVO) {
+		return boardMapper.academicPList(pagingVO);
+	}
+
+	@Override
+	public int academicPCount(PaginationVO<BoardVO> pagingVO) {
+		return boardMapper.academicPCount(pagingVO);
+	}
+
+	@Override
+	public List<BoardVO> noticeWidget() {
+		return boardMapper.noticeWidget();
+	}
+
+	@Override
+	public List<BoardVO> lostItems() {	
+		return boardMapper.lostItems();
+	}
+
+	@Override
+	public int insertLostItem(BoardVO boardVO) {
+		
+		return 0;
+//		return boardMapper.insertLostItem(boardVO);
+	}
+
+	// 대나무숲
+	/*
+	 * @Override public List<AnonymousBoardVO> anonylist() { return
+	 * boardMapper.anonyList(); }
+	 */
+
+	@Override
+	public AnonymousBoardVO anoyDetail(int anonBrdNo) {
+		AnonymousBoardVO anonyVO = boardMapper.anonyDetail(anonBrdNo);
+		return anonyVO ;
+	}
+	
+	@Transactional(rollbackFor = IOException.class)
+	@Override
+	public void anonyInsert(AnonymousBoardVO anonymousBoardVO) {
+		boardMapper.insert(anonymousBoardVO);
+	}
+
+	 @Override
+	    public ServiceResult deleteAnony(HttpServletRequest req, int anonBrdNo) {
+	        ServiceResult result = ServiceResult.FAILED;	
+	        int rowcnt = boardMapper.delete(anonBrdNo);
+	        if(rowcnt > 0) {
+	            result = ServiceResult.OK;
+	        }
+	        return result;
+	    }
+
+	@Override
+	public int anonyCount(PaginationVO<AnonymousBoardVO> pagingVO) {
+		return boardMapper.anonyCount(pagingVO);
+	}
+
+	@Override
+	public List<AnonymousBoardVO> anonyList(PaginationVO<AnonymousBoardVO> pagingVO) {
+		return boardMapper.anonyList(pagingVO);
+
+	}
+
+}

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ILectureMapper">
+	
+	<!-- 예비 수강 목록 -->
+	<select id="reserveClassList" parameterType="int" resultType="ReserveClassVO">
+		SELECT
+			rc.class_no
+			, rc.mem_no
+			, res_status_code
+			, lec_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+		FROM reserve_class rc, class c 
+		WHERE
+			rc.class_no = c.class_no
+			and rc.mem_no = #{memNo}
+	</select>
+	
+	<!-- 강의 목록 -->
+	<select id="getLectureList" resultType="classVO">
+		SELECT
+			class_no
+			, lec_no
+			, mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, class_week_cnt
+			, class_note
+			, file_no
+		FROM class
+		WHERE
+			class_status_code = 'CLS004'
+			and semester = '2024/03'
+	</select>
+	
+	<select id="ReservClassDuplicateCheck" parameterType="reserveClassVO" resultType="int">
+		SELECT
+			count(*)
+		FROM reserve_class
+		WHERE
+			class_no = #{classNo}
+			and mem_no = #{memNo}
+	</select>
+	
+	<select id="myReserveClassList" resultType="reserveClassVO" parameterType="int">
+		SELECT
+			class_no
+			, mem_no
+		FROM reserve_class
+		WHERE
+			mem_no = #{memNo}
+	</select>
+	
+	<!-- 예비 수강목록 추가 -->
+	<insert id="addReservClass" parameterType="reserveClassVO">
+		INSERT INTO reserve_class(
+			class_no
+			, mem_no
+			, res_status_code
+		) values (
+			#{classNo}
+			, #{memNo}
+			, 'RES001'
+		)
+		
+	</insert>
+	
+	<delete id="removeReservClass" parameterType="reserveClassVO">
+		DELETE
+		FROM reserve_class
+		WHERE 
+			mem_no = #{memNo}
+			and class_no = #{classNo }
+	</delete>
+	
+	<insert id="addListenClass" parameterType="ReserveClassVO">
+		INSERT INTO listener(
+			listen_no
+			, class_no
+			, mem_no
+			, ls_status_code
+		) SELECT (
+			listener_seq.nextval
+			, class_no
+			, #{memNO }
+			, room_no
+			, 'LSS001'
+		)
+		FROM class
+		WHERE
+			class_no = #{classNo}
+	</insert>
+	
+	<select id="totalClassListener" parameterType="int" resultType="int">
+		SELECT
+			count(*)
+		FROM listen
+		WHERE
+			class_no = #{classNo}
+	</select>
+	
+	<update id="updateResClassListenState" parameterType="ReserveClassVO">
+		update set
+			resStatusCode = 'RES002'
+		where 
+			mem_no = #{memNo }
+			and class_no = #{classNo }
+	</update>
+	
+</mapper>

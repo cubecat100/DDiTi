@@ -1,0 +1,322 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<div class="container-full">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="d-flex align-items-center">
+			<div class="me-auto">
+				<h3 class="page-title">내 모임</h3>
+				<div class="d-inline-block align-items-center">
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="mdi mdi-home-outline"></i></a></li>
+							<li class="breadcrumb-item" aria-current="page">모임</li>
+							<li class="breadcrumb-item active" aria-current="page">내 모임
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-12">
+				<div class="box">
+					<div class="box-body">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs customtab2" role="tablist">
+							<li class="nav-item"><a class="nav-link active"
+								data-bs-toggle="tab" href="#home7" role="tab"><span
+									class="hidden-sm-up"><i class="ion-home"></i></span> <span
+									class="hidden-xs-down">가입된 모임 목록</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								data-bs-toggle="tab" href="#messages7" role="tab"><span
+									class="hidden-sm-up"><i class="ion-email"></i></span> <span
+									class="hidden-xs-down">공유 시간표</span></a></li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<!-- 가입된 모임 목록 -->
+							<div class="tab-pane active" id="home7" role="tabpanel">
+								<div class="p-15">
+									<div class="row" style="justify-content: space-between">
+										<div class="col-md-6">
+											<div class="form-group" style="margin-top: 10px">
+												<h4 style="display: inline-block">가입한 전체 모임</h4>
+												<p
+													style="display: inline-block; line-height: 1.2; color: #0d6efd;">
+													총 <span>3</span>개
+												</p>
+											</div>
+										</div>
+										<div class="col-md-4 col-12" style="margin-top: 5px">
+											<div class="form-group">
+												<select class="form-control"
+													style="width: 30%; display: inline-block">
+													<option selected="selected">모임분류</option>
+													<option>모임명</option>
+													<option>마스터</option>
+												</select> <input type="text" placeholder="입력하세요" class="form-control"
+													style="width: 50%; display: inline-block" />
+												<button type="button" class="btn btn-primary"
+													style="padding: 5px 12px">검색</button>
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table mb-0" style="text-align: center">
+											<thead class="bg-primary">
+												<tr>
+													<th scope="col">순번</th>
+													<th scope="col">모임채팅</th>
+													<th scope="col">모임분류</th>
+													<th scope="col">모임명</th>
+													<th scope="col">모임목표</th>
+													<th scope="col">마스터</th>
+													<th scope="col">인원</th>
+													<th scope="col">관리</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- 보여지는 목록 갯수는 무조건 5개 !! - ㅊㅇㅇ -->
+												<tr>
+													<td><strong>1</strong></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-primary-light mb-5"
+															style="font-size: 12px">입장</button>
+													</td>
+													<td>스터디</td>
+													<td>코딩머신</td>
+													<td>웹 프로젝트를 같이 만들어봅시다.</td>
+													<td>홍길동</td>
+													<td><span>2</span>/<span>10</span></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-warning-light mb-5"
+															style="font-size: 12px">탈퇴</button>
+													</td>
+												</tr>
+												<tr>
+													<td><strong>2</strong></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-primary-light mb-5"
+															style="font-size: 12px">입장</button>
+													</td>
+													<td>운동</td>
+													<td>그뉵그뉵</td>
+													<td>단체 바프</td>
+													<td>홍길동</td>
+													<td><span>2</span>/<span>10</span></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-warning-light mb-5"
+															style="font-size: 12px">탈퇴</button>
+													</td>
+												</tr>
+												<tr>
+													<td><strong>3</strong></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-primary-light mb-5"
+															style="font-size: 12px">입장</button>
+													</td>
+													<td>친목</td>
+													<td>엔프피</td>
+													<td>다같이 재밌게 놀아영 ~</td>
+													<td>홍길동</td>
+													<td><span>2</span>/<span>10</span></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-warning-light mb-5"
+															style="font-size: 12px">탈퇴</button>
+													</td>
+												</tr>
+												<tr>
+													<td><strong>4</strong></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-primary-light mb-5"
+															style="font-size: 12px">입장</button>
+													</td>
+													<td>스터디</td>
+													<td>토익뿌심</td>
+													<td>팀 전체 평균 700점 도달해보깅</td>
+													<td>홍길동</td>
+													<td><span>2</span>/<span>10</span></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-warning-light mb-5"
+															style="font-size: 12px">탈퇴</button>
+													</td>
+												</tr>
+												<tr>
+													<td><strong>5</strong></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-primary-light mb-5"
+															style="font-size: 12px">입장</button>
+													</td>
+													<td>친목</td>
+													<td>인프피</td>
+													<td>모임 가입하라는데 어디 들어갈지 모르겠는 사람 오세오..</td>
+													<td>홍길동</td>
+													<td><span>2</span>/<span>10</span></td>
+													<td>
+														<button type="button"
+															class="btn btn-rounded btn-warning-light mb-5"
+															style="font-size: 12px">탈퇴</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-7"
+									style="float: right; margin-right: 80px">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="example1_paginate">
+										<ul class="pagination">
+											<li class="paginate_button page-item previous disabled"
+												id="example1_previous"><a href="#"
+												aria-controls="example1" data-dt-idx="0" tabindex="0"
+												class="page-link">Previous</a></li>
+											<li class="paginate_button page-item active"><a href="#"
+												aria-controls="example1" data-dt-idx="1" tabindex="0"
+												class="page-link">1</a></li>
+											<li class="paginate_button page-item"><a href="#"
+												aria-controls="example1" data-dt-idx="2" tabindex="0"
+												class="page-link">2</a></li>
+											<li class="paginate_button page-item"><a href="#"
+												aria-controls="example1" data-dt-idx="3" tabindex="0"
+												class="page-link">3</a></li>
+											<li class="paginate_button page-item"><a href="#"
+												aria-controls="example1" data-dt-idx="4" tabindex="0"
+												class="page-link">4</a></li>
+											<li class="paginate_button page-item"><a href="#"
+												aria-controls="example1" data-dt-idx="5" tabindex="0"
+												class="page-link">5</a></li>
+											<li class="paginate_button page-item next" id="example1_next">
+												<a href="#" aria-controls="example1" data-dt-idx="6"
+												tabindex="0" class="page-link">Next</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- 공유 시간표 -->
+							<div class="tab-pane" id="messages7" role="tabpanel">
+								<div class="p-15">
+									<div class="row" style="justify-content: space-between">
+										<div class="col-md-7">
+											<button type="button" class="btn btn-primary mb-5 flex-end"
+												style="font-size: 12px; width: 100px">일정추가</button>
+											<div class="box">
+												<div class="box-body">
+													<div id="calendar"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-5">
+											<div class="box">
+												<div class="box-body">
+													<div class="media-list media-list-divided media-list-hover">
+														<!-- 모임 팀원 하나 시작 -->
+														<div class="media align-items-center">
+															<!-- <div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" />
+															</div> -->
+															<input type="checkbox" id="basic_checkbox_1" />
+															<a class="flexbox flex-grow gap-items text-truncate"
+																href="#qv-user-details" data-toggle="quickview">
+																<div class="media-body text-truncate">
+																	<h6>홍길동</h6>
+																	<small> <span>사회교육학과 3학년</span> <span
+																		class="divider-dash">201210111</span>
+																	</small>
+																</div>
+															</a>
+															<div>
+																<div class="box-body">
+
+																	<div class="demo-checkbox">
+																		<input type="checkbox" id="basic_checkbox_1" checked />
+																		<label for="basic_checkbox_1">Default</label>
+																		<input type="checkbox" id="basic_checkbox_2" class="filled-in" checked />
+																		<label for="basic_checkbox_2">Filled In</label>
+																		<input type="checkbox" id="basic_checkbox_3" checked disabled />
+																		<label for="basic_checkbox_3">Default - Disabled</label>
+																		<input type="checkbox" id="basic_checkbox_4" class="filled-in" checked disabled />
+																		<label for="basic_checkbox_4">Filled In - Disabled</label>
+																	</div>
+												
+																</div>
+															</div>
+														</div>
+														<!-- 모임 팀원 하나 끝 -->
+														<div class="media align-items-center">
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" />
+															</div>
+															<a class="flexbox flex-grow gap-items text-truncate"
+																href="#qv-user-details" data-toggle="quickview">
+																<div class="media-body text-truncate">
+																	<h6>홍길동</h6>
+																	<small> <span>사회교육학과 3학년</span> <span
+																		class="divider-dash">201210111</span>
+																	</small>
+																</div>
+															</a>
+														</div>
+														<div class="media align-items-center">
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" />
+															</div>
+															<a class="flexbox flex-grow gap-items text-truncate"
+																href="#qv-user-details" data-toggle="quickview">
+																<div class="media-body text-truncate">
+																	<h6>홍길동</h6>
+																	<small> <span>사회교육학과 3학년</span> <span
+																		class="divider-dash">201210111</span>
+																	</small>
+																</div>
+															</a>
+														</div>
+														<div class="media align-items-center">
+															<div class="custom-control custom-checkbox">
+																<input type="checkbox" class="custom-control-input" />
+															</div>
+															<a class="flexbox flex-grow gap-items text-truncate"
+																href="#qv-user-details" data-toggle="quickview">
+																<div class="media-body text-truncate">
+																	<h6>홍길동</h6>
+																	<small> <span>사회교육학과 3학년</span> <span
+																		class="divider-dash">201210111</span>
+																	</small>
+																</div>
+															</a>
+														</div>
+													</div>
+												</div>
+												<!-- /.box-body -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+		</div>
+	</section>
+</div>

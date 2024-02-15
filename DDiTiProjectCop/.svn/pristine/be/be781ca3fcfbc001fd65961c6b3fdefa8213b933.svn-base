@@ -1,0 +1,36 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/")
+public class BoardController {
+	// 게시판 관련
+	
+	// 공지 게시글 목록
+	// 공지 게시글 상세
+	// 공지 게시글 작성
+	// 공지 게시글 수정
+	
+	// 분실물 게시글 목록
+	// 분실물 게시글 작성
+	
+	// 익명 게시글 목록
+	// 익명 게시글 상세 + 익명 댓글 목록
+	// 익명 게시글 작성
+	// 익명 게시글 삭제
+	// 익명 댓글 작성
+	// 익명 댓글 삭제
+	
+	// 강의 자료실 게시글 목록
+	// 강의 게시글 상세
+	// 강의 게시글 작성
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+	
+}

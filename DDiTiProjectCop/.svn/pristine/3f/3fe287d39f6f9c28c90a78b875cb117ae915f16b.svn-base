@@ -1,0 +1,16 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class DepartmentVO {
+
+	private int dprtNo;
+	private String dprtName;
+	private String dprtCategory;
+	private int dprtTuition;
+	private int dprtSrvTime;
+	private int dprtLecPoint;
+	private int semMaxLecPoint;
+	
+}

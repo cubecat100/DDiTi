@@ -1,0 +1,9 @@
+package kr.or.ddit.service;
+
+import kr.or.ddit.vo.ExampleVO;
+
+public interface IExampleService {
+
+	ExampleVO getExam(int examNo);
+
+}

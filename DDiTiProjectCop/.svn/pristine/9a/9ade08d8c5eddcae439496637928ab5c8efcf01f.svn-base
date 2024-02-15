@@ -1,0 +1,228 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack.min.css" />
+<!-- column 갯수 제한 할 땐 아래 꺼도 피로-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack-extra.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/9.1.1/gridstack-all.min.js"></script>
+
+<style>
+.grid-stack-placeholder {
+  background: rgba(250, 250, 250, 0);
+  box-shadow: none;
+  border-width: 3px;
+  border-style: dashed;
+  border-color: #149fff;
+}
+
+</style>
+
+<div class="container-full">
+	<!-- Main content -->
+	<section class="content">
+		<%-- 환영메시지 박스 --%>
+		<div class="row align-items-end">
+			<div class="col-xl-12 col-12">
+				<div class="box bg-primary-light pull-up">
+					<div class="box-body p-xl-0">
+						<div class="row align-items-center">
+							<div class="col-12 col-lg-3">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/svg-icon/color-svg/custom-14.svg"
+									alt="" />
+							</div>
+							<div class="col-12 col-lg-9">
+								<h2>
+									안녕하세요!
+									<%-- ${이름 } --%>
+									홍길동님, 환영합니다.
+								</h2>
+								<p class="text-dark mb-0 fs-16">오늘도 힘찬 하루 되세요!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%-- 환영메시지 박스 --%>
+
+		<!-- 포틀릿 시작 -->
+		<div class="col-6">
+		<div class="grid-stack" data-gs-width="12" data-gs-animate="yes" style="border: 1px solid orange;">
+    	</div>
+    	</div>
+		<div>
+			<div id="wrapper">
+			<div><button onclick="fcompact()">컴팩트</button></div>
+			<div>
+				x : <input type="number" min="1" max="6" id="grid_x" value="1">
+				y : <input type="number" min="1" max="6" id="grid_y" value="1">
+				<button onclick="f_addObj()">add obj</button>
+			</div>
+			<div><button onclick="f_postion()">포지션</button></div>
+			<div><button onclick="f_postionSave()">포지션 저장</button></div>
+			<div><button onclick="f_postionLoad()">포지션 불러오기</button></div>
+			<div><button onclick="f_removeAll()">모든 요소 삭제</button></div>
+
+		</div>
+
+		</div>
+		<!-- 포틀릿 끝 -->
+
+		<!-- 포틀릿 메뉴 시작 -->
+		<div class="row" style="border: 1px solid red">
+			<div class="d-none d-sm-inline-block" style="border: 1px solid blue">
+				<button class="btn bg-gradient-primary btn-rounded" id="gsBtn">
+					<i class="fa fa-gear"></i> <span id="gsBtnSpan">화면 구성 설정</span>
+				</button>
+				<button class="btn btn-warning btn-rounded" onclick="fcompact()">알아서정리</button>
+				<button class="btn btn-light btn-rounded" onclick="f_removeAll()">모든 요소 삭제</button>
+				<button class="btn btn-danger btn-rounded"  onclick="f_postionSave()">포지션 저장</button>
+				<button class="btn btn-success btn-rounded"  onclick="f_postionLoad()">포지션 불러오기</button>
+			</div>
+		</div>
+		<!-- 포틀릿 메뉴 끝 -->
+	</section>
+	<!-- /.content -->
+</div>
+
+<!-- 스크립트 -->
+<script>
+
+	const gsBtn = document.querySelector("#gsBtn");
+	const gsBtnSpan = document.querySelector("#gsBtnSpan");
+	
+	let clickFlag = true;
+
+	gsBtn.addEventListener("click", function() {
+		if (clickFlag) {
+			gsBtnSpan.innerHTML = "화면 구성 설정";
+			/* f_grisStack(); */
+		} else {
+			gsBtnSpan.innerHTML = "화면 구성 완료";
+		}
+		clickFlag = !clickFlag;
+	});
+
+	function f_grisStack() {
+	}
+	
+	/* 포틀릿 */
+	
+	let items = [
+	    { x: 0, y: 0, w: 6, h: 6 , content : "<div id='a1'><button onclick='f_removeWidget(this.parent().parent())'>x</button></div>"},
+	    { x: 6, y: 0, w: 4, h: 2 , content : "<div><button>x</button></div>"},
+	    { x: 6, y: 2, w: 6, h: 4 },
+	    { x: 0, y: 6, w: 6, h: 4 }
+	]; 
+	
+
+	
+	//확장 (jQuery Plugin 느낌!)
+	GridStack.prototype.e7eMerong = function () {
+	    console.log("GridStack", this);
+	}
+	
+	let gridOption = {
+	    //column: 6,                   // default 12
+	    //oneColumnSize: 100,          // default 768
+	    minRow: 1,
+	    disableOneColumnMode: true,
+	    margin: '1em',
+	    placeholderText: "grid-stack-placeholder",
+	    disableResize: true,
+	    float: true,
+	    animate:true,
+	    removable: 'body',    //body로 설정하면 구성화면 밖으로 던지면 삭제됨
+	    //cellHeight: 50,
+	    //cellWidth: 50,
+	    // 한줄 혼자 꽉 채우는 거 금지!,default value of oneColumnSize is 768px
+	    disableOneColumnMode: true,
+	    resizable: { handles: 'e,se,s,sw,w' }
+	}
+	
+	console.log("gridOption", gridOption);
+
+	// const grid = GridStack.init(); // 옵션 없이 생성(Default)
+	let grid = GridStack.init(gridOption);
+	
+	function f_loadGrid(){
+	    grid.load(items);
+	    grid.e7eMerong();
+	}
+
+	f_loadGrid();
+	// 컴팩트
+	function fcompact() {
+	    grid.compact();
+	}
+
+	function f_addObj(){
+	    var grid_x = document.querySelector("#grid_x").value;
+	    var grid_y = document.querySelector("#grid_y").value;
+
+	    grid.addWidget({ w: grid_x, h: grid_y, content: "add obj" });
+	}
+
+	console.log("postion", grid.engine.nodes);
+
+	//현재설정 저장하기
+	function f_postionSave(){
+	    console.log("position save...");
+	    var items = [];
+
+	    var itemList = grid.engine.nodes;
+
+	    for(var i=0; i<itemList.length; i++){
+	        var item = {};
+	        item.x = itemList[i].x;
+	        item.y = itemList[i].y;
+	        item.w = itemList[i].w;
+	        item.h = itemList[i].h;
+	        item.content = itemList[i].content;
+
+	        items.push(item);
+	    }
+
+	    console.log(items);
+
+	    //스트링 형태로 저장
+	    localStorage.setItem("items", JSON.stringify(items));
+	}
+
+	//모두 삭제
+	function f_removeAll(){
+	    grid.removeAll();
+	}
+
+	//요소 삭제
+	function f_removeWidget(el){
+	    //console.log(el);
+	    grid.removeWidget(el, false);
+	    el.remove();
+	}
+
+	//불러오기
+	function f_postionLoad(){
+	    //스트링 변환
+	    var items = JSON.parse(localStorage.getItem("items"));
+
+	    if(items == null || items == ""){
+	        console.log("position empty...")
+	        return;
+	    }
+
+	    f_removeAll();
+	    grid.load(items);
+	    console.log(items);
+	}
+	
+</script>
+ <script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/lodash.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/gridstack.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendor_components/gridstack/gridstack.jQueryUI.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/pages/gridstackjs.js"></script>

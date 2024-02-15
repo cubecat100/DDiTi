@@ -1,0 +1,15 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+// 강의 일정
+@Data
+public class LectureScheduleVO {
+
+	private int lecSchNo;
+	private int classNo;
+	private String lecSchDate;
+	private String lecDowCode;
+	private String lecTimeCode;
+	
+}

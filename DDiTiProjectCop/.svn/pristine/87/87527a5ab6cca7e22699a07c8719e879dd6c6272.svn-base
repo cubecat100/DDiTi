@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IClassManagementMapper">
+	
+	<resultMap type="ListenerVO" id="ListenerMap">
+		<id property="listenNo" column="LISTEN_NO"/>
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="classScore" column="CLASS_SCORE"/>
+		<result property="lsStatusCode" column="LS_STATUS_CODE"/>
+		
+		<association property="member" javaType="MemberVO">
+			<result property="memNo" column="mem_no" />
+			<result property="memName" column="mem_name" />
+			<result property="memId" column="mem_id" />
+		</association>
+		
+		<collection property="attendList" resultMap="AttendMap" />
+	</resultMap>
+	                                                       
+	<resultMap type="AttendVO" id="AttendMap">
+		<result property="atNo" column="AT_NO"/>
+		<result property="listenNo" column="LISTEN_NO"/>
+		<result property="atDate" column="AT_DATE"/>
+		<result property="atStatus" column="AT_STATUS"/>
+	</resultMap>
+
+
+	<update id="updateListener">
+		update listener 
+		set
+			CLASS_COMMENT = #{classComment },
+			LS_STATUS_CODE = #{lsStatusCode }
+		where
+			listen_no = #{listenNo }
+	</update>
+	
+	<insert id="addLectureRating">
+		insert into lecture_rating (
+			lec_rating_no
+			,listen_no
+			,class_no
+			,mem_no
+			,lec_qst_no
+			,lec_qst_choice
+		) values (
+			lecture_rating_seq.nextval
+			, #{listenNo     }
+			, #{classNo      }
+			, #{memNo        }
+			, #{lecQstNo     }
+			, #{lecQstChoice }
+		)
+			
+		
+	</insert>
+
+
+	<select id="getListener" parameterType="ListenerVO" resultType="ListenerVO">
+		select
+			listen_no
+			, class_no
+			, mem_no
+			, class_score
+			, ls_status_code
+		from listener
+		where
+			mem_no = #{memNo }
+			and class_no = #{classNo}
+	</select>
+
+	<!-- 교수 출석 체크 등록  -->
+	<insert id="attendCheck" parameterType="AttendVO">
+	<selectKey keyProperty="atNo" resultType="int" order="BEFORE">
+		select attend_seq.nextval from dual
+	</selectKey>
+		insert into attend (
+			at_no, 
+			listen_no, 
+			mem_no, 
+			at_date,
+			at_status
+		
+		 )values(
+			 #{atNo}, 
+			 #{listenNo}, 
+			 #{memNo}, 
+			 #{atDate}, 
+			 #{atStatus}
+		 )
+	
+	</insert>
+
+	<select id="getAttendCheck" parameterType="AttendVO" resultType="AttendVO">
+		select
+			at_no
+			, listen_no
+			, mem_no
+			, at_date
+			, at_status
+		from attend
+		where
+			at_no = #{atNo }
+	</select>
+	
+	<update id="updateAttendCheck" parameterType="AttendVO">
+		update attend set
+			at_status = #{atStatus }
+		where
+			at_no = #{atNo }
+	</update>
+
+	<!-- 교수 출석 체크   -->
+	<select id="myClassCheck" parameterType="int" resultMap="ListenerMap">
+			SELECT 
+			    li.listen_no,
+			    li.class_no,
+			    li.mem_no,
+			    li.class_score,
+			    li.ls_status_code,
+			    
+			    m.mem_no,
+			    m.mem_name,
+                
+                at.at_no,
+			    at.at_date,
+			    at.at_status
+			FROM 
+			    MEMBER m, LISTENER li
+			LEFT OUTER JOIN 
+			    ATTEND at ON at.listen_no = li.listen_no 
+			    	and at.mem_no = li.mem_no
+			WHERE 
+				li.mem_no = m.mem_no
+			    and li.class_no = #{class_no}
+			order by 
+				at_date ASC
+	</select>	
+	
+	
+	<select id="progressClassList" parameterType="int" resultType="ClassVO">
+		SELECT
+			class_no
+			, lec_no
+			, mem_no
+			, room_no
+			, value_type
+			, class_name
+			, lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, exam_proprion
+			, hw_propotion
+			, at_propotion
+			, class_status_code
+			, class_week_cnt
+			, class_note
+			, class_reject
+			, file_no
+		FROM class
+		WHERE 
+			mem_no = #{memNo}
+			and (
+					CLASS_STATUS_CODE = 'CLS001'
+					or CLASS_STATUS_CODE = 'CLS003'
+					or CLASS_STATUS_CODE = 'CLS004' 
+					or CLASS_STATUS_CODE = 'CLS005' 
+					or CLASS_STATUS_CODE = 'CLS007' 
+				)
+	</select>
+	
+	<insert id="addClassBrd" parameterType="ClassBoardVO">
+		insert into class_board (
+			class_brd_no
+			, class_no
+			, class_brd_title
+			, class_brd_cont
+			, class_write_date
+			, class_brd_hit_count
+			, file_no
+		) values(
+			class_board_seq.nextval
+			, #{classNo}
+			, #{classBrdTitle}
+			, #{classBrdCont}
+			, sysDate
+			, 0
+			, #{fileNo}
+		)
+	</insert>
+	
+	<insert id="addClassHomework">
+		insert into homework (
+			hw_no
+			, class_no
+			, hw_title
+			, hw_upload
+			, hw_date
+			, hw_cont
+			, file_no
+		) values(
+			homework_seq.nextval
+			, #{classNo}
+			, #{hwTitle}
+			, TO_DATE(#{hwUpload}, 'YYYY-MM-DD HH24:MI:SS')
+			, sysDate
+			, #{hwCont}
+			, #{fileNo}
+		)
+	</insert>
+	
+	<select id="getHwSubmitList" parameterType="int" resultType="HomeworkVO">
+		select
+		    hw.hw_no
+		    , hw.class_no
+		    , hw.hw_title
+		    , hw.hw_upload
+		    , hw.hw_date
+		    , hw.hw_cont
+		from class cl, homework hw
+		where
+		    cl.class_no = ${class_no}
+		    and cl.class_no = hw.class_no
+	</select>
+	
+	<select id="getHwSubList" parameterType="int" resultType="HomeworkSubmitVO">
+		SELECT
+		    hw_sb_no
+			, hs.mem_no
+			, hw_no
+			, hw_sb_date
+			, hw_sb_status_code
+			, hw_content
+			, hw_score
+			
+			, fl.file_no
+			, fl.file_name
+			
+			, mm.mem_name
+			, mm.mem_id
+		FROM member mm, homework_submit hs
+			left outer join files fl on (hs.file_no = fl.file_no)
+		WHERE
+		    hs.hw_no = ${hw_no}
+		    and mm.mem_no = hs.mem_no
+		ORDER BY hw_sb_date, fl.file_group_no
+	</select>
+	
+	<update id="updateHwScore" parameterType="HomeworkSubmitVO">
+        UPDATE 
+            homework_submit
+        SET
+            hw_score = #{hwScore}
+        WHERE
+        	hw_sb_no = #{hwSbNo}
+	</update>
+	
+	<select id="getExSubList" parameterType="int" resultType="ExamAnswerVO">
+		SELECT
+		    ea.exam_no
+		    , mm.mem_no
+		    , answer_date
+		    
+		    , ex.exam_name
+		    
+		    , mm.mem_name
+		    , mm.mem_id
+		    , sum(get_score) as Total_score
+		FROM exam_answer ea, member mm, example ex
+		WHERE
+		    ea.exam_no = ${examNo }
+		    and mm.mem_no = ea.mem_no
+		    and ex.exam_no = ea.exam_no
+		GROUP BY ea.exam_no, mm.mem_no, mm.mem_name, mm.mem_id, answer_date, ex.exam_name
+	</select>
+	
+	<insert id="addExample" parameterType="ExampleVO" useGeneratedKeys="true">
+		<selectKey keyProperty="examNo" resultType="int" order="BEFORE">
+			select example_seq.nextval from dual
+		</selectKey>
+		INSERT INTO example (
+			exam_no
+			, class_no
+			, exam_name
+			, exam_date
+			, exam_time
+			, exam_total_score
+			, exam_type
+		)VALUES(
+			#{examNo}
+			, #{classNo}
+			, #{examName}
+			, TO_DATE(#{examDate}, 'YYYY-MM-DD HH24:MI:SS')
+			, #{examTime}
+			, #{examTotalScore}
+			, 'EXT001'
+		)
+	</insert>
+	
+	<insert id="addQuestion" parameterType="ExampleQuestionVO" useGeneratedKeys="true">
+		<selectKey keyProperty="examQstNo" resultType="int" order="BEFORE">
+			select example_question_seq.nextval from dual
+		</selectKey>
+		INSERT INTO example_question (
+			exam_qst_no
+			, exam_no
+			, qst_no
+			, exam_qst
+			, qst_score
+			, qst_correct
+			, file_no
+		)VALUES(
+			#{examQstNo}
+			, #{examNo}
+			, #{qstNo}
+			, #{examQst}
+			, #{qstScore}
+			, #{qstCorrect}
+			, #{fileNo}
+		)
+	</insert>
+	
+	<insert id="addQstChoiceList" parameterType="QuestionChoiceVO">
+			INSERT INTO question_choice (
+				qst_ch_no
+				, exam_qst_no
+				, exam_no
+				, ch_no
+				, ch_str
+			)VALUES(
+				question_choice_seq.nextval
+				, #{examQstNo}
+				, #{examNo}
+				, #{chNo}
+				, #{chStr}
+			)
+	</insert>
+	
+	<select id="getExampleList" resultType="ExampleVO" parameterType="ExampleVO">
+		SELECT
+			exam_no
+			, class_no
+			, exam_name
+			, exam_date
+			, exam_time
+			, exam_type
+			, exam_total_score
+			, exam_mark_type
+		FROM example
+		where
+			class_no = #{classNo }
+		order by exam_no DESC
+	</select>
+	
+	<!-- 수강생 리스트 -->
+	<select id="listenerList" parameterType="int" resultMap="ListenerMap">
+		select
+			li.listen_no,
+			li.class_no,
+			li.mem_no,
+			li.class_score,
+			li.ls_status_code,
+			m.mem_name,
+			m.mem_id
+		from listener li, member m
+		where 
+			(li.mem_no = m.mem_no) and
+			class_no = #{classNo}
+	</select>
+	
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IUnivManagementMapper">
+
+	<select id="univSchedule" resultType="univScheduleVO">
+		select
+		   univ_sch_no,
+		   univ_sch_name,
+		   univ_sch_start_date,
+		   univ_sch_end_date,
+		   univ_sch_cont,
+		   univ_sch_sem,
+		   univ_sch_reg
+		from univ_schedule
+		order by univ_sch_no desc
+	</select>
+
+
+</mapper>

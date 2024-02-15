@@ -1,0 +1,13 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import kr.or.ddit.vo.BuildingVO;
+import kr.or.ddit.vo.FacilityRentVO;
+import kr.or.ddit.vo.PaginationVO;
+
+public interface IFacilityMapper {
+	public List<BuildingVO> getBuildingData();
+	public List<FacilityRentVO> getfacilityResvData();
+	public int facilityResvCnt(PaginationVO<FacilityRentVO> pagingVO);
+}

@@ -1,0 +1,245 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div class="row m-10">
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>대학</strong><div class="b-1 border-dark rounded p-1 ps-2">실용음악과</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>학과</strong><div class="b-1 border-dark rounded p-1 ps-2">방송연애</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>교수명</strong><div class="b-1 border-dark rounded p-1 ps-2">민지현</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>구분</strong><div class="b-1 border-dark rounded p-1 ps-2">000</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>강의명</strong><div class="b-1 border-dark rounded p-1 ps-2">000</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<strong>수강인원</strong><div class="b-1 border-dark rounded p-1 ps-2">18/25</div>
+		</div>
+	</div>
+</div>
+<ul class="nav nav-tabs" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" data-bs-toggle="tab" href="#debit-card" role="tab" aria-selected="true">
+			<span class="hidden-sm-up"><i class="fa fa-cc"></i></span> 
+			<span class="hidden-xs-down">강의 자료실</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal1" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">강의 과제</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal2" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">온라인 시험</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal3" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">현장실습</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-bs-toggle="tab" href="#paypal4" role="tab" aria-selected="false">
+			<span class="hidden-sm-up"><i class="fa fa-paypal"></i></span> 
+			<span class="hidden-xs-down">강의 평가</span>
+		</a>
+	</li>
+</ul>
+
+<div class="tab-content tabcontent-border m-15">
+	<div class="tab-pane active" id="debit-card" role="tabpanel">
+		<h4>1</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal1" role="tabpanel">
+		<h4>2</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal2" role="tabpanel">
+		<h4>3</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal3" role="tabpanel">
+		<h4>4</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane" id="paypal4" role="tabpanel">
+		<h4>5</h4>
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="bg-primary">
+					<tr>
+						<th>#</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Nigam</td>
+						<td>Eichmann</td>
+						<td>@Sonu</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Deshmukh</td>
+						<td>Prohaska</td>
+						<td>@Genelia</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Roshan</td>
+						<td>Rogahn</td>
+						<td>@Hritik</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>

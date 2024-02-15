@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IFacilityMapper">
+	<resultMap type="FacilityRentVO" id="FacilityRentResultMap">
+		<result property="facRentNo" column="fac_rent_no"/>
+		<result property="memNo" column="mem_no"/>
+		<result property="facNo" column="fac_no"/>
+		<result property="memName" column="mem_name"/>
+		<result property="facRegDate" column="fac_reg_date"/>
+		<result property="facRsvStartDate" column="fac_rsv_start_date"/>
+		<result property="facRsvEndDate" column="fac_rsv_end_date"/>
+		<result property="facRentStatusCode" column="fac_rent_status_code"/>
+		<association property="buildingVO" javaType="BuildingVO">
+			<result property="buildingNo" column="building_no"/>
+			<result property="buildingName" column="building_name"/>
+			<result property="locationInfo" column="location_info"/>
+		</association>
+		<association property="facilityVO" javaType="FacilityVO">
+			<result property="facNo" column="fac_no"/>
+			<result property="buildingNo" column="building_no"/>
+			<result property="facName" column="fac_name"/>
+			<result property="facType" column="fac_type"/>
+		</association>
+		<association property="memberVO" javaType="MemberVO">
+			<result property="memNo" column="mem_no"/>
+			<result property="memName" column="mem_name"/>
+			<result property="memRole" column="mem_role"/>
+		</association>
+	</resultMap>
+	
+	<sql id="searchKeyword">
+		<if test="pagingVO.searchType != null and pagingVO.searchType == 'facRsvStartDate'">
+			and (fac_rsv_start_date like '%'||#{pagingVO.searchWord}||'%')
+		</if>
+		<if test="pagingVO.searchType != null and pagingVO.searchType == 'facName'">
+			and (f.fac_name like '%'||#{pagingVO.searchWord}||'%')
+		</if>
+		<if test="pagingVO.searchType != null and pagingVO.searchType == 'memName'">
+			and (m.mem_name like '%'||#{pagingVO.searchWord}||'%')
+		</if>
+		<if test="pagingVO.searchType != null and pagingVO.searchType == 'facRentStatusStr'">
+			and (fac_rent_status_code like '%'||#{pagingVO.searchWord}||'%')
+		</if>
+	</sql>
+	
+	<select id="getBuildingData" resultType="BuildingVO">
+		select 
+			building_no
+			,building_name
+			,location_info
+		from building
+		where 1=1
+	</select>
+	
+	<select id="facilityResvCnt" resultType="int">
+		select count(fr.fac_rent_no)
+		from facility_rent fr
+		inner join facility f on (f.fac_no = fr.fac_no)
+		inner join building b on (b.building_no = f.building_no)
+		inner join member m on (m.mem_no = fr.mem_no)
+		where 1=1
+		<include refid="searchKeyword" />
+	</select>
+	
+	<select id="getfacilityResvData" resultMap="FacilityRentResultMap">
+		select 
+			fr.fac_rent_no
+			,fr.mem_no
+			,fr.fac_no
+			,fr.mem_name
+			,to_char(fr.fac_reg_date, 'yyyy-mm-dd') as fr.fac_reg_date
+			,to_char(fr.fac_rsv_start_date, 'yyyy-mm-dd') as fr.fac_rsv_start_date
+			,to_char(fr.fac_rsv_end_date, 'yyyy-mm-dd') as fr.fac_rsv_end_date
+			,fr.fac_rent_status_code
+			
+			,b.building_no
+			,b.building_name
+			,b.location_info
+			
+			,f.fac_no
+			,f.building_no
+			,f.fac_name
+			,f.fac_type
+			
+			,m.mem_no
+			,m.mem_name
+			,m.mem_role
+			
+		from facility_rent fr
+		inner join facility f on (f.fac_no = fr.fac_no)
+		inner join building b on (b.building_no = f.building_no)
+		inner join member m on (m.mem_no = fr.mem_no)
+		
+		where 1=1 
+		<include refid="searchKeyword" />
+		ORDER BY fr.fac_reg_date DESC
+	</select>
+</mapper>

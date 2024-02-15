@@ -1,0 +1,250 @@
+package kr.or.ddit.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.or.ddit.entity.ServiceResult;
+import kr.or.ddit.service.IBoardService;
+import kr.or.ddit.vo.AnonymousBoardVO;
+import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PaginationVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@Controller
+@RequestMapping("/DYUniv") 
+public class BoardController {
+	
+	@Inject
+	private IBoardService boardService;
+	
+	
+	
+	// 게시판 관련
+	
+	// 공지 게시글 목록
+	// 공지 게시글 상세
+	// 공지 게시글 작성
+	// 공지 게시글 수정
+	
+	// 분실물 게시글 목록
+
+	// 익명 게시글 목록
+	/*
+	 * @RequestMapping(value="/ananyBoard.do",method= RequestMethod.GET) public
+	 * String anonyList(Model model) { log.info("anonList() 실행");
+	 * List<AnonymousBoardVO>boardList = boardService.anonylist();
+	 * log.info("boardList() 결과물 : {}", boardList);
+	 * model.addAttribute("boardList",boardList); log.info("boardlist :"+
+	 * boardList); return "student/anonymousBoard"; }
+	 */
+	
+	// 익명 페이징 검색 , 목록
+	@RequestMapping(value="/ananyBoard.do")
+	public String anonyBoard(
+			@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model) {
+		
+		
+		PaginationVO<AnonymousBoardVO> pagingVO = new PaginationVO<AnonymousBoardVO>();
+		
+		// 검색
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+		}
+		
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = boardService.anonyCount(pagingVO);	// 총 게시글 수 가져오기
+		pagingVO.setTotalRecord(totalRecord);
+		
+		List<AnonymousBoardVO> dataList = boardService.anonyList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
+		log.info("pagingVO 값 => {}", pagingVO);
+		
+		return "student/anonymousBoard";
+	}
+
+	@RequestMapping(value="/ananytest2",method= RequestMethod.GET)
+	public String anonytest1(Model model) {
+		return "student/anonymousInsert";
+	}
+	
+	@RequestMapping(value="/ananytest3",method= RequestMethod.GET)
+	public String anonytest2(Model model) {
+		return "student/anonymousInsert";
+	}
+	
+	
+	// 익명 게시글 상세 + 익명 댓글 목록
+	
+	@RequestMapping(value="/anonymousDetail.do", method= RequestMethod.GET)
+	public String anonyDetail(int anonBrdNo,Model model) {
+		log.info("anonyDetail() 실행" );
+		log.info("넘겨받은 anonBrdNo : " + anonBrdNo);
+		AnonymousBoardVO anonyVO = boardService.anoyDetail(anonBrdNo);
+		model.addAttribute("anonyVO",anonyVO);
+		return "student/anonymousDetail";
+	}
+	// 익명 게시글 작성
+	@RequestMapping(value="/anonymousInsert.do", method = RequestMethod.GET)
+	public String anonyInsertForm() {
+		log.info("anonyInsertForm() 실행...!");
+		
+		return "student/anonymousInsert";
+
+	}
+	@RequestMapping(value="/anonymousInsert.do", method = RequestMethod.POST)
+	public String crudRegister(AnonymousBoardVO anonymousBoardVO, Model model, HttpServletRequest request) throws IOException {
+		log.info("crudRegister() 실행...!");
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		
+		int memNo = member.getMemNo();
+		
+		log.info("member 값 => {}", member);
+		log.info("memNo 값 => " + memNo);
+		
+		anonymousBoardVO.setMemNo(memNo);
+		
+		boardService.anonyInsert(anonymousBoardVO);
+		// 게시글을 입력 후 최신 게시글 번호가 담겨있다(boardNo)
+		log.info("게시글 등록 후 만들어진 최신 게시글 번호 : " + anonymousBoardVO.getAnonBrdNo());
+		
+		model.addAttribute("msg", "등록이 완료되었습니다!");
+		return "student/anonymousDetail";
+	}
+	
+	
+	// 익명 게시글 삭제
+	
+	@RequestMapping(value="anonymousDelete.do", method =RequestMethod.POST)
+	public String anonyDelete(
+			HttpServletRequest req,
+			int anonBrdNo,Model model, RedirectAttributes ra) {
+		String goPage = "";
+		
+		ServiceResult result = boardService.deleteAnony(req,anonBrdNo);
+		if(result.equals(ServiceResult.OK)) { //삭제 성공
+			goPage = "redirect:/DYUniv/ananyBoard.do";
+			ra.addFlashAttribute("message","게시글 삭제가 완료 되었습니다!");
+			
+		}else {	// 삭제 실패
+			goPage = "redirect:/DYUniv/anonymousDetail.do?anonBrdNo="+anonBrdNo; 
+			}
+		return goPage;
+	}
+
+
+	
+	
+	// 익명 댓글 작성
+	// 익명 댓글 삭제
+	
+	// 강의 자료실 게시글 목록
+	// 강의 게시글 상세
+	// 강의 게시글 작성
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+	// 공지사항 시작 =====================
+	
+	/*
+	 * @GetMapping("/academicPlan") public String academicPlan(Model model) {
+	 * 
+	 * return "student/academicPlan"; }
+	 */
+	
+	// 리스트 + 페이징
+	@RequestMapping(value="/employer/noticeBoard.do")
+	public String noticeBoard(
+			@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model) {
+		
+		
+		PaginationVO<BoardVO> pagingVO = new PaginationVO<BoardVO>();
+		
+		// 검색
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+		}
+		
+		pagingVO.setCurrentPage(currentPage);
+		
+		int totalRecord = boardService.academicPCount(pagingVO);	// 총 게시글 수 가져오기
+		pagingVO.setTotalRecord(totalRecord);
+		
+		List<BoardVO> dataList = boardService.academicPList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
+		log.info("pagingVO 값 => {}", pagingVO);
+		
+		return "employer/noticeBoard";
+	}
+	
+	// 상세보기
+	
+	// 등록
+	
+	// 수정
+	
+	// 삭제
+	
+	// 공지사항 끝 =========================
+	
+	// 분실물 게시글 목록
+	@GetMapping("/employer/lostItemBoard.do")
+	public String lostItemBoard(Model model) {
+		
+		List<BoardVO> lostItemList = boardService.lostItems();
+		model.addAttribute("lostItemBoard", lostItemList);
+		
+	return "employer/lostItemBoard";
+	}
+/*	
+	// 분실물 게시글 작성
+	@ResponseBody
+	@PostMapping("/employer/lostItemBoard")
+	public String insertLostItemBoard(BoardVO boardVO) {
+		
+		MultipartFile updateFile = boardVO.getFileNo();
+		updateFile.transferTo(new File("d:/sdUpload/"+updateFile.getOriginalFilename()));
+		boardVO.setLostFile("/sdfile/"+ updateFile.getOriginalFilename());
+		int count = boardService.insertLostItem(boardVO);
+		
+		return "success";
+	}
+	*/
+}

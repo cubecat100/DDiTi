@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class UnivClubController {
+	//동아리 관련
+}

@@ -1,0 +1,18 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class ClubBoardVO {
+
+	private int clubBrdNo;
+	private int clubNo;
+	private int memNo;
+	private String clubBrdTitle;
+	private String clubBrdCont;
+	private String clubBrdWriteDate;
+	private int clubBrdHitCount;
+	private int fileNo;
+	
+	
+}

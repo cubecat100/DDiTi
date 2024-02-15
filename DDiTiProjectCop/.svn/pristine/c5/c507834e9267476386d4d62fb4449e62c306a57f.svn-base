@@ -1,0 +1,14 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+
+//예비 수강 신청 목록
+@Data
+public class ReserveClassVO {
+
+	private int classNo;
+	private int memNo;
+	
+	private ClassVO classVO;
+}

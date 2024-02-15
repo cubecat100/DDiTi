@@ -1,0 +1,73 @@
+package kr.or.ddit.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/")
+public class ClassController {
+	//강의 관련
+	
+	
+	// 과제 목록
+	// 과제 상세
+	// 과제 생성
+	// 과제 수정
+	// 교수 기준 과제 제출 목록
+	// 교수 기준 과제 제출 상세
+	// 과제 점수 등록
+	
+	// 온라인 시험 목록
+	// 온라인 시험 응시
+	// 온라인 시험 제출
+	// 온라인 시험 결과
+	// 온라인 시험 출제
+	// 시험 점수 등록?
+
+	//현장실습 신청
+	// 현장실습 목록
+	
+	// 강의 평가
+	// 강의 평가 결과
+
+	// 성적 조회
+	// 성적 입력
+	// 성적 등록
+	// 성적 정정(이의) 신청 목록
+	// 성적 정정 허가/반려
+	
+	// 회원 출결 목록
+	// 강의 출결 목록
+	// 강의 출결 등록
+	
+	
+	// 이 밑으로 구현 ============================================
+
+	@Inject
+	private IClassService classService;
+	
+	// 학생 강의  화면
+	@GetMapping("/student/class/classRoom/{classNo}")
+	public String stdClassRoom(Model model) {
+		return "/student/classRoom";
+	}
+	
+	// 내 강의 리스트
+	@GetMapping("/student/class/myClass.do")
+	public String myClassList(Model model) {
+		return "/";
+	}
+
+	
+}

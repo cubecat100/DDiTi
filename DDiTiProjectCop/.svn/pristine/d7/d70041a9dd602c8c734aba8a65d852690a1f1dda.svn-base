@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+    
+ <div class="container-full">
+    
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="d-flex align-items-center">
+		<div class="me-auto">
+			<!-- 현재 메뉴명 --><h3 class="page-title">봉사활동 상세 </h3>
+			<div class="d-inline-block align-items-center">
+				<nav>
+					<ol class="breadcrumb">
+						<!-- 홈아이콘 --><li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+						<!-- 상위메뉴명 --><li class="breadcrumb-item" aria-current="page">봉사활동</li>
+						<!-- 하위메뉴명(현재메뉴명) --><li class="breadcrumb-item active" aria-current="page">봉사활동(상세보기)</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+</div>
+   <section class="content"> 
+   
+   <div class="box">
+		<div class="box-body">
+			<div class="col-lg-12 col-12">
+					<!-- Default box -->
+					  <div class="box">
+						<div class="box-header with-border">
+						  <h4 class="box-title">봉사활동 상세 보기 </h4>
+						</div>
+						<div class="box-body">
+						
+						<table>
+						<thead>
+							<tr>
+								<th>
+									제목
+								</th>
+							</tr>
+						</thead>
+							<tr>
+								<td>
+									내용
+								</td>
+								<td>
+								2
+								</td>
+							</tr>
+							<tr>
+								<td>
+									내용
+								</td>
+								<td>
+								2
+								</td>
+							</tr>
+						</table>
+						
+						
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer" align="right">
+							<div class="d-inline-block pull-right mt-10">
+						  		<button type="button" class="btn btn-rounded btn-sm btn-success m-5 " >목록</button>
+						  		<button type="button" class="btn btn-rounded btn-sm btn-danger m-5">수정/삭제</button>
+							</div>
+						</div>
+						<!-- /.box-footer-->
+					  </div>
+					<!-- /.box -->
+				</div>
+		</div>
+	</div>
+   
+   
+   
+   
+   </section>
+   </div>
+      

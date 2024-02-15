@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.IClassMapper">
+
+	<select id="getMyLecture" resultType="MyClassVO" parameterType="int">
+		SELECT 
+			cl.class_no
+			, cl.lec_no
+			, cl.mem_no
+			, room_no
+			, value_type
+			, class_name
+			, cl.lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, exam_proprion
+			, hw_propotion
+			, at_propotion
+			, class_status_code
+			, class_week_cnt
+			, class_note
+			, class_reject
+			, li.class_score
+			, li.ls_status_code
+			, dp.dprt_category
+			, dp.dprt_name
+		FROM class cl, listener li, department dp, lecture lc
+		WHERE
+			cl.class_no = li.class_no
+			and lc.lec_no = cl.lec_no
+			and dp.dprt_no = lc.dprt_no
+			and cl.class_no = #{classNo }
+	</select>
+	
+	
+	
+	<select id="getMyLectureList" parameterType="int" resultType="MyClassVO">
+		SELECT 
+			cl.class_no
+			, cl.lec_no
+			, cl.mem_no
+			, room_no
+			, value_type
+			, class_name
+			, cl.lec_point
+			, semester
+			, class_req_code
+			, class_max_mem
+			, class_total_time
+			, exam_proprion
+			, hw_propotion
+			, at_propotion
+			, class_status_code
+			, class_week_cnt
+			, class_note
+			, class_reject
+			, li.class_score
+			, li.ls_status_code
+			, dp.dprt_category
+			, dp.dprt_name
+		FROM class cl, listener li, department dp, lecture lc
+		WHERE
+			cl.class_no = li.class_no
+			and lc.lec_no = cl.lec_no
+			and dp.dprt_no = lc.dprt_no
+			and li.mem_no = #{memNo }
+	</select>
+	
+	<select id="getClassBoardList" resultType="ClassBoardVO" parameterType="int">
+		SELECT
+			class_brd_no
+			, class_no
+			, class_brd_title
+			, class_brd_cont
+			, class_write_date
+			, class_brd_hit_count
+			, file_no
+		FROM class_board
+		where
+			class_no = #{classNo }
+	</select>
+	
+	<select id="getHomeworkList" parameterType="int" resultType="HomeworkVO">
+		SELECT
+			hw_no
+			, class_no
+			, hw_title
+			, hw_upload
+			, hw_date
+			, hw_cont
+			, file_no
+		FROM homework
+		where
+			class_no = #{classNo }
+	</select>
+	
+	<select id="getExampleList" parameterType="int" resultType="ExampleVO">
+		SELECT
+			exam_no
+			, class_no
+			, exam_name
+			, exam_date
+			, exam_time
+			, exam_type
+			, exam_total_score
+			, exam_mark_type
+		FROM example
+		where
+			class_no = #{classNo }
+	</select>
+	
+	
+	<select id="getTrainingList" parameterType="int" resultType="TrainingVO">
+		SELECT
+			trn_no
+			, class_no
+			, trn_name
+			, trn_society
+			, trn_status_code
+			, trn_max_mem
+			, trn_start_date
+			, trn_end_date
+			, trn_content
+		FROM training
+		where
+			class_no = #{classNo }
+	</select>
+	
+</mapper>

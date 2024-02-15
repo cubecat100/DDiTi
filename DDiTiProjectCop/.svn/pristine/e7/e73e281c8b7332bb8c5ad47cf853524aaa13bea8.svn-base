@@ -1,0 +1,5 @@
+package kr.or.ddit.controller;
+
+public class ServeyController {
+	//설문조사 관련
+}

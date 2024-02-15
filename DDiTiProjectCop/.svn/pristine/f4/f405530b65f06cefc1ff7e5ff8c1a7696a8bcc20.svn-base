@@ -1,0 +1,13 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class ChatMemberVO {
+
+	
+	private int chatMemNo;
+	private int chatRoomNo;
+	private int memNo;
+	private String chatRegDate;
+}

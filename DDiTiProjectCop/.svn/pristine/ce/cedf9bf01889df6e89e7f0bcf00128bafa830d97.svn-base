@@ -1,0 +1,16 @@
+package kr.or.ddit.vo;
+
+import lombok.Data;
+
+@Data
+public class ExampleQuestionVO {
+
+	private int examQstNo;
+	private int examNo;
+	private int qstNo;
+	private String examQst;
+	private int qstScore;
+	private String qstType;
+	private String qstCorrect;
+	
+}

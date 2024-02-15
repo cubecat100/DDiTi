@@ -1,0 +1,21 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.mapper.IClassMapper;
+import kr.or.ddit.service.IClassService;
+import kr.or.ddit.vo.ClassVO;
+
+@Service
+public class ClassServiceImpl implements IClassService{
+
+	@Inject
+	IClassMapper classMapper;
+	
+
+
+}

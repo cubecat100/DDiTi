@@ -1,0 +1,193 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+<div class="content-header">
+	<div class="d-flex align-items-center">
+		<div class="me-auto">
+			<!-- 현재 메뉴명 --><h3 class="page-title">상담 예약</h3>
+			<div class="d-inline-block align-items-center">
+				<nav>
+					<ol class="breadcrumb">
+						<!-- 홈아이콘 --><li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+						<!-- 상위메뉴명 --><li class="breadcrumb-item" aria-current="page">상담</li>
+						<!-- 하위메뉴명(현재메뉴명) --><li class="breadcrumb-item active" aria-current="page">상담 예약</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+</div>
+<section class="content m-10">
+
+<div class="row col-12">
+<div class="row" style="justify-content: flex-end;">
+	<div class="col-md-4"> <!-- col-md-5: 부모 너비 값의 절반 사용 -->
+		<div class="form-group">
+			<select class="form-control" style="width: 30%; display: inline-block;">
+				<option selected="selected" disabled="disabled">전체</option> <!-- disabled : 선택안됨(select의 제목?) -->
+				<option>이름</option>
+				<option>학과</option>
+				<option>어쩌구</option>
+			</select> 
+			<input type="text" placeholder="입력하세요" class="form-control" style="width: 55%; display: inline-block;">
+			<button type="button" class="btn btn-primary btn-sm">검색</button>
+		</div>
+	</div>
+</div>
+  <div class="table-responsive mb-15">
+	<table class="table">
+		<thead class="bg-primary">
+			<tr>
+				<th>#</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Username</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Nigam</td>
+				<td>Eichmann</td>
+				<td>@Sonu</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Deshmukh</td>
+				<td>Prohaska</td>
+				<td>@Genelia</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Roshan</td>
+				<td>Rogahn</td>
+				<td>@Hritik</td>
+			</tr>
+		</tbody>
+	</table>
+	  <div class="col-sm-12 col-md-7"
+		style="float: right; margin-right: 100px">
+		<div class="dataTables_paginate paging_simple_numbers"
+			id="example1_paginate">
+			<ul class="pagination">
+				<li class="paginate_button page-item previous disabled"
+					id="example1_previous"><a href="#" aria-controls="example1"
+					data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+				<li class="paginate_button page-item active"><a href="#"
+					aria-controls="example1" data-dt-idx="1" tabindex="0"
+					class="page-link">1</a></li>
+				<li class="paginate_button page-item"><a href="#"
+					aria-controls="example1" data-dt-idx="2" tabindex="0"
+					class="page-link">2</a></li>
+				<li class="paginate_button page-item"><a href="#"
+					aria-controls="example1" data-dt-idx="3" tabindex="0"
+					class="page-link">3</a></li>
+				<li class="paginate_button page-item"><a href="#"
+					aria-controls="example1" data-dt-idx="4" tabindex="0"
+					class="page-link">4</a></li>
+				<li class="paginate_button page-item"><a href="#"
+					aria-controls="example1" data-dt-idx="5" tabindex="0"
+					class="page-link">5</a></li>
+				<li class="paginate_button page-item next" id="example1_next"><a
+					href="#" aria-controls="example1" data-dt-idx="6" tabindex="0"
+					class="page-link">Next</a></li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</div>
+	
+------ 목록 클릭시 display ---
+<div class="row col-12">
+	<div id="calendar" class="fc fc-unthemed fc-ltr col-8 mx-h-500">
+	</div>
+	<div class="col-4">
+	  <div class="box">
+		<div class="box-header with-border">
+		  <h4 class="box-title">상담 예약하기</h4>
+		</div>
+		<!-- /.box-header -->
+		<form class="form">
+			<div class="box-body">
+				<h4 class="box-title text-info mb-0"><i class="ti-user me-15"></i> Personal Info</h4>
+				<hr class="my-15">
+				<div class="row">
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">First Name</label>
+					  <input type="text" class="form-control" placeholder="First Name">
+					</div>
+				  </div>
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">Last Name</label>
+					  <input type="text" class="form-control" placeholder="Last Name">
+					</div>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">E-mail</label>
+					  <input type="text" class="form-control" placeholder="E-mail">
+					</div>
+				  </div>
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">Contact Number</label>
+					  <input type="text" class="form-control" placeholder="Phone">
+					</div>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">Interested in</label>
+					  <select class="form-select">
+						<option>Interested in</option>
+						<option>design</option>
+						<option>development</option>
+						<option>illustration</option>
+						<option>branding</option>
+						<option>video</option>
+					  </select>
+					</div>
+				  </div>
+				  <div class="col-md-6">
+					<div class="form-group">
+					  <label class="form-label">Budget</label>
+					  <select class="form-select">
+						<option>Budget</option>
+						<option>less than 5000$</option>
+						<option>5000$ - 10000$</option>
+						<option>10000$ - 20000$</option>
+						<option>more than 20000$</option>
+					  </select>
+					</div>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="form-label">About Project</label>
+				  <textarea rows="5" class="form-control" placeholder="About Project"></textarea>
+				</div>
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer">
+				<button type="button" class="btn btn-warning me-1">
+				  <i class="ti-trash"></i> Cancel
+				</button>
+				<button type="submit" class="btn btn-primary">
+				  <i class="ti-save-alt"></i> Save
+				</button>
+			</div>  
+		</form>
+	  </div>
+	</div>
+</div>
+</section>
+
+<script>
+
+</script>

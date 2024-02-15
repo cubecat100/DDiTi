@@ -1,0 +1,22 @@
+package kr.or.ddit.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class CounselController {
+	//상담 관련
+	
+	
+	// 상담 신청 목록
+	// 상담 신청
+	// 상담 일정 등록
+	// 상담 일정 취소
+	// 상담 신청 취소
+	// 상담 결과 입력
+	
+	
+	
+	
+	// 이 밑으로 구현 ============================================
+	
+}

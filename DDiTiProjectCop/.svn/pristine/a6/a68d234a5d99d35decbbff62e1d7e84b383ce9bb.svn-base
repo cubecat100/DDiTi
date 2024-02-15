@@ -1,0 +1,18 @@
+package kr.or.ddit.mapper;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.vo.ClassBoardVO;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.FilesVO;
+
+@Service
+public interface IClassManagementMapper {
+
+	List<ClassVO> progressClassList(int memNo);
+
+	int addClassBrd(ClassBoardVO classBoardVO);
+
+}
