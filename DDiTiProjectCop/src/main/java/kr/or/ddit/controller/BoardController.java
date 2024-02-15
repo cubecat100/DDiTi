@@ -65,14 +65,6 @@ public class BoardController {
 	// 분실물 게시글 목록
 
 	// 익명 게시글 목록
-	/*
-	 * @RequestMapping(value="/ananyBoard.do",method= RequestMethod.GET) public
-	 * String anonyList(Model model) { log.info("anonList() 실행");
-	 * List<AnonymousBoardVO>boardList = boardService.anonylist();
-	 * log.info("boardList() 결과물 : {}", boardList);
-	 * model.addAttribute("boardList",boardList); log.info("boardlist :"+
-	 * boardList); return "student/anonymousBoard"; }
-	 */
 
 	// 익명 페이징 검색 , 목록
 	@RequestMapping(value = "/ananyBoard.do")
